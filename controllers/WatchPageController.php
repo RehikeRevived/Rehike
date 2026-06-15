@@ -318,7 +318,7 @@ class WatchPageController extends NirvanaController implements IGetControllerAsy
 
         $data = null;
 
-        if ("PLAYER_2014" != Config::getConfigProp("appearance.playerChoice") && "PLAYER_2015" != Config::getConfigProp("appearance.playerChoice") && "PLAYER_2015_NEW" != Config::getConfigProp("appearance.playerChoice"))
+        if (true)
         {
             if (isset($yt->playerResponse))
             {

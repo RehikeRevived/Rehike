@@ -34,7 +34,6 @@ class Cacher
         $root = PlayerCore::$cacheDestDir;
         $name = PlayerCore::$cacheDestName;
         $path = "$root/$name.json";
-        $playerChoice = Config::getConfigProp("appearance.playerChoice");
 
         if (!DEBUG && file_exists($path))
         {
@@ -42,8 +41,7 @@ class Cacher
 
             if (
                 null != $result &&
-                time() < $result->expire &&
-                (IS_REHIKE ? ($playerChoice == $result->conditionPlayerChoice) : true)
+                time() < $result->expire
             )
             {
                 return $result->content; // file contents
@@ -90,18 +88,10 @@ class Cacher
     {
         $expireTime = time() + $duration;
 
-        if (IS_REHIKE)
-            $playerChoice = Config::getConfigProp("appearance.playerChoice");
-
         $result = (object)[
             "expire" => $expireTime,
             "content" => $object
         ];
-
-        if (IS_REHIKE)
-        {
-            $result->conditionPlayerChoice = $playerChoice;
-        }
 
         return $result;
     }

@@ -20,7 +20,7 @@ class LoggedRequestContext
      * request is allowed to be garbage collected to avoid using too much
      * memory, and so a reference will not be held.
      */
-    public ?Request $request;
+    public ?Request $request = null;
     
     /**
      * A reference to the response, if it is available.
@@ -29,7 +29,7 @@ class LoggedRequestContext
      * request is allowed to be garbage collected to avoid using too much
      * memory, and so a reference will not be held.
      */
-    public ?Response $response;
+    public ?Response $response = null;
     
     /**
      * The expected type of the logged response.

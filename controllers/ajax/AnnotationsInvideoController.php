@@ -189,9 +189,6 @@ class AnnotationsInvideoController extends AjaxController implements IGetControl
 			$out = curl_exec($ch);
 			$code = curl_getinfo($ch)["http_code"];
 			
-			// Close the cURL resource, and free system resources
-			curl_close($ch);
-			
 			if ($code !== 200)
 			{
 				$xml = new \SimpleXMLElement("<document><annotations></annotations></document>");

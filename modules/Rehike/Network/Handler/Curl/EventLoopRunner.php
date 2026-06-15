@@ -161,8 +161,6 @@ trait EventLoopRunner // implements Event::onRun()
             $index > $halfOfList
                 ? curl_multi_remove_handle($mhFiber, $request->handle)
                 : curl_multi_remove_handle($mhNormal, $request->handle);
-
-            curl_close($request->handle);
         }
 
         curl_multi_close($mhNormal);
@@ -278,8 +276,6 @@ trait EventLoopRunner // implements Event::onRun()
             $this->sendResponse($request->instance, $response);
 
             curl_multi_remove_handle($mh, $request->handle);
-
-            curl_close($request->handle);
         }
 
         curl_multi_close($mh);
