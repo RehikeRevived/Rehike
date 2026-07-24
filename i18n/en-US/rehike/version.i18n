@@ -52,10 +52,13 @@ gitManagerDialogFailedPullMessage: >
 
 creditsTitle: "Credits"
 creditsDevelopersTitle: "Rehike Developers"
+creditsDevelopersTitleOriginal: "Original Rehike Developers"
+creditsDevelopersTitleRevived: "Rehike Revived Developers"
 
 # Major contributor names.
 # Feel free to add transliterations of names in parentheses if you wish
 # to do so.
+creditsNiko: "Niko Yamamoto"
 creditsAubrey: "Aubrey Pankow"
 creditsIsabella: "Isabella Lulamoon"
 

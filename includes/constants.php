@@ -24,7 +24,7 @@ const GH_ENABLED = true;
  * 
  * @var string
  */
-const GH_REPO = "Rehike/Rehike";
+const GH_REPO = "RehikeRevived/Rehike";
 
 /** 
  * The current version of Rehike.

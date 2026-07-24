@@ -58,8 +58,20 @@
     </p>
 </div>
 {# I'll do this eventually. #}
-<div class="developers-section section">
-    <div class="title">{{ rehike.i18n.get("rehike/version", "creditsDevelopersTitle") }}</div>
+<div class="developers-section revived-developers-section section">
+    <div class="title">{{ rehike.i18n.get("rehike/version", "creditsDevelopersTitleRevived") }}</div>
+    <ul>
+        {{ _self.developer_entry(
+            rehike.i18n.get("rehike/version", "creditsNiko"),
+            "/rehike/static/version/niko.jpg",
+            {
+                githubLink: "//github.com/Leymonaide"
+            }
+        ) }}
+    </ul>
+</div>
+<div class="developers-section original-developers-section section">
+    <div class="title">{{ rehike.i18n.get("rehike/version", "creditsDevelopersTitleOriginal") }}</div>
     <ul>
         {{ _self.developer_entry(
             rehike.i18n.get("rehike/version", "creditsAubrey"),
@@ -70,9 +82,16 @@
         ) }}
         {{ _self.developer_entry(
             rehike.i18n.get("rehike/version", "creditsIsabella"),
-            "/rehike/static/version/isabella.jpg",
+            "/rehike/static/version/isabella.png",
             {
                 githubLink: "//github.com/kawapure"
+            }
+        ) }}
+        {{ _self.developer_entry(
+            rehike.i18n.get("rehike/version", "creditsNiko"),
+            "/rehike/static/version/niko.jpg",
+            {
+                githubLink: "//github.com/Leymonaide"
             }
         ) }}
     </ul>

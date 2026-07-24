@@ -41,9 +41,7 @@
 		<div id="rehike-brand-header">
 			{#{% apply spaceless %}#}
 			<span class="rehike-version-logo yt-sprite">
-				{% if page.nightlyNotice %}
-				<span class="nightly-logo yt-sprite yt-uix-tooltip" title="{{ page.nightlyNotice.tooltip }}"></span>
-				{% endif %}
+				<span class="nightly-logo yt-sprite yt-uix-tooltip"></span>
 				<div class="rehike-version-text">{{ page.version }}</div>
 			</span>
 			<div class="buttons">
