@@ -29,7 +29,7 @@ operatingSystem: "Sistema operacional"
 phpVersion: "Versão do PHP"
 browserVersion: "Versão do navegador"
 
-githubLinkButton: "Rehike no GitHub"
+githubLinkButton: "Rehike Revived no GitHub"
 creditsButton: "Créditos"
 runtimeInfoMoreInfoButton: "Mais info"
 gitManagerPullButton: "Pull"

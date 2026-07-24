@@ -32,7 +32,7 @@ operatingSystem: "Операционная система"
 phpVersion: "Версия PHP"
 browserVersion: "Версия браузера"
 
-githubLinkButton: "Rehike на GitHub"
+githubLinkButton: "Rehike Revived на GitHub"
 creditsButton: "Благодарность"
 runtimeInfoMoreInfoButton: "Доп. информация"
 gitManagerPullButton: "Извлечь"

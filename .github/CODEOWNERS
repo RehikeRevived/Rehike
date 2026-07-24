@@ -9,9 +9,9 @@
 # https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/about-code-owners
 
 # Language translation owners:
-/i18n/en-US @kawapure
-/i18n/en-GB @kawapure
-/i18n/ja @kawapure
+/i18n/en-US @Leymonaide
+/i18n/en-GB @Leymonaide
+/i18n/ja @Leymonaide
 /i18n/ko @bluedragon-cairo
 /i18n/es-LA @Erizur
 /i18n/nl-NL @Zehnter
@@ -20,50 +20,33 @@
 /i18n/ru @malina-1797
 
 # General code
-/.git-hooks @kawapure
-/.github @kawapure @aubymori
+/.git-hooks @Leymonaide
+/.github @Leymonaide
 
-/controllers @aubymori @kawapure
-/controllers/ajax @aubymori
-/controllers/core @kawapure
-/controllers/rehike @kawapure
-/controllers/rehike/config.php @aubymori
+/controllers @Leymonaide
+/controllers/ajax @Leymonaide
+/controllers/core @Leymonaide
+/controllers/rehike @Leymonaide
+/controllers/rehike/config.php @Leymonaide
 
-/docs @kawapure
+/docs @Leymonaide
 
-/includes @kawapure @aubymori
+/includes @Leymonaide
 
-/models @aubymori @kawapure
-/models/Browse @kawapure
-/models/Comments @kawapure
-/models/Rehike @kawapure
-/models/Results @kawapure
-/models/Share @syndiate
+/models @Leymonaide
 
-/modules/generated @kawapure
-/modules/Rehike  @aubymori @kawapure
-/modules/Rehike/Async @kawapure
-/modules/Rehike/ControllerV2 @kawapure
-/modules/Rehike/Debugger @kawapure
-/modules/Rehike/i18n @kawapure
-/modules/Rehike/Player  @kawapure @TorutheRedFox @DavidCGranger
-/modules/Rehike/Signin  @kawapure
-/modules/Rehike/SignInV2  @kawapure
-/modules/Rehike/Spf  @kawapure
-/modules/Rehike/Version 
+/modules/generated @Leymonaide
+/modules/Rehike  @Leymonaide
+/modules/Rehike/Player  @Leymonaide @TorutheRedFox @DavidCGranger
 
-/src @aubymori @kawapure
-/src/build_tools @kawapure
-/src/img @kawapure
-/src/protos @kawapure
+/src @Leymonaide
+/src/build_tools @Leymonaide
 
-/static/js/html5player @TorutheRedFox @kawapure
-/static/js/www-base-rehike.js @kawapure
+/static/js/html5player @TorutheRedFox @Leymonaide
+/static/js/www-base-rehike.js @Leymonaide
 
-/template/hitchhiker @kawapure @aubymori
-/template/hitchhiker/rehike @kawapure
-/template/hitchhiker/page_fragments @kawapure
+/template/hitchhiker @Leymonaide
 /template/hitchhiker/player @TorutheRedFox
 
-/index.php @kawapure @aubymori
-/router.php @kawapure @aubymori
+/index.php @Leymonaide
+/router.php @Leymonaide

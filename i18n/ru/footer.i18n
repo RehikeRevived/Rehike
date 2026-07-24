@@ -19,7 +19,7 @@ primaryCopyright: "Правообладателям"
 primaryCreators: "Авторам"
 primaryAdvertise: "Рекламодателям"
 primaryDevs: "Разработчикам"
-primaryVersion: "Rehike v%s [%s]" # Rehike-specific
+primaryVersion: "Rehike Revived v%s [%s]" # Rehike-specific
 
 # Secondary (bottom) links:
 secondaryTerms: "Условия использования"

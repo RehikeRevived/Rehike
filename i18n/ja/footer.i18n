@@ -19,7 +19,7 @@ primaryCopyright: "著作権センター"
 primaryCreators: "クリエイター向け"
 primaryAdvertise: "広告掲載"
 primaryDevs: "開発者向け"
-primaryVersion: "Rehike v%s [%s]" # Rehike-specific
+primaryVersion: "Rehike Revived v%s [%s]" # Rehike-specific
 
 # Secondary (bottom) links:
 secondaryTerms: "利用規約"

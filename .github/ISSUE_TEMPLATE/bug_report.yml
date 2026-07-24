@@ -20,8 +20,7 @@ body:
       description: What version of Rehike are you using?
       multiple: false
       options:
-        - 0.9
-        - 0.8.3
+        - Rehike Revived v0.9
     validations:
       required: true
   - type: input

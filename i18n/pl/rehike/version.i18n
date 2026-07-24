@@ -32,7 +32,7 @@ operatingSystem: "System operacyjny"
 phpVersion: "Wersja PHP"
 browserVersion: "Wersja przeglądarki"
 
-githubLinkButton: "Rehike na GitHub"
+githubLinkButton: "Rehike Revived na GitHub"
 creditsButton: "Uznania"
 runtimeInfoMoreInfoButton: "Więcej informacji"
 gitManagerPullButton: "Pociągnij"

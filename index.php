@@ -24,16 +24,20 @@
 // ,,,,, 
 //
 //
-// Rehike:
+// Rehike Revived:
 //
-// A classic YouTube server emulator written in PHP.
+// A revival of the classic YouTube server emulator written in PHP.
 // See the README.md file for installation instructions and more.
 //
 // If you wish to contribute, please see CONTRIBUTING.md.
 //
 // And check out some of the cool people that brought it to you!
+//    - Niko Yamamoto (@loveofleytoo on Bluesky)
+//
+// The developers of the original Rehike project:
 //    - Aubrey Pankow (@aubymori on Twitter and YouTube)
 //    - Isabella Lulamoon (@kawapure on everything)
+//    - Niko Yamamoto (@loveofleytoo on Bluesky)
 //
 //-----------------------------------------------------------------------------
 //

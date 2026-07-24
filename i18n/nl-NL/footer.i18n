@@ -19,7 +19,7 @@ primaryCopyright: "Copyright"
 primaryCreators: "Creators"
 primaryAdvertise: "Advertenteren"
 primaryDevs: "Developers"
-primaryVersion: "Rehike v%s [%s]" # Rehike-specific
+primaryVersion: "Rehike Revived v%s [%s]" # Rehike-specific
 
 # Secondary (bottom) links:
 secondaryTerms: "Voorwaarden"

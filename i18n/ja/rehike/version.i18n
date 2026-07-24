@@ -32,7 +32,7 @@ operatingSystem: "OS"
 phpVersion: "PHP バージョン"
 browserVersion: "ブラウザ バージョン"
 
-githubLinkButton: "RehikeのGitHub"
+githubLinkButton: "Rehike RevivedのGitHub"
 creditsButton: "クレジット"
 runtimeInfoMoreInfoButton: "詳細情報"
 gitManagerPullButton: "プル"

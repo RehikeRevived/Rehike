@@ -1,13 +1,15 @@
-# Rehike
+# Rehike Revived
 
 <p align="center">
     <img src=".github/branding/banner.png" alt="Rehike branding image"><br>
-    <i><a href="https://discord.gg/rqBJ9EXDTH">Discord</a></i>
+    <i><a href="https://discord.gg/rqBJ9EXDTH">Original Discord Server</a></i>
 </p>
 
 Rehike is a custom web frontend server for YouTube.
 
 We use it to accurately restore the old YouTube layout and feel, which is known as Hitchhiker. This version of YouTube existed from 2013 to 2020 and is preferred by us due to its speed and simplicity.
+
+The original Rehike project was archived due to controversy over its creator after said creator had stepped out of development. Rehike Revived seeks to continue maintaining and improving the Rehike project.
 
 **Rehike is not a browser extension, nor does it intend to function as one.** Rather, it works over the browser, offering more freedom to what it is allowed to do and greater portability. This makes Rehike browser independent and, to an extent, system independent.
 
@@ -29,11 +31,11 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Installation
 
-***Rehike is in development. You should not expect a perfect user experience, should you choose to use it.*** If you encounter any problems while using Rehike, [please make an issue](//github.com/Rehike/Rehike/issues) so that we can track them easily.
+***Rehike is in development. You should not expect a perfect user experience, should you choose to use it.*** If you encounter any problems while using Rehike Revived, [please make an issue](//github.com/RehikeRevived/Rehike/issues) so that we can track them easily.
 
 We currently do not support an automated install. If you wish to use Rehike, you must set it up manually. Fortunately, that isn't too hard!
 
-[See this page for manual installation instructions.](//github.com/Rehike/Rehike/wiki/Installation)
+[See this page for manual installation instructions (original Rehike wiki).](//github.com/Rehike/Rehike/wiki/Installation)
 
 ## Configuration
 

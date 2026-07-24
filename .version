@@ -1,10 +1,10 @@
 {
-	"previousHash": "4626d0ed23d8486d298bd685c6169cad6115ace7",
-	"currentRevisionId": 1866,
-	"subject": "Welcome to Rehike Revived!",
-	"body": "Welcome to Rehike Revived!",
+	"previousHash": "80105c34540ba02b7265d9d7801c4b622cbd370e",
+	"currentRevisionId": 1867,
+	"subject": "More branding changes and such for Rehike Revived",
+	"body": "More branding changes and such for Rehike Revived",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "230778645+lemon-pumpkin-pie@users.noreply.github.com",
-	"time": 1784880780
+	"time": 1784932130
 }
