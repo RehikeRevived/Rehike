@@ -29,6 +29,8 @@ class SwitcherParser
      */
     private object $response;
 
+    private bool $hasParsed = false;
+
     public function __construct(SessionInfoBuilder $builder, object $response)
     {
         $this->builder = $builder;

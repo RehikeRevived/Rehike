@@ -147,7 +147,16 @@ class GaiaAuthManager
                 $authUser = (string)($infoBuilder->activeChannelBuilder->parentBuilder->authUserId ?? "0");
                 DebugLogger::print("[GaiaAuthManager::tryGetInfo] Channel GAIA ID: %s", $gaiaId);
                 DebugLogger::print("[GaiaAuthManager::tryGetInfo] Auth user ID: %s", $authUser);
-                Network::useAuthGaiaId2($gaiaId, $authUser);
+
+                // No GAIA ID is reported for channels associated with the
+                // Google account itself. Only brand accounts must account for
+                // the distinction.
+                Network::useAuthGaiaId2(
+                    $infoBuilder->activeChannelBuilder->isDefaultChannel
+                        ? null
+                        : $gaiaId,
+                    $authUser
+                );
                 
                 try
                 {

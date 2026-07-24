@@ -1,10 +1,10 @@
 {
-	"previousHash": "0fb71fe9e8829d95d3c741efc852ce67fb4bc324",
-	"currentRevisionId": 1868,
-	"subject": "Figma messed up when I was making the new banner",
-	"body": "Figma messed up when I was making the new banner",
+	"previousHash": "d75a821257bc8594f8c9e38d8014d6e8e9c8efff",
+	"currentRevisionId": 1869,
+	"subject": "[SignInV2] Fix erroneously reported GAIA ID for non brand account channels",
+	"body": "[SignInV2] Fix erroneously reported GAIA ID for non brand account channels",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "230778645+lemon-pumpkin-pie@users.noreply.github.com",
-	"time": 1784933164
+	"time": 1784933638
 }
