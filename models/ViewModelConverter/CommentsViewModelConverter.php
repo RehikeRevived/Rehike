@@ -121,7 +121,13 @@ class CommentsViewModelConverter extends BasicVMC
                     "label" => $commentPayload->avatar->accessibilityText
                 ]
             ],
-            "thumbnails" => $commentPayload->avatar->image->sources
+            // 2026-07: Experiment to move comment author thumbnails to a single
+            // source (88x88)
+            "thumbnails" => $commentPayload->avatar->image->sources ?? [
+                (object)[
+                    "url" => $commentPayload->author->avatarThumbnailUrl,
+                ],
+            ],
         ];
 
         if ($this->isVerifiedAuthor)
