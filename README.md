@@ -23,7 +23,7 @@ Please check out our friend, Vorapis 2013 / V3. This is a browser extension that
 
 ## How do I do this? FAQs? etc.
 
-See [the Rehike wiki](https://github.com/Rehike/Rehike/wiki).
+See [the Rehike Revived wiki](https://github.com/RehikeRevived/Rehike/wiki).
 
 ## I want to contribute!
 
@@ -35,7 +35,7 @@ See [CONTRIBUTING.md](CONTRIBUTING.md).
 
 We currently do not support an automated install. If you wish to use Rehike, you must set it up manually. Fortunately, that isn't too hard!
 
-[See this page for manual installation instructions (original Rehike wiki).](//github.com/Rehike/Rehike/wiki/Installation)
+[See this page for manual installation instructions.](//github.com/RehikeRevived/Rehike/wiki/Installation)
 
 ## Configuration
 

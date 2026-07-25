@@ -5,7 +5,7 @@ learnMoreButton: "Mais informação"
 dismissButton: "Fechar"
 moreOptionsButton: "Mais opções"
 doNotShowAgainButton: "Não mostrar de novo"
-languageRespectiveWikiLink: "https://github.com/Rehike/Rehike/wiki/Running-Apache-as-user-on-Windows"
+languageRespectiveWikiLink: "https://github.com/RehikeRevived/Rehike/wiki/Running-Apache-as-user-on-Windows"
 
 runningAsSystemMessage: >
   O Rehike está rodando como NT AUTHORITY\SYSTEM. Isso pode criar uma vulnerabilidade de segurança, e é recomendado   reconfigurar o webserver pra rodar sob sua própria conta de usuário.

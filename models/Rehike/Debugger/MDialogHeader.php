@@ -57,7 +57,7 @@ class MDialogHeader
         {
             $this->helpLink = (object) [
                 "text" => $i18n->get("condensedDebuggerHelpLink"),
-                "href" => "//github.com/Rehike/Rehike/wiki/Creating-an-issue"
+                "href" => "//github.com/RehikeRevived/Rehike/wiki/Creating-an-issue"
             ];
         }
 

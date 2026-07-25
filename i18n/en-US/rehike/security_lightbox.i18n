@@ -5,7 +5,7 @@ learnMoreButton: "Learn more"
 dismissButton: "Dismiss"
 moreOptionsButton: "More options"
 doNotShowAgainButton: "Do not show this again"
-languageRespectiveWikiLink: "https://github.com/Rehike/Rehike/wiki/Running-Apache-as-user-on-Windows"
+languageRespectiveWikiLink: "https://github.com/RehikeRevived/Rehike/wiki/Running-Apache-as-user-on-Windows"
 
 runningAsSystemMessage: >
   Rehike is running as NT AUTHORITY\SYSTEM. This can create a security 

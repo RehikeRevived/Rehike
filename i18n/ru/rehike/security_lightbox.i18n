@@ -5,7 +5,7 @@ learnMoreButton: "Узнать больше"
 dismissButton: "Отклонить"
 moreOptionsButton: "Доп. настройки"
 doNotShowAgainButton: "Не показывать это снова"
-languageRespectiveWikiLink: "https://github.com/Rehike/Rehike/wiki/Running-Apache-as-user-on-Windows"
+languageRespectiveWikiLink: "https://github.com/RehikeRevived/Rehike/wiki/Running-Apache-as-user-on-Windows"
 
 runningAsSystemMessage: >
   Rehike работает от имени NT AUTHORITY\SYSTEM. Это может создать 

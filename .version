@@ -1,10 +1,10 @@
 {
-	"previousHash": "f8df30a301f853a5b09ec23d47798ff4976cc810",
-	"currentRevisionId": 1871,
-	"subject": "Bind PlayerCore to Rehike",
-	"body": "Bind PlayerCore to Rehike",
+	"previousHash": "08539106d9b9f9f80fc84bcc37e03abe3542208f",
+	"currentRevisionId": 1872,
+	"subject": "Update repo references to RehikeRevived",
+	"body": "Update repo references to RehikeRevived",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1784949489
+	"time": 1784950686
 }
