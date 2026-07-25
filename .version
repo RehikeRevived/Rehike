@@ -1,10 +1,10 @@
 {
-	"previousHash": "e2b80dac2dfc606de1626e52fa7a65d271849a0c",
-	"currentRevisionId": 1876,
-	"subject": "Drop support for PHP 8.0",
-	"body": "Drop support for PHP 8.0",
+	"previousHash": "a52ac4f04e13a57f8f37ebf4ca4bc19d4520e6e0",
+	"currentRevisionId": 1877,
+	"subject": "Fix language picker crashing",
+	"body": "Fix language picker crashing",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1784953832
+	"time": 1785016067
 }

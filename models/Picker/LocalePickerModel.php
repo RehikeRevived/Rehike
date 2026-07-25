@@ -10,6 +10,7 @@ use Rehike\Util\ParsingUtils;
  * Used for locale (language and country) pickers.
  * 
  * @author Isabella Lulamoon <kawapure@gmail.com>
+ * @author Niko Yamamoto <kirasicecreamm@gmail.com>
  * @author The Rehike Maintainers
  */
 class LocalePickerModel extends PickerModel
@@ -76,7 +77,12 @@ class LocalePickerModel extends PickerModel
                 }
                 else
                 {
-                    throw new \Exception("No compact link renderer");
+                    // HACKHACK(leymonaide): There can be other elements present
+                    // which we simply want to ignore. For example, the language
+                    // picker menu will contain a messageRenderer displaying the
+                    // text "Buttons and display text on this browser", as the
+                    // first element, which we want to skip.
+                    continue;
                 }
             }
         }
