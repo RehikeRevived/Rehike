@@ -9,7 +9,7 @@ body:
 
         Thanks for reporting a bug in Rehike! However, before you continue, you must make sure of all of these things.
         
-        1. You are running at least **PHP 8.0**.
+        1. You are running at least **PHP 8.1**.
         2. The bug is not related to Fiddler, or any other proxy. Please see [this guide](https://github.com/RehikeRevived/Rehike/issues/226) for the new method of installing Rehike.
         3. This bug has not been reported before. **Also check closed issues.**
         4. Make sure Rehike is fully up to date! [How do I update Rehike?](https://github.com/RehikeRevived/Rehike/wiki/Update-Rehike)
@@ -20,7 +20,7 @@ body:
       description: What version of Rehike are you using?
       multiple: false
       options:
-        - Rehike Revived v0.9
+        - Rehike Revived v0.9.1
     validations:
       required: true
   - type: input

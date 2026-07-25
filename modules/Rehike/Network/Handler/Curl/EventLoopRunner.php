@@ -42,7 +42,7 @@ trait EventLoopRunner // implements Event::onRun()
 
         if (count($requests) == 0)
         {
-            $this->fulfil();
+            $this->fulfill();
             return;
         }
         
@@ -205,7 +205,7 @@ trait EventLoopRunner // implements Event::onRun()
 
         if (count($requests) == 0)
         {
-            $this->fulfil();
+            $this->fulfill();
             return;
         }
 

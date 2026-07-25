@@ -192,9 +192,7 @@ class RebugJsonEncodeManager
                     }
                 }
             }
-            else if (PHP_VERSION_ID > 80100
-            && $value instanceof \UnitEnum
-            && !($value instanceof \BackedEnum) )
+            else if ($value instanceof \UnitEnum && !($value instanceof \BackedEnum))
             {
                 $shadow->{$name} = $value->name;
             }

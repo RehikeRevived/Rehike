@@ -3,7 +3,7 @@
 // run in the first place. This helps users catch early mistakes more easily.
 
 // Minimum PHP version:
-if (PHP_VERSION_ID < 80000)
+if (PHP_VERSION_ID < 80100)
 {
     require "includes/fatal_templates/version_too_old_page.html.php";
     exit();

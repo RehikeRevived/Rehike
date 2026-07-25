@@ -72,7 +72,7 @@ class RehikeTranslationRouter extends SimpleRouter implements IRouter
      */
     private function getCacheNameHash(string $path): string
     {
-        return hash(\PHP_VERSION_ID < 80100 ? 'sha256' : 'xxh128', FileSystem::getRehikeRelativePath($path));
+        return hash('xxh128', FileSystem::getRehikeRelativePath($path));
     }
     
     /**

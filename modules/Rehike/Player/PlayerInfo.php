@@ -52,16 +52,12 @@ class PlayerInfo
         $sourceProps = $sourceReflection->getProperties();
         foreach ($sourceProps as $prop)
         {
-            if (PHP_VERSION_ID < 80100)
-                $prop->setAccessible(true);
             $name = $prop->getName();
             $value = $prop->getValue($obj);
 
             if ($destinationReflection->hasProperty($name))
             {
                 $propDest = $destinationReflection->getProperty($name);
-                if (PHP_VERSION_ID < 80100)
-                    $prop->setAccessible(true);
                 $propDest->setValue($casted,$value);
             }
             else

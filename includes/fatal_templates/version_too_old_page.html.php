@@ -1,7 +1,7 @@
 <?php
     namespace Rehike\ErrorHandler\FatalErrorTemplate;
 
-    $minimumPhpVersion = "8.0";
+    $minimumPhpVersion = "8.1";
 ?>
 <!DOCTYPE html>
 <html>
