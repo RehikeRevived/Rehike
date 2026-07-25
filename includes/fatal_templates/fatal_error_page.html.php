@@ -6,6 +6,7 @@
     use Rehike\ErrorHandler\ErrorPage\UncaughtExceptionPage;
     use Rehike\ErrorHandler\ErrorPage\InnertubeFailedRequestPage;
     use Rehike\ErrorHandler\ErrorPage\FatalErrorPage;
+    use Rehike\ErrorHandler\ErrorPage\PromiseAllExceptionPage;
 
     use const Rehike\Constants\GH_ENABLED;
     use const Rehike\Constants\GH_REPO;
