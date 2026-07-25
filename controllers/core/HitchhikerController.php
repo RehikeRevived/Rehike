@@ -352,7 +352,7 @@ abstract class HitchhikerController extends PageController
      */
     public function onPostAsync(): Promise
     {
-        // The default implement thunks to the non-async handler.
+        // The default implementation thunks to the non-async handler.
         return new Promise(function($resolve)
         {
             $this->onPost($this->yt, $this->getRequest());

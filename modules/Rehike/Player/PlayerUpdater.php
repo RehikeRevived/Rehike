@@ -3,13 +3,13 @@ namespace Rehike\Player;
 
 require_once "Constants.php";
 
+use Rehike\Async\Concurrency;
 use Rehike\Player\Exception\UpdaterException;
 
-// --- REHIKE-SPECIFIC IMPORTS ---
 use Rehike\ConfigManager\Config;
 use Rehike\i18n\RehikeLocale;
-
-// -------------------------------
+use Rehike\Network;
+use Rehike\Network\Internal\Response;
 
 /**
  * Retrieve information about the current player.
@@ -102,20 +102,17 @@ class PlayerUpdater
      */
     public static function requestAppHtml(): string
     {
-        if (IS_REHIKE)
-        {
-            $hl = RehikeLocale::getInnertubeLanguageId();
-            $gl = RehikeLocale::getCountryId();
-        }
-        else
-        {
-            $hl = PlayerCore::$updaterHostLanguage;
-            $gl = PlayerCore::$updaterGeolocation;
-        }
+        $hl = RehikeLocale::getInnertubeLanguageId();
+        $gl = RehikeLocale::getCountryId();
         
-        $response = Network::request(self::getSourceUrl($hl, $gl));
+        /**
+         * @var Response
+         */
+        $response = Concurrency::awaitSync(Network::urlRequest(
+            self::getSourceUrl($hl, $gl)
+        ));
 
-        return $response;
+        return $response->getText();
     }
 
     /**
@@ -124,7 +121,11 @@ class PlayerUpdater
      */
     public static function requestApplication(string $playerUrl): string
     {
-        return Network::request($playerUrl);
+        /**
+         * @var Response
+         */
+        $response = Concurrency::awaitSync(Network::urlRequest($playerUrl));
+        return $response->getText();
     }
 
     /**

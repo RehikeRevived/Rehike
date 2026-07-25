@@ -5,6 +5,7 @@ require_once "Constants.php";
 
 use Rehike\Player\Exception\CacherException;
 use Rehike\ConfigManager\Config;
+use Rehike\FileSystem;
 
 /**
  * Manage caching and player information storage.
@@ -16,10 +17,6 @@ use Rehike\ConfigManager\Config;
  * However, server-side variables change all the time, so
  * this storage cannot be permanent. Cache should persist
  * for a maximum of 24 hours.
- * 
- * Much of this library is copied from Rehike's FileSystem
- * module in order to retain portability. Unfortunately,
- * that does mean some code redundancy.
  * 
  * @author Taniko Yamamoto <kirasicecreamm@gmail.com>
  * @author The Rehike Maintainers
@@ -35,9 +32,9 @@ class Cacher
         $name = PlayerCore::$cacheDestName;
         $path = "$root/$name.json";
 
-        if (!DEBUG && file_exists($path))
+        if (!DEBUG && FileSystem::fileExists($path))
         {
-            $result = json_decode(file_get_contents($path));
+            $result = json_decode(FileSystem::getFileContents($path));
 
             if (
                 null != $result &&
@@ -108,89 +105,11 @@ class Cacher
 
             $object = json_encode($object, JSON_PRETTY_PRINT);
 
-            self::writeRaw($path, $object);
+            FileSystem::writeFile($path, $object);
         }
         catch (CacherException $e)
         { 
             throw $e;
-        }
-    }
-
-    /**
-     * Write a raw string to a file path.
-     */
-    public static function writeRaw(
-            string $path, 
-            string $contents, 
-            bool $recursive = true, 
-            bool $append = false
-    ): void
-    {
-        // Make sure all folders leading to the path exist if the
-        // recursive option is enabled.
-        if ($recursive)
-        {
-            $folder = self::getFolder($path);
-
-            if (!is_dir($folder))
-            {
-                self::mkdir($folder, 0777, true);
-            }
-        }
-
-        // Determine fopen mode from append value
-        $fopenMode = $append ? "a" : "w";
-
-        // Use fopen to write the file
-        $fh = @\fopen($path, $fopenMode);
-        
-        $status = @\fwrite($fh, $contents);
-
-        // Validate
-        if (false == $fh || false == $status)
-        {
-            throw new CacherException("Failed to write file \"$path\"");
-        }
-
-        \fclose($fh);
-    }
-
-    /**
-     * Get the containing folder of a file path.
-     */
-    public static function getFolder(string $path): string
-    {
-        // Convert the path to account for Windows separation.
-        $path = str_replace("\\", "/", $path);
-
-        // Split the path by the separator
-        $root = explode("/", $path);
-
-        // Remove the last item (the filename)
-        array_splice($root, count($root) - 1, 1);
-
-        // Rejoin
-        $root = implode("/", $root);
-
-        return $root;
-    }
-
-    /**
-     * An error-checked mkdir wrapper.
-     */
-    public static function mkdir(
-            string $dirname, 
-            int $mode = 0777, 
-            bool $recursive = false
-    ): void
-    {
-        $status = @\mkdir($dirname, $mode, $recursive);
-
-        if (false == $status)
-        {
-            throw new CacherException(
-                "Failed to create directory \"$dirname\""
-            );
         }
     }
 }

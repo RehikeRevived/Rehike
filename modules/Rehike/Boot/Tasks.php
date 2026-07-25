@@ -117,12 +117,6 @@ final class Tasks
 
     public static function setupPlayer(): void
     {
-        PlayerCore::configure([
-            "cacheMaxTime"  => 18000, // 5 hours (in seconds)
-            "cacheDestDir"  => "cache",
-            "cacheDestName" => "player_cache" // .json
-        ]);
-        
         YtApp::getInstance()->playerConfig = PlayerCore::getInfo();
     }
 

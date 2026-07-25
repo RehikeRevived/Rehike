@@ -4,7 +4,6 @@ namespace Rehike\Model\Footer;
 use Rehike\i18n\i18n;
 use Rehike\Model\Common\MButton;
 use Rehike\ConfigManager\Config;
-use Rehike\Player\Configurable;
 
 class MFooter
 {

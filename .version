@@ -1,10 +1,10 @@
 {
-	"previousHash": "a5ff860d0525b060da0a016b0bfe22bff3e983c9",
-	"currentRevisionId": 1870,
-	"subject": "Revise bootloader for efficiency and to harden DisableRehike against early boot crashes",
-	"body": "Revise bootloader for efficiency and to harden DisableRehike against early boot crashes",
+	"previousHash": "f8df30a301f853a5b09ec23d47798ff4976cc810",
+	"currentRevisionId": 1871,
+	"subject": "Bind PlayerCore to Rehike",
+	"body": "Bind PlayerCore to Rehike",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1784946720
+	"time": 1784949489
 }
