@@ -152,19 +152,22 @@ class WatchBakery
                 $pref = (object) [];
             }
 
+            $secondaryResultsRaw = $this->secondaryResults->results;
+
             // Model baking logic
-            return (object) [
+            return (object)([
                 "isLive" => $this->isLive,
                 "isOwner" => $this->isOwner,
                 "results" => yield $this->bakeResults($data, $videoId),
-                "secondaryResults" => yield $this->bakeSecondaryResults(
-                    $this->secondaryResults->results
-                ),
                 "title" => $this->title,
                 "playlist" => $this->bakePlaylist(),
                 "liveChat" => $this->liveChat,
                 "autonavEnabled" => PrefUtils::autoplayEnabled($pref)
-            ];
+            ] + ($secondaryResultsRaw ? [
+                "secondaryResults" => yield $this->bakeSecondaryResults(
+                    $secondaryResultsRaw,
+                ),
+            ] : []));
         });
     }
 

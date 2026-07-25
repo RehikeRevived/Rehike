@@ -1,10 +1,10 @@
 {
-	"previousHash": "afbbc92b4f8db4b9a2ddc70d995e79edf9585ad8",
-	"currentRevisionId": 1873,
-	"subject": "Fix error in fatal error page implementation",
-	"body": "Fix error in fatal error page implementation",
+	"previousHash": "3736878c2ea0d0e3d3b566e2e17bd6050dce6020",
+	"currentRevisionId": 1874,
+	"subject": "Fix crash on unavailable videos",
+	"body": "Fix crash on unavailable videos",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1784951675
+	"time": 1784951943
 }
