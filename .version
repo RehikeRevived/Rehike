@@ -1,10 +1,10 @@
 {
-	"previousHash": "d75a821257bc8594f8c9e38d8014d6e8e9c8efff",
-	"currentRevisionId": 1869,
-	"subject": "[SignInV2] Fix erroneously reported GAIA ID for non brand account channels",
-	"body": "[SignInV2] Fix erroneously reported GAIA ID for non brand account channels",
+	"previousHash": "a5ff860d0525b060da0a016b0bfe22bff3e983c9",
+	"currentRevisionId": 1870,
+	"subject": "Revise bootloader for efficiency and to harden DisableRehike against early boot crashes",
+	"body": "Revise bootloader for efficiency and to harden DisableRehike against early boot crashes",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
-	"committerEmail": "230778645+lemon-pumpkin-pie@users.noreply.github.com",
-	"time": 1784933638
+	"committerEmail": "yamamototaniko2@gmail.com",
+	"time": 1784946720
 }

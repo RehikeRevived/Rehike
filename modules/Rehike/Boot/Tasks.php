@@ -34,7 +34,7 @@ use Rehike\SignInV2\SignIn;
  */
 final class Tasks
 {
-    public static function initNetwork(): void
+    public static function initNetworkDns(): void
     {
         $desiredDns = Config::getConfigProp("advanced.dnsAddress")
             ?? "1.1.1.1";
@@ -88,6 +88,8 @@ final class Tasks
 
     public static function setupTemplateManager(): void
     {
+        TemplateManager::registerGlobalState(YtApp::getInstance());
+
         $utilsDelegate = new RehikeUtilsDelegate();
         $constants = ResourceConstantsStore::get();
 
@@ -106,7 +108,7 @@ final class Tasks
             (array)i18n::getAllTemplates("global");
     }
 
-    public static function setupControllerV2(): void
+    public static function setupControllerCoreSpf(): void
     {
         ControllerV2::setRedirectHandler(
             require "includes/spf_redirect_handler.php"

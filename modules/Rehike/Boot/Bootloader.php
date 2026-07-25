@@ -7,6 +7,11 @@ use Rehike\{
     Debugger\Debugger,
     DisableRehike\DisableRehike,
     Logging\LogFileManager,
+    YtApp,
+};
+use Rehike\{
+    Signin\AuthManager as LegacyAuthManager,
+    SignInV2\SignIn,
 };
 use Rehike\Async\Promise\PromiseStatus;
 use Rehike\ConfigManager\Config;
@@ -115,11 +120,34 @@ final class Bootloader
      */
     private static function boot(): void
     {
-        self::runInitTasks();
+        $stage1Exception = null;
+        try
+        {
+            self::runSetupStage1();
+        }
+        catch (\Throwable $e)
+        {
+            // Swallow any exceptions that occur from stage 1 setup if the user
+            // is requesting to disable Rehike.
+            $stage1Exception = $e;
+        }
 
-        $yt = YtStateManager::init();
+        // If the user requested to enable polymer, then just fast track to
+        // that. We will try to initialize i18n and the config manager (which it
+        // depends on) in this case, but we don't really care if that works out
+        // successfully. We don't want DisableRehike to ever fail.
+        if (DisableRehike::shouldDisable())
+        {
+            DisableRehike::disableForSession();
+            EventLoop::run();
+            self::shutdown();
+        }
+        else if (null !== $stage1Exception)
+        {
+            throw $stage1Exception;
+        }
 
-        self::runSetupTasks();
+        self::runSetupStage2();
     }
 
     /**
@@ -128,19 +156,13 @@ final class Bootloader
      */
     private static function postboot(): void
     {
-        if (DisableRehike::shouldDisable())
+        if (DisableRehike::shouldPersistentlyEnableRehikeFromCurrentUrl())
         {
-            DisableRehike::disableForSession();
+            DisableRehike::enableRehike();
         }
-        else
-        {
-            if (DisableRehike::shouldPersistentlyEnableRehikeFromCurrentUrl())
-            {
-                DisableRehike::enableRehike();
-            }
-            
-            require "router.php";
-        }
+
+        // Pass control to the router, which will enter the router.
+        require "router.php";
     }
 
     /**
@@ -167,34 +189,93 @@ final class Bootloader
     }
 
     /**
-     * Runs all initialisation tasks.
-     * 
-     * These are early-stage configuration tasks that later "setup" tasks
-     * may be dependent upon. These do not have access to the global state.
+     * Runs the first common stage of application startup. These startup tasks
+     * are lightweight and always desirable.
+     *
+     * This sets up the most common system components, such as the configuration
+     * manager and internationalization system.
      */
-    private static function runInitTasks(): void
+    public static function runSetupStage1(): void
     {
+        // Create the global YtApp instance. The constructor of YtApp will set
+        // the global instance as well.
+        $yt = new YtApp();
+
+        // Getting the network DNS working is necessary for DisableRehike to
+        // work, so if this fails to initialize, then DisableRehike will not
+        // work either. In the future, we should figure out a way of reporting
+        // a failure at this specific point.
+        Tasks::initNetworkDns();
+
         Tasks::initConfigManager();
-        Tasks::initNetwork();
-        Tasks::initResourceConstants();
-        Tasks::initSignIn();
+        Tasks::setupI18n();
     }
 
     /**
-     * Runs all setup tasks.
+     * Runs the second common stage of application startup. These startup tasks
+     * are still lightweight, but are not desirable for minimal system operation
+     * (i.e. DisableRehike)
      * 
-     * These are late-stage configuration tasks that have access to Rehike's
-     * global state.
+     * This setups up common system components such as the networking manager,
+     * resource constants store, and template manager.
+     * 
+     * This stage and all subsequent stages are skipped if DisableRehike is used
+     * via the URL parameter "enable_polymer".
      */
-    private static function runSetupTasks(): void
+    public static function runSetupStage2(): void
     {
+        Tasks::initResourceConstants();
         Tasks::setupTemplateManager();
-        Tasks::setupI18n();
-        Tasks::setupControllerV2();
+        Tasks::setupControllerCoreSpf();
+        Debugger::init(YtApp::getInstance());
+    }
+
+    /**
+     * Runs the third common stage of application startup. These startup tasks
+     * are heavy ones which may take a lot of time. They may perform network
+     * requests.
+     *
+     * This sets up the player manager, initializes the visitor data token for
+     * new signed out YouTube browsing sessions, and initializes the sign in
+     * system.
+     *
+     * This stage is executed by the page controller on a case by case basis.
+     * For example, the static resource controller will avoid these tasks, which
+     * can be timely and are not necessary to its function.
+     */
+    public static function runSetupStage3(): void
+    {
         Tasks::setupPlayer();
 
-        // The visitor data setup requires the player to be initialized, so it must
-        // go last.
+        // The visitor data setup requires the player to be initialized, so it
+        // must go after that.
         Tasks::setupVisitorData();
+
+        Tasks::initSignIn();
+
+        /*
+         * TODO: This should be removed when V1 is deprecated.
+         */
+        $yt = YtApp::getInstance();
+        if (Config::getConfigProp("experiments.useSignInV2") !== true)
+        {
+            LegacyAuthManager::use($yt);
+            
+            $yt->sv2SessionInfo = SignIn::getSessionInfo();
+        }
+        else
+        {
+            $yt->sv2SessionInfo = SignIn::getSessionInfo();
+        }
+    }
+
+    /**
+     * Runs the final common stage of application startup.
+     * 
+     * This sets up the sign in manager.
+     */
+    public static function setupSignIn(): void
+    {
+        Tasks::initSignIn();
     }
 }

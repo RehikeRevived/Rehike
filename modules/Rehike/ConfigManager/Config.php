@@ -198,6 +198,15 @@ class Config
     {
         $cfg = static::getConfig();
 
+        if (null === $cfg)
+        {
+            // Avoid crashing if the configuration manager is not initialized.
+            \Rehike\Logging\DebugLogger::print(
+                "Attempted to use configuration manager before it was initialized: %s",
+                (new \Exception())->getTraceAsString());
+            return null;
+        }
+
         try
         {
             $value = PropertyAtPath::get($cfg, $path);

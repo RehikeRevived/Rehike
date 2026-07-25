@@ -20,6 +20,8 @@ use Rehike\Model\{
 };
 
 use Rehike\Async\Promise;
+use Rehike\Boot\Bootloader;
+
 use function Rehike\Async\async;
 
 use Rehike\Player\PlayerCore;
@@ -368,6 +370,10 @@ abstract class HitchhikerController extends PageController
      */
     protected function init(): void
     {
+        // Finish stage 3 boot since we're loading into a main page which can
+        // show account information and a video player.
+        Bootloader::runSetupStage3();
+
         $this->yt->spfEnabled = false;
         $this->yt->useModularCore = false;
         $this->yt->page = (object)[];

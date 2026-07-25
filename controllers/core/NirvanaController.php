@@ -1,6 +1,7 @@
 <?php
 namespace Rehike\Controller\core;
 
+use Rehike\Boot\Bootloader;
 use Rehike\ConfigManager\Config;
 use Rehike\YtApp;
 use Rehike\Spf\Spf;
@@ -35,6 +36,10 @@ abstract class NirvanaController extends HitchhikerController
     /** @inheritdoc */
     protected function init(): void
     {
+        // Finish stage 3 boot since we're loading into a main page which can
+        // show account information and a video player.
+        Bootloader::runSetupStage3();
+
         $this->yt->spfEnabled = true;
         $this->yt->useModularCore = true;
         $this->yt->modularCoreModules = [];
