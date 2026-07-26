@@ -1,7 +1,7 @@
 # Displays substrings used to isolate simple counts. These ones can usually
 # just replace all non-numerical characters, since they're full counts.
-likeCountIsolator: "/[^0-9]/"
-viewCountIsolator: "/[^0-9]/"
+likeCountIsolator: "/[^0-9,]/"
+viewCountIsolator: "/[^0-9,]/"
 
 # Matches any number
 numberMatch: "/(\\b\\d[\\d,.]*[K|M|B]?\\b)/"

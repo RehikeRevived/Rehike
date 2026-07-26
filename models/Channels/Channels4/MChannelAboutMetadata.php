@@ -32,8 +32,20 @@ class MChannelAboutMetadata
         
         $headerInfo = $c4Bakery->header->getAboutInfo();
 
+        // This is just the subscriber count without any following words.
+        $subscriberCountText = $headerInfo["subscriberCount"];
+
+        $hasSingleSubscriber = "1" == $subscriberCountText;
+
+        $formattedSubscriberCountText = $miscStrings->format(
+            $hasSingleSubscriber
+                ? "subscriberTextSingular"
+                : "subscriberTextPlural",
+            $subscriberCountText
+        );
+
         $this->subscriberCountText = self::getRichStat(
-            $headerInfo["subscriberCount"],
+            $formattedSubscriberCountText,
             $regexs->get("subscriberCountIsolator")
         );
 

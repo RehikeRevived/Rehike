@@ -1,10 +1,10 @@
 {
-	"previousHash": "aab4adec900c2d830e985612013268c01134e4c2",
-	"currentRevisionId": 1885,
-	"subject": "Quick correction for invalid variable reference in doc comment",
-	"body": "Quick correction for invalid variable reference in doc comment",
+	"previousHash": "d1b592e2180fce9558abb45d1fa31899b111d881",
+	"currentRevisionId": 1886,
+	"subject": "Fix channel about metadata appearance (for English and Japanese at the moment)",
+	"body": "Fix channel about metadata appearance (for English and Japanese at the moment)",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785042793
+	"time": 1785044026
 }
