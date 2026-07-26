@@ -225,7 +225,7 @@ class PlayerUpdater
     /**
      * Make a relative URL (path) not relative.
      * 
-     * @param string $url
+     * @param string $path
      * @param string $base to prepend
      */
     public static function unrelativize(
