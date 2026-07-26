@@ -156,16 +156,7 @@ class FeedPageController extends NirvanaController implements IGetController
      */
     private function getWhatToWatchShelves(YtApp $yt): Promise/*<bool>*/
     {
-        return async(function() use ($yt) {
-            if ($a = Config::get()->experiments->disableSignInOnHome->getValue())
-            {
-                $useAuthentication = !(bool)$a;
-            }
-            else
-            {
-                $useAuthentication = true;
-            }
-            
+        return async(function() use ($yt) {            
             // Initial Android request to get continuation
             $response = yield Network::innertubeRequest(
                 action: "browse",
@@ -174,11 +165,9 @@ class FeedPageController extends NirvanaController implements IGetController
                 ],
                 clientName: "TVHTML5",
                 clientVersion: "7.20250309.10.00",
-                useAuthentication: $useAuthentication
             );
 
             $ytdata = $response->getJson();
-            $yt->testaaaa = $ytdata;
             
             if (isset($ytdata->contents->tvBrowseRenderer->content->tvSurfaceContentRenderer->content->sectionListRenderer->continuations))
             foreach ($ytdata->contents->tvBrowseRenderer->content->tvSurfaceContentRenderer->content->sectionListRenderer->continuations as $continuation)
@@ -201,7 +190,6 @@ class FeedPageController extends NirvanaController implements IGetController
                 body: [
                     "continuation" => $newContinuation
                 ],
-                useAuthentication: $useAuthentication
             );
 
             $data = $response->getJson();
@@ -222,16 +210,6 @@ class FeedPageController extends NirvanaController implements IGetController
     private function getWhatToWatchModern(YtApp $yt): Promise/*<bool>*/
     {
         return async(function() use ($yt) {
-            if ($a = Config::get()->experiments->disableSignInOnHome->getValue())
-            {
-                $useAuthentication = !(bool)$a;
-            }
-            else
-            {
-                $useAuthentication = true;
-            }
-            
-            // Initial Android request to get continuation
             $response = yield Network::innertubeRequest(
                 action: "browse",
                 body: [
@@ -239,11 +217,9 @@ class FeedPageController extends NirvanaController implements IGetController
                 ],
                 clientName: "WEB",
                 clientVersion: "2.20250309.10.00",
-                useAuthentication: $useAuthentication
             );
 
             $ytdata = $response->getJson();
-            $yt->testbbbb = $ytdata;
 
             $yt->page->content = (object) [
                 "items" => InnertubeBrowseConverter::richGridRenderer($ytdata->contents->twoColumnBrowseResultsRenderer->tabs[0]->tabRenderer->content->richGridRenderer)->items

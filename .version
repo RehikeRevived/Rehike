@@ -1,10 +1,10 @@
 {
-	"previousHash": "e4b4046c7e89bec81a5fdbd4dc2ae3fd74eeac37",
-	"currentRevisionId": 1883,
-	"subject": "Update MNetworkRequest::$networkCoreResultCode to compensate for native enum transition",
-	"body": "Update MNetworkRequest::$networkCoreResultCode to compensate for native enum transition",
+	"previousHash": "ce54a12837a92fc4c250a39898efcd67cea671a0",
+	"currentRevisionId": 1884,
+	"subject": "Remove option to disable authentication on home page",
+	"body": "Remove option to disable authentication on home page",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785041139
+	"time": 1785042158
 }
