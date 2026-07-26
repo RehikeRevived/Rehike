@@ -21,10 +21,8 @@ class RequestWrapper
 
     /**
      * The cURL handle opened for the request.
-     * 
-     * @var CurlHandle|resource
      */
-    public $handle;
+    public CurlHandle $handle;
 
     /**
      * The last error code, or 0 if none occurred.
@@ -42,9 +40,9 @@ class RequestWrapper
      */
     public array $responseHeaders = [];
 
-    public function __construct(Request $r, &$h)
+    public function __construct(Request $r, CurlHandle $h)
     {
         $this->instance = $r;
-        $this->handle  = &$h;
+        $this->handle  = $h;
     }
 }

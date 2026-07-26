@@ -137,7 +137,7 @@ abstract class Event implements IEvent, IObjectWithTrackingCookie
                     $this->runAmount
                 );
                 
-                throw new \Exception("An event is locked up.");
+                throw new Exception("An event is locked up.");
             }
         }
         

@@ -64,10 +64,8 @@ class Request implements IRequest
 
     /** 
      * If specified, the redirect policy to use with the Request handler.
-     * 
-     * @var RedirectPolicy
      */
-    public int $redirectPolicy = RedirectPolicy::FOLLOW;
+    public RedirectPolicy $redirectPolicy = RedirectPolicy::FOLLOW;
 
     /**
      * If specified, sets the error policy to use.
@@ -75,10 +73,8 @@ class Request implements IRequest
      * If it's throw, then any request that isn't a 2xx status will
      * throw an exception. If it's ignore, then the response is treated
      * like normal.
-     * 
-     * @var RequestErrorPolicy
      */
-    public int $onError = RequestErrorPolicy::THROW;
+    public RequestErrorPolicy $onError = RequestErrorPolicy::THROW;
     
     /**
      * If specified, disables SSL verification for the request.
@@ -192,12 +188,8 @@ class Request implements IRequest
 
     /**
      * Handle the redirect option.
-     * 
-     * @param value-of<RedirectPolicy>|string $value
-     * 
-     * @return value-of<RedirectPolicy>
      */
-    private function handleRedirectOpt($value): int
+    private function handleRedirectOpt(RedirectPolicy|string $value): RedirectPolicy
     {
         if (!is_string($value))
         {
@@ -208,23 +200,17 @@ class Request implements IRequest
         {
             case "follow":
                 return RedirectPolicy::FOLLOW;
-                break;
             case "manual":
                 return RedirectPolicy::MANUAL;
-                break;
         }
         
-        return 0;
+        return RedirectPolicy::FOLLOW;
     }
 
     /**
      * Handle the redirect option.
-     * 
-     * @param value-of<RequestErrorPolicy>|string $value
-     * 
-     * @return value-of<RedirectPolicy>
      */
-    private function handleOnErrorOpt($value): int
+    private function handleOnErrorOpt(RequestErrorPolicy|string $value): RequestErrorPolicy
     {
         if (!is_string($value))
         {
@@ -235,12 +221,10 @@ class Request implements IRequest
         {
             case "throw":
                 return RequestErrorPolicy::THROW;
-                break;
             case "ignore":
                 return RequestErrorPolicy::IGNORE;
-                break;
         }
         
-        return 0;
+        return RequestErrorPolicy::THROW;
     }
 }

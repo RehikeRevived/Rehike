@@ -114,10 +114,12 @@ class RequestTransformer
     /**
      * Filter the preferred encoding provided by the Request object
      * and ignore it if it's not supported by cURL.
+     * 
+     * @return value-of<self::CURL_SUPPORTED_ENCODINGS>|""
      */
     public static function filterEncoding(string $encoding): string
     {
-        if (in_array($encoding, self::CURL_SUPPORTED_ENCODINGS))
+        if (\in_array($encoding, self::CURL_SUPPORTED_ENCODINGS))
         {
             return $encoding;
         }
@@ -129,7 +131,7 @@ class RequestTransformer
      * Convert one of our own headers associative arrays to a cURL-
      * compatible iterated array.
      * 
-     * @param string[]
+     * @param string[] $headers
      * @return string[]
      */
     public static function convertHeaders(array $headers): array
@@ -161,7 +163,7 @@ class RequestTransformer
             $header = explode(":", $header, 2);
 
             // Ignore invalid headers
-            if (count($header) < 2)
+            if (\count($header) < 2)
             {
                 return $len;
             }
@@ -172,7 +174,7 @@ class RequestTransformer
             {
                 $headers[$normalizedName] = trim($header[1]);
             }
-            else if (!is_array($headers[$normalizedName]))
+            else if (!\is_array($headers[$normalizedName]))
             {
                 $headers[$normalizedName] = [$headers[$normalizedName]];
                 $headers[$normalizedName][] = trim($header[1]);

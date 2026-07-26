@@ -28,7 +28,7 @@ class QueuedPromiseResolver
      * This reuses the future-tense PromiseStatus enum. Only
      * RESOLVED and REJECTED may be used for this.
      */
-    private $state = PromiseStatus::RESOLVED;
+    private PromiseStatus $state = PromiseStatus::RESOLVED;
 
     /**
      * Data to resolve or reject with.
@@ -40,11 +40,7 @@ class QueuedPromiseResolver
      */
     private $data;
 
-    /**
-     * @param PromiseStatus $state
-     * @param mixed $data
-     */
-    public function __construct(Promise $p, int $state, $data)
+    public function __construct(Promise $p, PromiseStatus $state, mixed $data)
     {
         Tracing::logEvent(TraceEventId::QueuedPromiseCreate, [$p->getTrackingCookie(), $state]);
         $this->promise = $p;

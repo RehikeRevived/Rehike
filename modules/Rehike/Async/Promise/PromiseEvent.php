@@ -57,17 +57,17 @@ abstract class PromiseEvent/*<T>*/ extends Event
      * @internal
      * 
      * @param Promise<T> $p
-     * @param callable<Generator<T>> $cb
-     * @param callable<T> $res Resolve API
-     * @param callable<Throwable|string> $rej Reject API
+     * @param callable(callable(mixed), callable(Throwable|string)): Generator $cb
+     * @param callable(mixed): void $res Resolve API
+     * @param callable(Throwable|string): void $rej Reject API
      * 
      * @return PromiseEvent<T>
      */
     public static function fromAnonPromise(
             Promise/*<T>*/ $p,
-            callable/*<Generator<T>>*/ $cb,
-            callable/*<T>*/ $res,
-            callable/*<Throwable|string>*/ $rej
+            callable $cb,
+            callable $res,
+            callable $rej
     ): PromiseEvent/*<T>*/
     {
         if (!(new ReflectionFunction($cb))->isGenerator())
@@ -80,7 +80,10 @@ abstract class PromiseEvent/*<T>*/ extends Event
         }
 
         return new class($p, $cb, $res, $rej) extends PromiseEvent/*<T>*/ {
-            private $promise;
+            /**
+             * @var Promise<T>
+             */
+            private Promise/*<T>*/ $promise;
             
             /**
              * Callback hack.
@@ -89,27 +92,27 @@ abstract class PromiseEvent/*<T>*/ extends Event
              * with callable at all, unlike C# with delegate or
              * TypeScript with its arrow-function-like syntax.
              *  
-             * @var callable<Generator<T>> 
+             * @var callable(callable(mixed), callable(Throwable|string)): Generator
              */
             private $onRunCb;
 
-            /** @var callable<T> */
+            /** @var callable(mixed): void */
             private $resolveApi;
 
-            /** @var callable<Throwable|string> */
+            /** @var callable(Throwable|string): void */
             private $rejectApi;
 
             /**
              * @param Promise<T> $p
-             * @param Generator<T> $cb
-             * @param callable<T> $res
-             * @param callable<Throwable|string> $rej
+             * @param callable(callable(mixed), callable(Throwable|string)): Generator $cb
+             * @param callable(mixed): void $res
+             * @param callable(Throwable|string): void $rej
              */
             final public function __construct(
                     Promise/*<T>*/ $p,
-                    callable/*<Generator<T>>*/& $cb,
-                    callable/*<T>*/ $res,
-                    callable/*<Throwable|string>*/ $rej
+                    callable &$cb,
+                    callable $res,
+                    callable $rej
             )
             {
                 parent::__construct();
@@ -143,16 +146,16 @@ abstract class PromiseEvent/*<T>*/ extends Event
      * need to directly interface with the Event API.
      * 
      * @param PromiseEvent<T> $myself
-     * @param callable<mixed> $api
-     * @return callable<mixed>
+     * @param callable(mixed ...): void $api
+     * @return callable(mixed ...): void
      */
     protected static function wrapPromiseApi(
             PromiseEvent/*<T>*/ $myself,
-            callable/*<mixed>*/ $api
-    ): callable/*<mixed>*/
+            callable $api
+    ): callable
     {
         /** @param mixed[] $args */
-        return function (...$args) use ($myself, $api) {
+        return function (mixed ...$args) use ($myself, $api): void {
             try
             {
                 $api(...$args);

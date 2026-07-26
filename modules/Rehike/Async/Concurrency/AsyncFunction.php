@@ -105,6 +105,8 @@ class AsyncFunction implements IObjectWithTrackingCookie
     public function run(): void
     {
         Tracing::logEvent(TraceEventId::AsyncFunctionRun, $this->getTrackingCookie());
+
+        $value = null;
         
         // A valid generator is one that has not returned.
         if ($this->generator->valid())
@@ -175,7 +177,7 @@ class AsyncFunction implements IObjectWithTrackingCookie
         }
         else
         {
-            throw new \Exception(
+            throw new Exception(
                 "An async function must take in a Promise. Note that you may be yielding on an already-unwrapped " .
                 "Promise result rather than the Promise itself."
             );
@@ -209,7 +211,7 @@ class AsyncFunction implements IObjectWithTrackingCookie
             }
             else
             {
-                throw new \Exception((string)$value);
+                throw new Exception((string)$value);
             }
         };
     }

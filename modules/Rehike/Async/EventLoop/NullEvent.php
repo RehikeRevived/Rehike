@@ -22,7 +22,7 @@ class NullEvent implements IEvent
     }
     
     /**
-     * @return EventFlags
+     * @return EventFlags::*
      */
     #[Override]
     public function getEventFlags(): int

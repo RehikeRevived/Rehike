@@ -34,10 +34,8 @@ class Response implements IResponse
 
     /**
      * Result status of the network request itself.
-     *
-     * @var NetworkResult
      */
-    public int $resultCode = NetworkResult::E_UNIMPL;
+    public NetworkResult $resultCode = NetworkResult::E_UNIMPL;
 
     /**
      * An array of HTTP headers sent back from the server with the

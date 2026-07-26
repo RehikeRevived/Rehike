@@ -7,13 +7,13 @@ namespace Rehike\Network\Enum;
  * @author Isabella Lulamoon <kawapure@gmail.com>
  * @author The Rehike Maintainers
  */
-class NetworkResult
+enum NetworkResult
 {
-    public const SUCCESS = 0;
-    public const E_FAILED = 1;
-    public const E_MALFORMED_URL = 2;
-    public const E_COULDNT_RESOLVE_PROXY = 3;
-    public const E_COULDNT_RESOLVE_HOST = 4;
-    public const E_COULDNT_CONNECT = 5;
-    public const E_UNIMPL = 6;
+    case SUCCESS;
+    case E_FAILED;
+    case E_MALFORMED_URL;
+    case E_COULDNT_RESOLVE_PROXY;
+    case E_COULDNT_RESOLVE_HOST;
+    case E_COULDNT_CONNECT;
+    case E_UNIMPL;
 }

@@ -28,6 +28,10 @@ final class AsyncFunctionEvent extends Event
         parent::fulfill();
     }
     
+    /**
+     * @suppress (PHP0420) : The routine never returns. It seems it contains an
+     *                       infinite loop
+     */
     #[Override]
     final protected function onRun(): Generator
     {

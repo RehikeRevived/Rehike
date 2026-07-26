@@ -40,10 +40,8 @@ trait Deferred/*<T>*/
 
     /**
      * Resolve the Promise controlled by this class.
-     * 
-     * @param mixed $data
      */
-    private function resolve($data = null): void
+    private function resolve(mixed $data = null): void
     {
         if (!isset($this->promise))
         {
@@ -55,10 +53,8 @@ trait Deferred/*<T>*/
 
     /**
      * Reject the Promise controlled by this class.
-     * 
-     * @param Throwable|string $reason
      */
-    private function reject($reason): void
+    private function reject(Throwable|string $reason): void
     {
         if (!isset($this->promise))
         {

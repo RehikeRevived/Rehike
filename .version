@@ -1,10 +1,10 @@
 {
-	"previousHash": "2937bf5cdd1ae180d95f15edbfbcfd9ea14b9c73",
-	"currentRevisionId": 1881,
-	"subject": "Deprecate nullable configuration property definitions",
-	"body": "Deprecate nullable configuration property definitions",
+	"previousHash": "f337a3bc6a17773bd1704f90e1dbc875e60d87c8",
+	"currentRevisionId": 1882,
+	"subject": "Refactor Async framework and NetworkCore for PHP 8.1",
+	"body": "Refactor Async framework and NetworkCore for PHP 8.1",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785032187
+	"time": 1785040778
 }

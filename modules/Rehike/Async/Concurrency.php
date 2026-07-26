@@ -115,10 +115,10 @@ class Concurrency
      * Promise::then() or implementing its body in an async stream.
      * 
      * @template T
-     * @param callable<T> $cb
+     * @param callable(): mixed $cb
      * @return Promise<T>
      */
-    public static function async/*<T>*/(callable/*<T>*/ $cb): Promise/*<T>*/
+    public static function async/*<T>*/(callable $cb): Promise/*<T>*/
     {
         /*
          * Capture the result of the callback provided.

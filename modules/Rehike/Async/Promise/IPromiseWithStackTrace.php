@@ -1,6 +1,8 @@
 <?php
 namespace Rehike\Async\Promise;
 
+use Rehike\Async\Debugging\IPromiseStackTrace;
+
 /**
  * Interface for promise objects which provide stack trace information.
  * 

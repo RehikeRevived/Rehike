@@ -55,10 +55,8 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
 {
     /**
      * Represents the current status of a Promise.
-     * 
-     * @var PromiseStatus 
      */
-    public int $status = PromiseStatus::PENDING;
+    public PromiseStatus $status = PromiseStatus::PENDING;
 
     /** 
      * The result of the Promise after it is finished.
@@ -69,7 +67,7 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * 
      * @var T 
      */
-    public /*T*/ $result;
+    public /*T*/ mixed $result;
 
     /**
      * The reason for rejecting the Promise, if it is rejected.
@@ -108,7 +106,7 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * As such, extra thens will simply be ignored for any callback
      * that doesn't return a viable Promise.
      * 
-     * @var callable<mixed>[] 
+     * @var array<callable(mixed): mixed> 
      */
     private array $thens = [];
 
@@ -121,7 +119,7 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * This is actually an associative array for ease of use, so some
      * indices may be skipped. Just be careful with this thing, alright?
      * 
-     * @var callable<Throwable>|null[]
+     * @var array<null|callable(Throwable): void>
      */
     private array $catches = [];
 
@@ -167,15 +165,15 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * Unlike a Deferred class's Promise, an anonymous Promise is
      * automatically made into an Event and added to the event loop.
      * 
-     * @param ?callable<void> $a
+     * @param ?callable(callable(mixed): void, callable(string|Throwable): void)
+     *             : void $cb
      */
     public function __construct(
-            ?callable/*<void>*/ $cb = null, 
-            ?array $options = null
+            ?callable $cb = null, 
+            ?array $options = null,
     )
     {
-        $isCritical = 
-            isset($options["critical"]) ? $options["critical"] : true;
+        $isCritical = $options["critical"] ?? true;
 
         $this->cookie = new TrackingCookie(__CLASS__);
         
@@ -256,10 +254,10 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * API function to await an array of Promises, and then
      * return a new Promise with its values.
      * 
-     * @param IPromise<mixed>[]|...IPromise $promises
+     * @param IPromise<mixed>[]|IPromise ...$promises
      * @return Promise<mixed[]>
      */
-    public static function all(...$promises): Promise/*<array>*/
+    public static function all(array|IPromise ...$promises): Promise/*<array>*/
     {
         // Allow passing an array rather than rest syntax.
         if (is_array($promises[0]))
@@ -282,10 +280,10 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * Register a function to be called upon a Promise's
      * resolution.
      * 
-     * @param callable<mixed>
+     * @param callable(mixed): mixed $cb
      * @return Promise<T>
      */
-    public function then(callable/*<mixed>*/ $cb): Promise/*<T>*/
+    public function then(callable $cb): Promise/*<T>*/
     {
         Tracing::logEvent(TraceEventId::PromiseThen, $this->cookie);
         
@@ -308,7 +306,7 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * Register a function to be called upon an error occurring
      * during a Promise's resolution.
      * 
-     * @param callable<Throwable> $cb
+     * @param callable(Throwable): void $cb
      * @return Promise<T>
      */
     public function catch(callable/*<Throwable>*/ $cb): Promise/*<T>*/
@@ -342,9 +340,9 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * Resolve a Promise (and call its thens).
      * 
      * @internal
-     * @param T $data
+     * @param ?T $data
      */
-    public function resolve(/*T*/ $data = null): void
+    public function resolve(/*?T*/ mixed $data = null): void
     {
 if (ENABLE_DEFERRED_PROMISES) {
         /*
@@ -416,12 +414,9 @@ if (ENABLE_DEFERRED_PROMISES) {
     /**
      * Reject a Promise (error).
      * 
-     * @param string|Throwable $e (union types are PHP 8.0+)
-     * 
      * @internal
-     * @param 
      */
-    public function reject($e): void
+    public function reject(string|Throwable $e): void
     {
 if (ENABLE_DEFERRED_PROMISES) {
         /*
@@ -462,7 +457,7 @@ if (ENABLE_DEFERRED_PROMISES) {
         
         Tracing::logEvent(TraceEventId::PromiseReject, $this->cookie);
 
-        if (is_string($e))
+        if (\is_string($e))
         {
             $this->reason = new Exception($e);
         }
@@ -499,10 +494,12 @@ if (ENABLE_DEFERRED_PROMISES) {
      * or reject().
      * 
      * @internal
+     * 
+     * @return callable(mixed ...): void
      */
-    protected function getInternalApi(string $name): callable/*<mixed>*/
+    protected function getInternalApi(string $name): callable
     {
-        return function (...$args) use ($name) {
+        return function (mixed ...$args) use ($name): void {
             $this->{$name}(...$args);
         };
     }
@@ -510,9 +507,11 @@ if (ENABLE_DEFERRED_PROMISES) {
     /**
      * Get the internal resolution API.
      * 
-     * @see resolve()
+     * @see self::resolve()
+     * 
+     * @return callable(mixed): void
      */
-    protected function getResolveApi(): callable/*<mixed>*/
+    protected function getResolveApi(): callable
     {
         return $this->getInternalApi("resolve");
     }
@@ -520,9 +519,11 @@ if (ENABLE_DEFERRED_PROMISES) {
     /**
      * Get the internal rejection API.
      * 
-     * @see reject()
+     * @see self::reject()
+     * 
+     * @return callable(string|Throwable): void
      */
-    protected function getRejectApi(): callable/*<string|Exception>*/
+    protected function getRejectApi(): callable
     {
         return $this->getInternalApi("reject");
     }
@@ -533,12 +534,10 @@ if (ENABLE_DEFERRED_PROMISES) {
      * The value is technically an int due to the current enum
      * implementation, however the type should always be a value
      * within the PromiseStatus enum.
-     * 
-     * @param PromiseStatus $newStatus
      */
-    protected function setStatus(int $newStatus): void
+    protected function setStatus(PromiseStatus $newStatus): void
     {
-        $this->status = (int)$newStatus;
+        $this->status = $newStatus;
     }
 
     /**

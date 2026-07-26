@@ -23,7 +23,7 @@ interface IEvent
     /**
      * Gets runtime flags for this event.
      * 
-     * @return EventFlags
+     * @return EventFlags::*
      */
     public function getEventFlags(): int;
     

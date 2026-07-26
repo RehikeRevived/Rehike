@@ -23,7 +23,7 @@ use Exception;
  * as the main API mirrors fetch and internal APIs mirror JavaScript's
  * Events system and Promises API.
  * 
- * @version 4.0
+ * @version 4.1
  * 
  * @author Taniko Yamamoto <kirasicecreamm@gmail.com>
  * @author The Rehike Maintainers
@@ -36,7 +36,7 @@ final class NetworkCore
      * @see getVersion()
      * @var string
      */
-    private const VERSION = "4.0";
+    private const VERSION = "4.1";
 
     /** 
      * Stores references to all currently running requests.
@@ -57,7 +57,13 @@ final class NetworkCore
     private static NetworkHandler $handler;
 
     /**
-     * A list of resolution definitions.
+     * A list of DNS resolution map definitions.
+     * 
+     * DNS resolution mappings are strings in the following format:
+     * "hostname:port:ip_address"
+     * "www.example.com:443:127.0.0.1"
+     * 
+     * @var string[]
      */
     private static array $resolve = [];
 
@@ -65,7 +71,7 @@ final class NetworkCore
     private function __construct() {}
 
     /**
-     * Initialise the request manager.
+     * Initialize the request manager.
      * 
      * @internal
      */
@@ -81,11 +87,7 @@ final class NetworkCore
     {
         if (isset(self::$handler))
         {
-            try
-            {
-                EventLoop::removeEvent(self::$handler);
-            }
-            catch (Exception $e) {} // do nothing & hope for the best
+            EventLoop::removeEvent(self::$handler);
         }
 
         self::$handler = $handler;
@@ -164,14 +166,32 @@ final class NetworkCore
         return self::VERSION;
     }
 
+    /**
+     * Gets the list of DNS resolution mappings.
+     * 
+     * DNS resolution mappings are strings in the following format:
+     * "hostname:port:ip_address"
+     * "www.example.com:443:127.0.0.1"
+     * 
+     * @return string[]
+     */
     public static function getResolve(): array
     {
         return self::$resolve;
     }
 
-    public static function setResolve(array $a): void
+    /**
+     * Sets the list of DNS resolution mappings.
+     * 
+     * DNS resolution mappings are strings in the following format:
+     * "hostname:port:ip_address"
+     * "www.example.com:443:127.0.0.1"
+     * 
+     * @param string[] $dnsResolutionMaps
+     */
+    public static function setResolve(array $dnsResolutionMaps): void
     {
-        self::$resolve = $a;
+        self::$resolve = $dnsResolutionMaps;
     }
 
     /**

@@ -7,6 +7,8 @@ use Rehike\Async\Promise;
  * A nice debugging tool I made because I was having an issue with an error
  * being swallowed.
  * 
+ * @deprecated Dead code.
+ * 
  * @static
  * @author Taniko Yamamoto <kirasicecreamm@gmail.com>
  * @author The Rehike Maintainers

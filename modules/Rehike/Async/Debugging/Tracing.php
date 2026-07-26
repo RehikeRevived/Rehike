@@ -25,7 +25,7 @@ final class Tracing
     /**
      * Logs an event.
      * 
-     * @param int $traceEventId  One of the {@see TraceEventId} values.
+     * @param TraceEventId::* $traceEventId  One of the {@see TraceEventId} values.
      * @param mixed $data  Any unique data for this log. Be wary of exhausing memory
      *                     with common logs.
      */
@@ -46,7 +46,7 @@ final class Tracing
     /**
      * Logs a failure of a regular event.
      * 
-     * @param int $traceEventId  One of the {@see TraceEventId} values.
+     * @param TraceEventId::* $traceEventId  One of the {@see TraceEventId} values.
      * @param mixed $data  Any unique data for this log. Be wary of exhausing memory
      *                     with common logs.
      */

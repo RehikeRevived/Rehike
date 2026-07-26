@@ -71,6 +71,7 @@ final class PromiseResolutionTracker
         
         foreach (self::$pendingPromises as $i => $promiseList)
         {
+            /** @var Promise */
             $promise = $promiseList[0];
             $originTrace = $promiseList[1];
             
@@ -85,7 +86,7 @@ final class PromiseResolutionTracker
                 ),
                 $i + 1,
                 json_encode($promiseList),
-                Utils::getEnumValueName(PromiseStatus::class, $promise->status),
+                $promise->status->name,
                 $promise->getTrackingCookie(),
                 json_encode($promise->result),
                 implode(\array_map(fn($in) => "         " . $in . "\n", explode("\n", $promise->creationTrace?->getTraceAsString() ?? "<Trace unavailable>"))),
@@ -100,9 +101,12 @@ final class PromiseResolutionTracker
         // They can never become pending again, anyway.
         if ($promise->status != PromiseStatus::PENDING)
             return;
-        
-        // Save a reference to the Promise and a copy of its latest trace.
-        self::$pendingPromises[] = [$promise, $promise->latestTrace];
+
+        if ($promise instanceof IPromiseWithStackTrace)
+        {
+            // Save a reference to the Promise and a copy of its latest trace.
+            self::$pendingPromises[] = [$promise, $promise->latestTrace];
+        }
 
         self::$pendingPromiseCount++;
     }

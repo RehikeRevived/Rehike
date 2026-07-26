@@ -26,34 +26,31 @@ interface IPromise/*<T>*/
      * Register a function to be called upon a promise's
      * resolution.
      * 
-     * @param callable<mixed>
+     * @param callable(mixed): void $cb
      * @return IPromise<T>
      */
-    public function then(callable/*<mixed>*/ $cb): IPromise/*<T>*/;
+    public function then(callable $cb): IPromise/*<T>*/;
 
     /**
      * Register a function to be called upon an error occurring
      * during a promise's resolution.
      * 
-     * @param callable<Throwable> $cb
+     * @param callable(Throwable): void $cb
      * @return IPromise<T>
      */
-    public function catch(callable/*<Throwable>*/ $cb): IPromise/*<T>*/;
+    public function catch(callable $cb): IPromise/*<T>*/;
 
     /**
      * Resolve a promise.
      * 
-     * @param T $data
+     * @param ?T $data
      */
-    public function resolve(/*T*/ $data = null): void;
+    public function resolve(/*?T*/ mixed $data = null): void;
 
     /**
      * Reject a Promise (error).
      * 
-     * @param string|Throwable $e (union types are PHP 8.0+)
-     * 
      * @internal
-     * @param 
      */
-    public function reject($e): void;
+    public function reject(string|Throwable $e): void;
 }

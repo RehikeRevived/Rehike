@@ -16,6 +16,8 @@ use function next;
  * used by the Rehike project, except this is also iterable using foreach
  * loops.
  * 
+ * @todo Coalesce both this and RequestMetadata into a single common class?
+ * 
  * @author Taniko Yamamoto <kirasicecreamm@gmail.com>
  */
 class ResponseHeaders implements ArrayAccess, Iterator
@@ -35,7 +37,7 @@ class ResponseHeaders implements ArrayAccess, Iterator
     /**
      * Attempt to get a property on the class if it is readable.
      */
-    public function __get($var)
+    public function __get(string $var): mixed
     {
         // Headers are case-insensitive.
         $lowercaseName = strtolower($var);
@@ -71,12 +73,12 @@ class ResponseHeaders implements ArrayAccess, Iterator
         }
     }
 
-    public function __isset($var)
+    public function __isset(string $var): bool
     {
         return "" != $this->__get($var);
     }
 
-    public function __set($a, $b)
+    public function __set(string $name, mixed $value)
     {
         $this->offsetSet(null, null); // inherit warning
     }
@@ -88,7 +90,7 @@ class ResponseHeaders implements ArrayAccess, Iterator
 
     public function offsetSet(mixed $offset, mixed $value): void
     {
-        trigger_error("RequestMetadata->headers is read only.", E_USER_WARNING);
+        trigger_error(__CLASS__ . "::\$boundArray is read only.", E_USER_WARNING);
     }
 
     public function offsetUnset(mixed $offset): void
