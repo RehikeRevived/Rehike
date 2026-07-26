@@ -106,7 +106,7 @@ class HiddenConfigDefinitions implements IConfigDefinitionsProvider
 {
     public function __construct(
         public StringProp $language = new StringProp("en-US"),
-        public ?StringProp $gl = null,
+        public StringProp $gl = new StringProp("US"),
         public BoolProp $securityIgnoreWindowsServerRunningAsSystem = new BoolProp(false),
         public BoolProp $disableRehike = new BoolProp(false),
         public BoolProp $enableProfiler = new BoolProp(false),

@@ -134,10 +134,6 @@ class Config
                 $out["types"][$name] = $def->getType();
                 $out["sources"][$name] = $def;
             }
-            else if (null === $def)
-            {
-                // We allow null properties for optional properties.
-            }
             else
             {
                 throw new \Exception("Invalid property passed to parseDefs.");
