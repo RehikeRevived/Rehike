@@ -89,14 +89,10 @@ class Config
         // This should just work out...
         $defs = (array)$defsObj;
 
-        \Rehike\Logging\DebugLogger::print("[%s] Entrance: previousPath=\"%s\", \$defs = %s",
-            __METHOD__, $previousPath, var_export($defs, true));
-
         foreach ($defs as $name => $def)
         {
             if ($def instanceof AbstractConfigProperty)
             {
-                \Rehike\Logging\DebugLogger::print(empty($previousPath) ? $name : "$previousPath.$name");
                 $def->setFullPath(empty($previousPath) ? $name : "$previousPath.$name");
             }
 
@@ -308,8 +304,6 @@ class Config
         $parts = explode(".", $path);
         $target = array_pop($parts);
         $parent = join(".", $parts);
-        
-        \Rehike\Logging\DebugLogger::print("%s %s", $parent, $target);
         
         try
         {

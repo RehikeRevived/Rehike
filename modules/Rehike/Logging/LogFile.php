@@ -12,6 +12,7 @@ use Rehike\ErrorHandler\ErrorPage\FatalErrorPage;
 
 use Rehike\Async\Promise;
 use Rehike\Async\Promise\PromiseStatus;
+use Rehike\Network\Internal\Response;
 use Rehike\Network\IResponse;
 
 use const Rehike\Constants\GH_ENABLED;
@@ -43,7 +44,7 @@ class LogFile
 
     public function render(): string
     {
-        $out = "|\\> Rehike log file!!!\n\n";
+        $out = "|\\> Rehike Revised log file!!!\n\n";
 
         $out .= "<MESSAGE_NETWORK_PRIVACY_PLACEHOLDER>";
 
@@ -56,7 +57,7 @@ class LogFile
         $out .= "\n\n\n";
 
         $out .= "=== Configuration information ===\n";
-        $out .= " - Rehike version: " . VersionController::getVersion() . "\n";
+        $out .= " - Rehike Revised version: " . VersionController::getVersion() . "\n";
         $out .= " - Nightly release: " . (VersionController::$versionInfo->isRelease
             ? "No"
             : "Yes") . "\n";
@@ -82,6 +83,10 @@ class LogFile
 
         $out .= "\n\n\n";
 
+        $out .= "=== Message logs (earliest to latest) ===\n\n";
+        $out .= implode("\n", DebugLogger::getLogs());
+        $out .= "\n\n\n";
+
         if ($this->hasException)
         {
             $out .= "=== Exception information ===\n";
@@ -101,6 +106,8 @@ class LogFile
 
         $requestInfo = Network::getSessionRequestLog();
         $numOfRequests = count($requestInfo);
+
+        $anyRequestPresent = false;
 
         if ($numOfRequests > 0)
         {
@@ -133,7 +140,7 @@ class LogFile
 
                     $out = str_replace(
                         "<MESSAGE_NETWORK_PRIVACY_PLACEHOLDER>",
-                        "\nHey you!! *Read me before you upload this anywhere!*\n" .
+                        "Hey you!! *Read me before you upload this anywhere!*\n" .
                         "This log file includes the dumps of your network responses, which may include\n" .
                         "some private information that you might not want uploaded (including but not\n" .
                         "limited to: your IP address, email address, YT channel link, etc.).\n" .
@@ -145,17 +152,20 @@ class LogFile
                         "Thanks for reading, and have a good day!\n\n\n",
                         $out
                     );
-                }
-                else
-                {
-                    $out .= "\n====== No response information available =====\n\n";
-                    $out = str_replace(
-                        "<MESSAGE_NETWORK_PRIVACY_PLACEHOLDER>",
-                        "",
-                        $out
-                    );
+
+                    $anyRequestPresent = true;
                 }
             }
+        }
+
+        if (!$anyRequestPresent)
+        {
+            $out .= "\n====== No response information available =====\n\n";
+            $out = str_replace(
+                "<MESSAGE_NETWORK_PRIVACY_PLACEHOLDER>",
+                "",
+                $out
+            );
         }
 
         return $out;
