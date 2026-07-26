@@ -54,7 +54,7 @@ class MNetworkRequest
     /**
      * Rehike NetworkCore result code.
      */
-    public ?int $networkCoreResultCode = null;
+    public ?string $networkCoreResultCode = null;
     
     /**
      * The HTTP status of the response, if available.
@@ -97,7 +97,7 @@ class MNetworkRequest
         
         if ($context->response)
         {
-            $this->networkCoreResultCode = (int)$context->response->resultCode; // int cast to shut up IDE...
+            $this->networkCoreResultCode = $context->response->resultCode->name;
             $this->responseStatus = $context->response->status;
             $this->responseHeaders = self::normalizeHeaders($context->response->headers);
             $this->responseContent = $context->response->getText();

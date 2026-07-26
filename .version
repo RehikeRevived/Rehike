@@ -1,10 +1,10 @@
 {
-	"previousHash": "f337a3bc6a17773bd1704f90e1dbc875e60d87c8",
-	"currentRevisionId": 1882,
-	"subject": "Refactor Async framework and NetworkCore for PHP 8.1",
-	"body": "Refactor Async framework and NetworkCore for PHP 8.1",
+	"previousHash": "e4b4046c7e89bec81a5fdbd4dc2ae3fd74eeac37",
+	"currentRevisionId": 1883,
+	"subject": "Update MNetworkRequest::$networkCoreResultCode to compensate for native enum transition",
+	"body": "Update MNetworkRequest::$networkCoreResultCode to compensate for native enum transition",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785040778
+	"time": 1785041139
 }
