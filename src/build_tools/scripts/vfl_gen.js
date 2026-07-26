@@ -8,6 +8,8 @@
 const crypto = require("crypto");
 const path = require("path");
 const fs = require("fs/promises");
+const gulp = require("gulp");
+const through2 = require("through2");
 
 const RehikeBuild = require("./rehikebuild_main");
 
@@ -24,6 +26,8 @@ const VFL_OUTPUT_DESTINATION = "includes/static_version_map.json";
  * 
  * This is exported to the file specified in {@link VFL_OUTPUT_DESTINATION} in
  * JSON format.
+ * 
+ * @var {Record<string, string>}
  */
 const g_vflMap = {};
 
@@ -32,7 +36,7 @@ const g_vflMap = {};
  * 
  * @param {BuildTask} buildTask Finished build task with the output data.
  */
-function generateVflMapping(buildTask)
+function generateVflMappingFromBuildTask(buildTask)
 {
     if (
         buildTask.status != RehikeBuild.BuildTask.Status.FINISHING &&
@@ -43,7 +47,19 @@ function generateVflMapping(buildTask)
     }
     
     let fileContents = buildTask._data.contents;
-    
+    let origPath = buildTask.outputFileName;
+        
+    generateVflMappingForFile(origPath, fileContents);
+}
+
+/**
+ * Generates a VFL mapping from a file's path and contents.
+ * 
+ * @param {string} filePath 
+ * @param {string} fileContents 
+ */
+function generateVflMappingForFile(filePath, fileContents)
+{
     // This is actually the same exact hashing algorithm as YouTube's VFL tool itself uses:
     let vflHash = crypto
         .createHash("md5")
@@ -52,16 +68,56 @@ function generateVflMapping(buildTask)
         .substring(0, 6)
         .replace(/\+/g, "-")
         .replace(/\//g, "_");
-        
-    let origPath = buildTask.outputFileName;
-        
-    let basename = path.basename(origPath, path.extname(origPath));
-    let newFileName = basename + "-vfl" + vflHash + path.extname(origPath);
-    let newPath = RehikeBuild.unwindows(path.join(path.dirname(origPath), newFileName));
+
+    let basename = path.basename(filePath, path.extname(filePath));
+    let newFileName = basename + "-vfl" + vflHash + path.extname(filePath);
+    let newPath = RehikeBuild.unwindows(path.join(path.dirname(filePath), newFileName));
     
-    console.log(newPath);
-    
-    g_vflMap[RehikeBuild.unwindows(origPath)] = newPath;
+    g_vflMap[RehikeBuild.unwindows(filePath)] = newPath;
+}
+
+/**
+ * Gets the current VFL map.
+ * 
+ * @returns {Record<string, string>}
+ */
+function getCurrentVflMap()
+{
+    return g_vflMap;
+}
+
+/**
+ * Loads the hashes of all existing files into memory.
+ */
+async function getHashesOfAllExistingFiles()
+{
+    return await RehikeBuild.promiseWrapStream(
+        gulp.src("**/*",
+            { cwd: RehikeBuild.REHIKE_STATIC_DIR })
+        .pipe(through2.obj(function (file, encoding, callback)
+        {
+            if (file.stat.isDirectory())
+            {
+                callback();
+                return;
+            }
+
+            try
+            {
+                // The destination path is always relative to the Rehike root directory.
+                const normalizedDestPath = RehikeBuild.unwindows(
+                    path.relative(RehikeBuild.REHIKE_ROOT_DIR, file.path)
+                );
+
+                let fileContents = file.contents.toString();
+                generateVflMappingForFile(normalizedDestPath, fileContents);
+                callback();
+            }
+            catch (e)
+            {
+                console.error("Failed to get contents of file: " + file.path);
+            }
+        })));
 }
 
 /**
@@ -101,5 +157,7 @@ async function generateNewCache()
     await fh.close();
 }
 
-exports.generateVflMapping = generateVflMapping;
+exports.getCurrentVflMap = getCurrentVflMap;
+exports.getHashesOfAllExistingFiles = getHashesOfAllExistingFiles;
+exports.generateVflMappingFromBuildTask = generateVflMappingFromBuildTask;
 exports.generateNewCache = generateNewCache;

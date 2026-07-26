@@ -23,6 +23,9 @@ const BASE_SRC_DIR = path.resolve(__dirname, "../..");
 // Rehike root directory is three directories up from here.
 const REHIKE_ROOT_DIR = path.resolve(__dirname, "../../..");
 
+// Static content directory.
+const REHIKE_STATIC_DIR = path.resolve(REHIKE_ROOT_DIR, "static");
+
 // Build task backends:
 const { CSSBuildTask } = require("./css_build");
 const { JSBuildTask } = require("./js_build");
@@ -35,6 +38,21 @@ const commonBuildCfg = {
     root: BASE_SRC_DIR,
     cwd: BASE_SRC_DIR,
 };
+
+/**
+ * Wraps a Node.js stream for consumption alongside promises.
+ * 
+ * @param {Stream} stream
+ * @returns {Promise<void>}
+ */
+function promiseWrapStream(stream)
+{
+    return new Promise((resolve, reject) => {
+        stream.on("finish", resolve);
+        stream.on("end", resolve);
+        stream.on("error", reject);
+    });
+}
 
 /**
  * Pushes a list of source files from a .rhbuild file to the global list.
@@ -135,11 +153,13 @@ function unwindows(pathToModify)
 exports.REHIKEBUILD_DIR = REHIKEBUILD_DIR;
 exports.BASE_SRC_DIR = BASE_SRC_DIR;
 exports.REHIKE_ROOT_DIR = REHIKE_ROOT_DIR;
+exports.REHIKE_STATIC_DIR = REHIKE_STATIC_DIR;
 
 // Exported classes:
 exports.BuildTask = BuildTask; // re-exported
 
 // Exported functions:
+exports.promiseWrapStream = promiseWrapStream;
 exports.pushSourceFiles = pushSourceFiles;
 exports.unwindows = unwindows;
 

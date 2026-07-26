@@ -198,7 +198,7 @@ class BuildTask
         await fd.close();
         
         // Generate VFL mapping:
-        VflGenerator.generateVflMapping(this);
+        VflGenerator.generateVflMappingFromBuildTask(this);
     }
     
     /**

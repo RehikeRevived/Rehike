@@ -14,6 +14,26 @@ const { ReleasePackager } = require("./scripts/pack_release");
 const VflGenerator = require("./scripts/vfl_gen");
 const ArgumentsParser = require("./scripts/parse_args");
 
+// String.prototype.replaceAll polyfill for Node.js:
+if (!String.prototype.replaceAll)
+{
+    String.prototype.replaceAll = function (str, newStr)
+    {
+        // If a regex is passed without a global flag, throw the standard TypeError
+        if (Object.prototype.toString.call(str) === '[object RegExp]' && !str.global)
+        {
+            throw new TypeError("replaceAll must be called with a global RegExp");
+        }
+
+        // Escape string characters for safe RegExp construction
+        const searchPattern = str instanceof RegExp
+            ? str
+            : new RegExp(str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'g');
+
+        return this.replace(searchPattern, newStr);
+    };
+}
+
 /**
  * Stores a list of all arguments passed to the build system.
  * 
@@ -23,29 +43,12 @@ const ArgumentsParser = require("./scripts/parse_args");
 let g_args = ArgumentsParser.getArgs();
 
 /**
- * Wraps a Node.js stream for consumption alongside promises.
- * 
- * @param {Stream} stream
- * @returns {Promise<void>}
- */
-function promiseWrapStream(stream)
-{
-    return new Promise((resolve, reject) => {
-        stream.on("finish", resolve);
-        stream.on("end", resolve);
-        stream.on("error", reject);
-    });
-}
-
-/**
  * All common startup tasks for the build environment.
  * 
  * @return {Promise<void>}
  */
 function CommonStartupTask()
 {
-    const stream = promiseWrapStream;
-    
     // If package names to be built are specified in the arguments, then we only
     // build those packages. Otherwise, we'll send an empty array to build all
     // existing packages.
@@ -59,7 +62,7 @@ function CommonStartupTask()
     }
     
     return Promise.all([
-        stream(RehikeBuild.Parser.GulpSetupRhBuildTask(packages))
+        RehikeBuild.promiseWrapStream(RehikeBuild.Parser.GulpSetupRhBuildTask(packages))
     ]);
 }
 
@@ -67,6 +70,10 @@ CommonStartupTask.displayName = "@RHBUILD::NOLOG";
 
 async function BuildAll()
 {
+    console.error("Getting VFL hashes of all existing static files...");
+    await VflGenerator.getHashesOfAllExistingFiles();
+    console.error("Done.");
+
     const iterator = RehikeBuild.BuildTask.getAllBuildTasks();
     
     const tasks = [];

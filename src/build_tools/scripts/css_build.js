@@ -8,6 +8,7 @@ const path = require("path");
 const fs = require("fs");
 const imageSize = require("image-size");
 const RehikeBuild = require("./rehikebuild_main");
+const VflGenerator = require("./vfl_gen");
 
 class CSSBuildTask extends BuildTask
 {
@@ -87,6 +88,11 @@ class CSSBuildTask extends BuildTask
                 
                 this.push(file);
                 callback();
+            }))
+            .pipe(through2.obj(function(file, encoding, callback) {
+                file.contents = Buffer.from(currentBuildTask._vflize(file.contents.toString()));
+                this.push(file);
+                callback();
             }));
         return result;
     }
@@ -99,6 +105,7 @@ class CSSBuildTask extends BuildTask
     }
     
     /**
+     * Transforms calls to `rehike.sprite()` to CSS backgrounds.
      * 
      * @param {} originalContent 
      */
@@ -111,14 +118,12 @@ class CSSBuildTask extends BuildTask
             
             for (let fnCall of rehikeSpriteCalls)
             {
-                //console.log(fnCall);
-                
                 let args = fnCall.groups.arguments;
                 let parts = args.split(",");
                 
                 if (parts.length != 5)
                 {
-                    throw new Error("epic fail!");
+                    throw new Error("Argument count mismatch for call to rehike.sprite.");
                 }
                 
                 for (let part of parts)
@@ -165,59 +170,28 @@ class CSSBuildTask extends BuildTask
             return "";
         }
     }
-    
-    // /**
-    //  * Transforms URLs in the final CSS to 
-    //  * 
-    //  * @param {string} originalContent 
-    //  */
-    // _do2xTransform(originalContent)
-    // {
-    //     try
-    //     {
-    //         //let filePaths = [];
-    //         let result = originalContent;
-            
-    //         let filePaths = originalContent.matchAll(/url\s*\(\s*.*?(?<rehikeStaticUrl>\/rehike\/static\/.*?\.\w+)/g);
-            
-    //         for (let path of filePaths)
-    //         {
-    //             //console.log(path);
-                
-    //             if (path.groups)
-    //             {
-    //                 let url = path.groups.rehikeStaticUrl;
-                    
-    //                 if (this._validate2xUrl(url))
-    //                 {
-    //                     result = result.replace(url, this._determine2xPath(url));
-    //                 }
-    //             }
-    //         }
-    //         return result;
-    //     }
-    //     catch (e)
-    //     {
-    //         console.error(e);
-    //         return "";
-    //     }
-    // }
-    
+
     /**
-     * @param {string} path
-     * @return {boolean}
+     * Updates all references to VFL 
+     * 
+     * @param {} fileContents
      */
-    _validate2xUrl(path)
+    _vflize(fileContents)
     {
-        if (path.startsWith("rehike/static/"))
+        const vflMap = VflGenerator.getCurrentVflMap();
+
+        for (const vflPath in vflMap)
         {
-            if (fs.existsSync(RehikeBuild.REHIKE_ROOT_DIR + path.substring("rehike/".length)))
+            if (vflPath.startsWith("static/"))
             {
-                return true;
+                const prependedPath = RehikeBuild.unwindows(path.join("rehike", vflPath));
+                const destinationPath = RehikeBuild.unwindows(path.join("rehike", vflMap[vflPath]));
+
+                fileContents = fileContents.replaceAll(prependedPath, destinationPath);
             }
         }
-        
-        return false;
+
+        return fileContents;
     }
 }
 
