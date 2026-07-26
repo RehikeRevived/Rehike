@@ -172,7 +172,7 @@ class WatchPageController extends NirvanaController implements IGetControllerAsy
         $playerRequestClient = "WEB";
         $playerRequestClientVersion = "2.20251014.00.00";
         
-        if (Config::getConfigProp("experiments.temp20240827_playerMode") == "USE_EMBEDDED_PLAYER_REQUEST")
+        if (Config::get()->experiments->temp20240827_playerMode->getValue() == "USE_EMBEDDED_PLAYER_REQUEST")
         {
             $playerRequestClient = "WEB_EMBEDDED_PLAYER";
             $playerRequestClientVersion = "1.20230331.00.00";
@@ -180,7 +180,7 @@ class WatchPageController extends NirvanaController implements IGetControllerAsy
         
         // XXX: indentation level unchanged to avoid messing with history;
         // this code WILL be removed.
-        if (Config::getConfigProp("experiments.temp20240827_playerMode") != "USE_EMBEDDED_PLAYER_DIRECTLY")
+        if (Config::get()->experiments->temp20240827_playerMode->getValue() != "USE_EMBEDDED_PLAYER_DIRECTLY")
         {
 
         // Unlike Polymer, Hitchhiker had all of the player data already
@@ -226,7 +226,7 @@ class WatchPageController extends NirvanaController implements IGetControllerAsy
          * Determine whether or not to use the Return YouTube Dislike
          * API to return dislikes. Retrieved from application config.
          */
-        if (true === Config::getConfigProp("appearance.useRyd"))
+        if (true === Config::get()->appearance->useRyd->getValue())
         {
             $rydUrl = "https://returnyoutubedislikeapi.com/votes?videoId=" . $yt->videoId;
 
@@ -270,7 +270,7 @@ class WatchPageController extends NirvanaController implements IGetControllerAsy
 			$playerResponse->annotations = array((object) []);
 			$playerResponse->annotations[0]->playerAnnotationsUrlsRenderer = $renderer;
 
-            if (Config::getConfigProp("appearance.enableAdblock"))
+            if (Config::get()->appearance->enableAdblock->getValue())
             {
                 // This may not be needed any longer, but manually removing ads
                 // has been historically required as adblockers no longer have

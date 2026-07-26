@@ -67,7 +67,7 @@ class GetVideoMetadataController extends HitchhikerController implements IGetCon
          * Determine whether or not to use the Return YouTube Dislike
          * API to return dislikes. Retrieved from application config.
          */
-        if (true === Config::getConfigProp("appearance.useRyd"))
+        if (true === Config::get()->appearance->useRyd->getValue())
         {
             $rydUrl = "https://returnyoutubedislikeapi.com/votes?videoId=" . $yt->videoId;
 

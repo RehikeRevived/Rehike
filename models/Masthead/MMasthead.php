@@ -73,7 +73,7 @@ class MMasthead
             "plural" => $i18n->get("notificationsPlural"),
         ];
 
-        switch (Config::getConfigProp("appearance.uploadButtonType"))
+        switch (Config::get()->appearance->uploadButtonType->getValue())
         {
             case "BUTTON":
                 $this->buttons[] = new MUploadButton();

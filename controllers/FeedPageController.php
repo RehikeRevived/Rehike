@@ -157,7 +157,7 @@ class FeedPageController extends NirvanaController implements IGetController
     private function getWhatToWatchShelves(YtApp $yt): Promise/*<bool>*/
     {
         return async(function() use ($yt) {
-            if ($a = Config::getConfigProp("experiments.disableSignInOnHome"))
+            if ($a = Config::get()->experiments->disableSignInOnHome->getValue())
             {
                 $useAuthentication = !(bool)$a;
             }
@@ -222,7 +222,7 @@ class FeedPageController extends NirvanaController implements IGetController
     private function getWhatToWatchModern(YtApp $yt): Promise/*<bool>*/
     {
         return async(function() use ($yt) {
-            if ($a = Config::getConfigProp("experiments.disableSignInOnHome"))
+            if ($a = Config::get()->experiments->disableSignInOnHome->getValue())
             {
                 $useAuthentication = !(bool)$a;
             }

@@ -2,6 +2,7 @@
 namespace Rehike\ConfigManager\Properties;
 
 use Iterator;
+use Rehike\ConfigManager\IConfigDefinitionsProvider;
 
 /**
  * Represents a list of grouped properties, which have a semantic association.
@@ -14,17 +15,19 @@ use Iterator;
  */
 class PropGroup extends AbstractConfigProperty implements Iterator
 {
+    private IConfigDefinitionsProvider $definitionsProvider;
     private array $items;
     private int $currentItem = 0;
 
-    public function __construct(AbstractConfigProperty ...$items)
+    public function __construct(IConfigDefinitionsProvider $items)
     {
-        $this->items = $items;
+        $this->definitionsProvider = $items;
+        $this->items = (array)$items;
     }
 
-    public function getProperties(): array
+    public function getProperties(): IConfigDefinitionsProvider
     {
-        return $this->items;
+        return $this->definitionsProvider;
     }
 
     public function getType(): string

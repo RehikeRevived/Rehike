@@ -39,7 +39,7 @@ class Core
 
     public static function getInnertubeGeolocation(): string
     {
-        $configGl = Config::getConfigProp("hidden.gl");
+        $configGl = Config::get()->hidden?->gl?->getValue();
         
         if (isset($_COOKIE["gl"]))
         {

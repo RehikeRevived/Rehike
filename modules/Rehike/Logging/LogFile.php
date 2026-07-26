@@ -70,7 +70,7 @@ class LogFile
         if (Config::isInitialized())
         {
             $configLog = $this->indentDumpedObject(
-                json_encode(Config::getConfig(), JSON_PRETTY_PRINT)
+                json_encode(Config::getRawConfig(), JSON_PRETTY_PRINT)
             );
         }
         else

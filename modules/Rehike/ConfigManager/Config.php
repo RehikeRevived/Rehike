@@ -1,6 +1,7 @@
 <?php
 namespace Rehike\ConfigManager;
 
+use Rehike\ConfigDefinitions;
 use Rehike\ConfigManager\Properties\{
     AbstractConfigProperty,
     AbstractAssociativeProp,
@@ -10,7 +11,6 @@ use Rehike\ConfigManager\Properties\{
 
 use Rehike\Exception\FileSystem\FsWriteFileException;
 use Rehike\FileSystem;
-
 use Rehike\PropertyAtPath;
 use Rehike\PropertyAtPathException;
 
@@ -47,6 +47,8 @@ class Config
      */
     protected static object $config;
 
+    private static ConfigDefinitions $configDefinitions;
+
     /**
      * Dump a config file.
      */
@@ -57,11 +59,11 @@ class Config
 
     /**
      * Registers configuration definitions from a list of definitions.
-     * 
-     * @see Rehike\ConfigDefinitions
      */
-    public static function registerConfigDefinitions(array $defs): void
+    public static function registerConfigDefinitions(ConfigDefinitions $defs): void
     {
+        self::$configDefinitions = $defs;
+
         $defs = self::parseDefs($defs);
         self::$defaultConfig = $defs["defs"];
         self::$types = $defs["types"];
@@ -71,7 +73,10 @@ class Config
     /**
      * Parses an array of definitions.
      */
-    protected static function parseDefs(array $defs): array
+    protected static function parseDefs(
+        IConfigDefinitionsProvider $defsObj,
+        string $previousPath = "",
+    ): array
     {
         $out = [
             "defs" => [],
@@ -79,18 +84,38 @@ class Config
             "sources" => [],
         ];
 
+        $currentPath = explode(".", $previousPath);
+
+        // This should just work out...
+        $defs = (array)$defsObj;
+
+        \Rehike\Logging\DebugLogger::print("[%s] Entrance: previousPath=\"%s\", \$defs = %s",
+            __METHOD__, $previousPath, var_export($defs, true));
+
         foreach ($defs as $name => $def)
         {
-            if (is_array($def))
+            if ($def instanceof AbstractConfigProperty)
             {
-                $result = self::parseDefs($def);
+                \Rehike\Logging\DebugLogger::print(empty($previousPath) ? $name : "$previousPath.$name");
+                $def->setFullPath(empty($previousPath) ? $name : "$previousPath.$name");
+            }
+
+            if ($def instanceof IConfigDefinitionsProvider)
+            {
+                $result = self::parseDefs(
+                    $def,
+                    empty($previousPath) ? $name : "$previousPath.$name"
+                );
                 $out["defs"][$name] = $result["defs"];
                 $out["types"][$name] = $result["types"];
                 $out["sources"][$name] = $result["sources"];
             }
             else if ($def instanceof PropGroup)
             {
-                $result = self::parseDefs($def->getProperties());
+                $result = self::parseDefs(
+                    $def->getProperties(),
+                    $previousPath
+                );
                 
                 foreach ($result["defs"] as $resultName => $resultDef)
                 {
@@ -112,6 +137,10 @@ class Config
                 $out["defs"][$name] = $def->getDefaultValue();
                 $out["types"][$name] = $def->getType();
                 $out["sources"][$name] = $def;
+            }
+            else if (null === $def)
+            {
+                // We allow null properties for optional properties.
             }
             else
             {
@@ -160,12 +189,17 @@ class Config
         return isset(static::$config);
     }
 
+    public static function get(): ConfigDefinitions
+    {
+        return self::$configDefinitions;
+    }
+
     /**
      * Get the active config.
      * 
      * @return ?object
      */
-    public static function getConfig(): ?object
+    public static function getRawConfig(): ?object
     {
         if (self::isInitialized())
         {
@@ -191,12 +225,28 @@ class Config
      * This handles checking if an option is set in the
      * config. If it isn't, this returns null.
      * 
+     * @deprecated Due to migration to the type safe system.
+     * 
      * @param string $path  Period-delimited path of the config
      * @return mixed
      */
     public static function getConfigProp(string $path): mixed
     {
-        $cfg = static::getConfig();
+        return self::getRawConfigProp($path);
+    }
+
+    /**
+     * Get a configuration option.
+     * 
+     * This handles checking if an option is set in the
+     * config. If it isn't, this returns null.
+     * 
+     * @param string $path  Period-delimited path of the config
+     * @return mixed
+     */
+    public static function getRawConfigProp(string $path): mixed
+    {
+        $cfg = static::getRawConfig();
 
         if (null === $cfg)
         {

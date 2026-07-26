@@ -28,7 +28,7 @@ class InnertubePlayerProxyController extends HitchhikerController implements IPo
         async(function() use (&$yt, &$request) {
             $response = yield SimpleFunnel::funnelCurrentPage();
             
-            if (true == Config::getConfigProp("appearance.enableAdblock"))
+            if (true == Config::get()->appearance->enableAdblock->getValue())
             {
                 $data = $response->getJson();
 

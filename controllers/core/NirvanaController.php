@@ -51,7 +51,7 @@ abstract class NirvanaController extends HitchhikerController
         $this->initPlayer();
         
         if (!Spf::isSpfRequested()
-            && !Config::getConfigProp("experiments.asyncAttestationRequest"))
+            && !Config::get()->experiments->asyncAttestationRequest->getValue())
         {
             Network::innertubeRequest(
                 "att/get",

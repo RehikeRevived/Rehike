@@ -274,7 +274,7 @@ class Debugger
      */
     protected static function refreshInternalCondensedStatus(): void
     {
-        self::$condensed = Config::getConfigProp("advanced.enableDebugger")
+        self::$condensed = Config::get()->advanced->enableDebugger->getValue()
             ? false
             : true;
     }

@@ -1,6 +1,8 @@
 <?php
 namespace Rehike\ConfigManager\Properties;
 
+use Override;
+
 /**
  * String property.
  * 
@@ -17,13 +19,40 @@ class StringProp extends AbstractAssociativeProp
     }
 
     /**
-     * Get the default value of the property.
+     * Gets the value of the property.
      */
-    public function getDefaultValue(): mixed
+    public function getValue(): ?string
+    {
+        try
+        {
+            return $this->getValueCommonInternal();
+        }
+        catch (\TypeError $e)
+        {
+            return null;
+        }
+    }
+
+    /**
+     * Sets the value of the property for the application session.
+     *
+     * To commit the new value to permanent storage, call
+     * {@see Config::dumpConfig()}.
+     */
+    public function setValue(string $value): void
+    {
+        $this->setValueCommonInternal($value);
+    }
+
+    /** @inheritDoc */
+    #[Override]
+    public function getDefaultValue(): string
     {
         return $this->defaultValue;
     }
 
+    /** @inheritDoc */
+    #[Override]
     public function getType(): string
     {
         return "string";

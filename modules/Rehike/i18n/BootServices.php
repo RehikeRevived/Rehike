@@ -21,7 +21,7 @@ class BootServices
     public static function boot(): void
     {
         \Rehike\Profiler::start("i18nboot");
-        $langId = Config::getConfigProp("hidden.language");
+        $langId = Config::get()->hidden->language->getValue();
 
         i18n::getConfigApi()
             ->setRootDirectory($_SERVER["DOCUMENT_ROOT"] . "/i18n");

@@ -321,7 +321,7 @@ Sometimes you only really need to wait for something on a condition, but it woul
 Consider the following:
 
 ```php
-if (Config::getConfigProp("appearance.useRyd"))
+if (Config::get()->appearance->useRyd->getValue())
 {
     $rydRequest = Network::urlRequest(RYD_API_URL, ...);
 }

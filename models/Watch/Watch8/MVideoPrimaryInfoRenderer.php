@@ -61,7 +61,7 @@ class MVideoPrimaryInfoRenderer
             if (isset($info->viewCount->videoViewCountRenderer))
 
             $this->viewCount = ParsingUtils::getText($info->viewCount->videoViewCountRenderer->viewCount);
-            if (Config::getConfigProp("appearance.noViewsText"))
+            if (Config::get()->appearance->noViewsText->getValue())
             {
                 $number = (int)ExtractUtils::isolateViewCnt($this->viewCount);
                 if (is_int($number))

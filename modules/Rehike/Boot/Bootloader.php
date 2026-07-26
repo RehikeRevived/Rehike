@@ -138,6 +138,11 @@ final class Bootloader
         // successfully. We don't want DisableRehike to ever fail.
         if (DisableRehike::shouldDisable())
         {
+            // The DNS is required to be set up for DisableRehike to work, so we
+            // will attempt to initialize it just in case stage 1 failed at
+            // setting up the configuration manager.
+            Tasks::initNetworkDns();
+
             DisableRehike::disableForSession();
             EventLoop::run();
             self::shutdown();
@@ -170,22 +175,35 @@ final class Bootloader
      */
     private static function shutdown(bool $early = false): void
     {
-        Debugger::shutdown();
-        
-        if (Config::getConfigProp("hidden.enableProfiler"))
+        $finishedRequest = false;
+        try
         {
-            header(
-                "X-Rehike-Profiler-Result: " . 
-                json_encode(\Rehike\Profiler::getTimings())
-            );
+            Debugger::shutdown();
+            
+            if (Config::get()->hidden->enableProfiler->getValue())
+            {
+                header(
+                    "X-Rehike-Profiler-Result: " . 
+                    json_encode(\Rehike\Profiler::getTimings())
+                );
+            }
+
+            self::finishRequest();
+            $finishedRequest = true;
+
+            LogFileManager::pruneLogFiles();
+            ShutdownEvents::runAllEvents();
         }
-
-        self::finishRequest();
-
-        LogFileManager::pruneLogFiles();
-        ShutdownEvents::runAllEvents();
-
-        exit;
+        catch (\Throwable $e)
+        {
+            \Rehike\Logging\DebugLogger::print("Exception while shutting down: %s", (string)$e);
+            if (!$finishedRequest)
+                self::finishRequest();
+        }
+        finally
+        {
+            exit;
+        }
     }
 
     /**
@@ -201,13 +219,14 @@ final class Bootloader
         // the global instance as well.
         $yt = new YtApp();
 
+        Tasks::initConfigManager();
+
         // Getting the network DNS working is necessary for DisableRehike to
         // work, so if this fails to initialize, then DisableRehike will not
         // work either. In the future, we should figure out a way of reporting
         // a failure at this specific point.
         Tasks::initNetworkDns();
 
-        Tasks::initConfigManager();
         Tasks::setupI18n();
     }
 
@@ -257,7 +276,7 @@ final class Bootloader
          * TODO: This should be removed when V1 is deprecated.
          */
         $yt = YtApp::getInstance();
-        if (Config::getConfigProp("experiments.useSignInV2") !== true)
+        if (Config::get()->experiments->useSignInV2->getValue() !== true)
         {
             LegacyAuthManager::use($yt);
             

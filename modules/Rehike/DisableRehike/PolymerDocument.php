@@ -55,11 +55,7 @@ class PolymerDocument
                         "</script>" .
                         substr($resultText, $firstScriptIndex);
                 }
-                catch (FsFileDoesNotExistException $e)
-                {
-                    // Swallow exception, should just not modify document.
-                }
-                catch (FsFileReadFailureException $e)
+                catch (\Throwable $e)
                 {
                     // Swallow exception, should just not modify document.
                 }

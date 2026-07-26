@@ -141,7 +141,7 @@ class MHeader
             $this->subscriptionButton = MSubscriptionActions::signedOutStub($subscriberCount);
         }
         
-        if (Config::getConfigProp("appearance.showNewInfoOnChannelAboutPage"))
+        if (Config::get()->appearance->showNewInfoOnChannelAboutPage->getValue())
         {
             if (isset($header->usernameText))
             {
@@ -247,7 +247,7 @@ class MHeader
             $this->subscriptionButton = MSubscriptionActions::signedOutStub($count);
         }
         
-        if (Config::getConfigProp("appearance.showNewInfoOnChannelAboutPage"))
+        if (Config::get()->appearance->showNewInfoOnChannelAboutPage->getValue())
         {
             if (isset($header->channelHandleText))
             {

@@ -22,10 +22,24 @@ In order to check for a user's Rehike configuration preferences, you must first 
 use Rehike\ConfigManager\Config;
 ```
 
-In order to check for a configuration property, you can simply use `Config::getConfigProp`. For example, here is an excerpt from our code regarding the printing of view counts on the watch page.
+In order to check for a configuration property, you can simply use `Config::get()`. For example, here is an excerpt from our code regarding the printing of view counts on the watch page.
 
 ```php
-if (Config::getConfigProp("appearance.noViewsText"))
+// This is a boolean property, so its value returns a bool type.
+if (Config::get()->appearance->noViewsText->getValue())
+{
+    $number = (int)ExtractUtils::isolateViewCnt($this->viewCount);
+    if (is_int($number))
+    {
+        $this->viewCount = $i18n->formatNumber($number);
+    }
+}
+```
+
+If the property is not defined in the [list of configuration properties](/modules/Rehike/ConfigDefinitions.php), then the advanced API `Config::getRawConfigProp()` can be used instead. This allows the developer to specify a path to a configuration property as a string. However, this is not recommended as it makes it hard to track usage of configuration properties across the codebase. For example, the above excerpt:
+
+```php
+if (Config::getRawConfigProp("appearance.noViewsText"))
 {
     $number = (int)ExtractUtils::isolateViewCnt($this->viewCount);
     if (is_int($number))

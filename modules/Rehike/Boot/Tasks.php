@@ -34,14 +34,25 @@ use Rehike\SignInV2\SignIn;
  */
 final class Tasks
 {
+    private static bool $wasNetworkDnsSetup = false;
+
     public static function initNetworkDns(): void
     {
-        $desiredDns = Config::getConfigProp("advanced.dnsAddress")
+        if (self::$wasNetworkDnsSetup)
+            return;
+        
+        // In case the configuration manager isn't set up, we will force 1.1.1.1
+        // since we're required for DisableRehike (critical). We also use
+        // getRawConfigProp for this because it is an API that can't throw an
+        // exception, and is therefore easier.
+        $desiredDns = Config::getRawConfigProp("advanced.dnsAddress")
             ?? "1.1.1.1";
 
         NetworkCore::setResolve([
             Nameserver::get("www.youtube.com", $desiredDns, 443)->serialize()
         ]);
+
+        self::$wasNetworkDnsSetup = true;
     }
 
     public static function initResourceConstants(): void
@@ -51,9 +62,7 @@ final class Tasks
 
     public static function initConfigManager(): void
     {
-        Config::registerConfigDefinitions(
-            ConfigDefinitions::getConfigDefinitions()
-        );
+        Config::registerConfigDefinitions(new ConfigDefinitions());
         
         try
         {
@@ -75,7 +84,7 @@ final class Tasks
         }
 
         // Apply early configuration properties for other modules:
-        if (Config::getConfigProp("advanced.developer.ignoreUnresolvedPromises"))
+        if (Config::get()->advanced->developer->ignoreUnresolvedPromises->getValue())
         {
             \Rehike\Async\Promise\PromiseResolutionTracker::disable();
         }

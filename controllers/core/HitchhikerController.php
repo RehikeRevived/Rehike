@@ -234,7 +234,7 @@ abstract class HitchhikerController extends PageController
             // former.
             $wantsContentPoToken = isset($flags->html5_generate_content_po_token) &&
                 $flags->html5_generate_content_po_token;
-            if (Config::getConfigProp("experiments.alwaysUseContentPoToken") != false)
+            if (Config::get()->experiments->alwaysUseContentPoToken->getValue() != false)
             {
                 $wantsContentPoToken = true;
             }
@@ -411,7 +411,7 @@ abstract class HitchhikerController extends PageController
             $this->yt->rehikeSecurityNotice = new SecurityLightbox();
         }
 
-        if (Config::getConfigProp("hidden.disableRehike") == true)
+        if (Config::get()->hidden->disableRehike->getValue() == true)
         {
             if (!isset($this->yt->page->alerts))
                 $this->yt->page->alerts = [];
@@ -442,7 +442,7 @@ abstract class HitchhikerController extends PageController
     
         if ($curMonth == 6)
         {
-            $prideYoodleUrl = Config::getConfigProp("appearance.branding") != "BRANDING_2015"
+            $prideYoodleUrl = Config::get()->appearance->branding->getValue() != "BRANDING_2015"
                 ? "/rehike/static/logo/pride_2017_custom.png"
                 : "//s.ytimg.com/yts/img/doodles/yt_doodle_pride_2013-vflG2_e_y.png";
             

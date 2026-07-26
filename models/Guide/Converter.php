@@ -194,7 +194,7 @@ class Converter
         $strings = i18n::getNamespace("guide");
 
         // Thumbnail prefix and suffix
-        $format = Config::getConfigProp("appearance.oldBestOfYouTubeIcons")
+        $format = Config::get()->appearance->oldBestOfYouTubeIcons->getValue()
             ? "/rehike/static/best_of_youtube/%s_old.jpg"
             : "/rehike/static/best_of_youtube/%s.jpg";
 
@@ -560,7 +560,7 @@ class Converter
     {
         $i18n = i18n::getNamespace("guide");
         $response = (object) [];
-        $format = Config::getConfigProp("appearance.oldBestOfYouTubeIcons")
+        $format = Config::get()->appearance->oldBestOfYouTubeIcons->getValue()
         ? "/rehike/static/best_of_youtube/%s_old.jpg"
         : "/rehike/static/best_of_youtube/%s.jpg";
 

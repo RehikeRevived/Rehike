@@ -34,9 +34,8 @@ class SecurityChecker
 
     public static function windowsNtIsRunningAsSystem($dontLie = false): bool
     {
-        $disabled = $dontLie || (Config::getConfigProp(
-            "hidden.securityIgnoreWindowsServerRunningAsSystem"
-        ) == true);
+        $disabled = $dontLie || Config::get()
+            ->hidden->securityIgnoreWindowsServerRunningAsSystem->getValue();
 
         if (!$disabled)
         {

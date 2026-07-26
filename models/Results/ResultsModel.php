@@ -125,7 +125,7 @@ class ResultsModel
         $response->content = InnerTubeBrowseConverter::sectionListRenderer($contents, [
             "channelRendererUnbrandedSubscribeButton" => true,
             "channelRendererChannelBadge" => true,
-            "searchMetadataOrder" => false == Config::getConfigProp("appearance.swapSearchViewsAndDate")
+            "searchMetadataOrder" => false == Config::get()->appearance->swapSearchViewsAndDate->getValue()
         ]);
 
         // Paginator

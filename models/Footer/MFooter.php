@@ -65,7 +65,7 @@ class MFooter
             "/yt/dev/"
         );
 
-        if (Config::getConfigProp("appearance.showVersionInFooter"))
+        if (Config::get()->appearance->showVersionInFooter->getValue())
         {
             $this->primaryLinks[] = new MFooterLink(
                 $i18n->format(

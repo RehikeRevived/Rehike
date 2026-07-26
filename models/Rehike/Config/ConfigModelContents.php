@@ -3,6 +3,7 @@ namespace Rehike\Model\Rehike\Config;
 
 use Rehike\ConfigDefinitions;
 use Rehike\ConfigManager\Config;
+use Rehike\ConfigManager\IConfigDefinitionsProvider;
 use Rehike\ConfigManager\Properties\{
     AbstractAssociativeProp,
     AbstractConfigProperty,
@@ -30,7 +31,7 @@ class ConfigModelContents
 
     public function __construct()
     {
-        $this->defs = ConfigDefinitions::getConfigDefinitions();
+        $this->defs = (array)(new ConfigDefinitions());
     }
 
     /**
@@ -69,7 +70,7 @@ class ConfigModelContents
         {
             if (isset($this->defs[$id]))
             {
-                $page = $this->defs[$id];
+                $page = (array)$this->defs[$id];
             }
         }
 
@@ -124,12 +125,20 @@ class ConfigModelContents
                     $this->concatPath($path, $name)
                 );
             }
+            else if ($def instanceof IConfigDefinitionsProvider)
+            {
+                $this->bakePropRootRenderer(
+                    $target, 
+                    (array)$def, 
+                    $this->concatPath($path, $name)
+                );
+            }
             else if ($def instanceof PropGroup)
             {
                 $result = $this->getGroupRendererTemplate();
                 $this->bakePropRootRenderer(
                     $result->propertyGroupRenderer->contents, 
-                    $def->getProperties(), 
+                    (array)$def->getProperties(), 
                     $path
                 );
                 $target[] = $result;
@@ -391,6 +400,6 @@ class ConfigModelContents
      */
     private function getPropValue(string $path): mixed
     {
-        return Config::getConfigProp($path);
+        return Config::getRawConfigProp($path);
     }
 }

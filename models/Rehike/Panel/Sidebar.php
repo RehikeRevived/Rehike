@@ -156,7 +156,7 @@ class Sidebar
     private static function getDisableRehikeButton(): array
     {
         $i18n = i18n::getNamespace("rehike/disable_rehike");
-        $isDisabled = Config::getConfigProp("hidden.disableRehike");
+        $isDisabled = Config::get()->hidden->disableRehike->getValue();
 
         $buttonText = $isDisabled
             ? $i18n->get("rhSettingsEnableRehike")

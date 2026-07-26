@@ -37,7 +37,11 @@ class DisableRehike
         if (self::shouldPersistentlyEnableRehikeFromCurrentUrl())
             return false;
 
-        $cfg = Config::getConfigProp("hidden.disableRehike");
+        // We use getRawConfigProp here because we want to avoid a crash in case
+        // the configuration manager isn't up yet, which would happen with the
+        // type safe API.
+        $cfg = Config::getRawConfigProp("hidden.disableRehike");
+        
         $url = self::isRehikeUrl() ? false : self::getEnablePolymerUrlState();
 
         // ?enable_polymer=0, false with hidden.disableRehike should actually

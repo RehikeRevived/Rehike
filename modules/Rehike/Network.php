@@ -62,7 +62,7 @@ class Network
      */
     public static function urlRequest(string $url, array $opts = []): Promise/*<IResponse>*/
     {
-        if (Config::getConfigProp("advanced.disableSslVerification") === true)
+        if (Config::get()->advanced->disableSslVerification->getValue() === true)
         {
             $opts["disableSslVerification"] = true;
         }
@@ -163,7 +163,7 @@ class Network
                  $useAuthentication,
                  $profilerRid)
         {
-            $desiredDns = Config::getConfigProp("advanced.dnsAddress")
+            $desiredDns = Config::get()->advanced->dnsAddress->getValue()
                 ?? "1.1.1.1";
 
             $request = NetworkCore::request2(
@@ -174,7 +174,7 @@ class Network
                     "body" => json_encode($body),
                     "onError" => "ignore",
                     "dnsOverride" => $desiredDns,
-                    "disableSslVerification" => Config::getConfigProp("advanced.disableSslVerification") ?? false,
+                    "disableSslVerification" => Config::get()->advanced->disableSslVerification->getValue() ?? false,
                     "logType" => "innertube",
                 ]
             );
@@ -340,7 +340,7 @@ class Network
 
         $body = [
             "headers" => $headers,
-            "disableSslVerification" => Config::getConfigProp("advanced.disableSslVerification") ?? false,
+            "disableSslVerification" => Config::get()->advanced->disableSslVerification->getValue() ?? false,
             "logType" => "dataapi",
         ];
 
@@ -382,7 +382,7 @@ class Network
      */
     public static function getDefaultYoutubeOpts(): array
     {
-        $desiredDns = Config::getConfigProp("advanced.dnsAddress")
+        $desiredDns = Config::get()->advanced->dnsAddress->getValue()
                 ?? "1.1.1.1";
 
         return [

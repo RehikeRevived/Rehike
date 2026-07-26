@@ -105,7 +105,7 @@ class SignIn
     
     protected static function shouldUseSV2(): bool
     {
-        if (Config::getConfigProp("experiments.useSignInV2") !== true)
+        if (Config::get()->experiments->useSignInV2->getValue() !== true)
         {
             return false;
         }

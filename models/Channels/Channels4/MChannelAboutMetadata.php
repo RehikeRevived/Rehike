@@ -49,7 +49,7 @@ class MChannelAboutMetadata
 
         $this->joinedDateText = ParsingUtils::getText(@$data->joinedDateText);
         
-        if (Config::getConfigProp("appearance.showNewInfoOnChannelAboutPage"))
+        if (Config::get()->appearance->showNewInfoOnChannelAboutPage->getValue())
         {
             if ($headerInfo["username"])
             {

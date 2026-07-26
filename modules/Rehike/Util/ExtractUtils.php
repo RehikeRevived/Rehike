@@ -118,7 +118,7 @@ public static function resolveDate(string|object $date, bool $isPrivate = false)
             return $misc->format("dateTextPrivate", $date);
         }
 
-        if (Config::getConfigProp("appearance.showOldUploadedOnText")) {
+        if (Config::get()->appearance->showOldUploadedOnText->getValue()) {
             if (preg_match("/.*\b(20[01][0-9])\b.*/", $date, $matches)) {
                 $year = (int)$matches[1];
                 if ($year >= 2005 && $year <= 2011) {
