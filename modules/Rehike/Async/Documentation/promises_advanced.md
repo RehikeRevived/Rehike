@@ -56,7 +56,7 @@ Since this is just an interface, your promise class does not necessarily have to
  */
 final class PresucceededPromise/*<T>*/ implements IPromise
 {
-    public int $status = PromiseStatus::SUCCESS;
+    public PromiseStatus $status = PromiseStatus::SUCCESS;
     public Throwable $reason; // Intentionally left uninitialised.
     
     /**

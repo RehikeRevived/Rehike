@@ -22,7 +22,7 @@ class NoInternetPage
         include "includes/fatal_templates/no_internet.html.php";
     }
 
-    public static function isNoInternetResult(int $networkResult): bool
+    public static function isNoInternetResult(NetworkResult $networkResult): bool
     {
         switch ($networkResult)
         {
