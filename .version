@@ -1,10 +1,10 @@
 {
-	"previousHash": "d1b592e2180fce9558abb45d1fa31899b111d881",
-	"currentRevisionId": 1886,
-	"subject": "Fix channel about metadata appearance (for English and Japanese at the moment)",
-	"body": "Fix channel about metadata appearance (for English and Japanese at the moment)",
+	"previousHash": "b3207523dd4e1b0fdb5ed1afaa713c5abc4274f1",
+	"currentRevisionId": 1887,
+	"subject": "Refactor RehikeUtilsDelegate for PHP 8.1",
+	"body": "Refactor RehikeUtilsDelegate for PHP 8.1",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785044026
+	"time": 1785216239
 }

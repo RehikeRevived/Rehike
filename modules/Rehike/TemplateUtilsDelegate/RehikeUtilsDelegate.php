@@ -21,24 +21,14 @@ use Rehike\SignInV2\SignIn;
  */
 class RehikeUtilsDelegate extends RehikeUtilsDelegateBase
 {
-    public Base64 $base64;
-    public CasingUtils $casing;
-    public ResourceUtils $resource;
-    public ParsingUtils $parsing;
-    public RehikeUtilsI18nDelegate $i18n;
-    public SignIn $signin;
-
-    public function __construct()
+    public function __construct(
+        public Base64 $base64 = new Base64(),
+        public CasingUtils $casing = new CasingUtils(),
+        public ResourceUtils $resource = new ResourceUtils(),
+        public ParsingUtils $parsing = new ParsingUtils(),
+        public RehikeUtilsI18nDelegate $i18n = new RehikeUtilsI18nDelegate(),
+        public SignIn $signin = new SignIn(),
+    )
     {
-        parent::__construct();
-
-        // When abandoning support for PHP 8.0, these may be coalesced into
-        // the constructor arguments.
-        $this->casing = new CasingUtils();
-        $this->base64 = new Base64();
-        $this->resource = new ResourceUtils();
-        $this->parsing = new ParsingUtils();
-        $this->i18n = new RehikeUtilsI18nDelegate();
-        $this->signin = new SignIn();
     }
 }
