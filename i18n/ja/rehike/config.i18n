@@ -38,6 +38,10 @@ props:
         BRANDING_2015: "2015: 古いロゴ、濃い赤"
         BRANDING_2017_RINGO: "2017: 新しいロゴ、明るい赤"
         BRANDING_2024_RINGO2: "2024: 新しいロゴ、ピンクがかった赤とグラデーション"
+    showTrending:
+      title: "ガイドおよびホームページのアプリバーのナビゲーションに急上昇リンクを表示します"
+      subtitle: >
+        見た目のためだけの機能です。急上昇フィードは YouTube API から削除されています。
     modernLogo:
       title: "現行のYouTubeロゴを使用"
       subtitle: >

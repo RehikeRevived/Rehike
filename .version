@@ -1,10 +1,10 @@
 {
-	"previousHash": "d90066a0136e45a96af71570afdca575142c9eda",
-	"currentRevisionId": 1890,
-	"subject": "Fix NoInternetPage::isNoInternetResult() TypeError",
-	"body": "Fix NoInternetPage::isNoInternetResult() TypeError",
+	"previousHash": "9752c4d35bb31c4c4f61e6a9b89094984a20c086",
+	"currentRevisionId": 1891,
+	"subject": "Hide links to the now-unavailable trending feed by default",
+	"body": "Hide links to the now-unavailable trending feed by default",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785281509
+	"time": 1785282603
 }

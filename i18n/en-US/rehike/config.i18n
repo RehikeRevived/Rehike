@@ -40,6 +40,10 @@ props:
         BRANDING_2015: "2015: Old logo, dark reds"
         BRANDING_2017_RINGO: "2017: New logo, bright reds"
         BRANDING_2024_RINGO2: "2024: New logo, pinkish reds with gradients"
+    showTrending:
+      title: "Show trending links on the guide and homepage appbar navigation"
+      subtitle: >
+        Eyecandy only. The trending feed has been removed from the YouTube API.
     uploadButtonType:
       title: "Upload button type:"
       values:

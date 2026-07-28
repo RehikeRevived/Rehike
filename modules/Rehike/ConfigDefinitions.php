@@ -28,6 +28,7 @@ class AppearanceConfigDefinitions implements IConfigDefinitionsProvider
             "ICON",
             "MENU"
         ]),
+        public BoolProp $showTrending = new BoolProp(false),
         public BoolProp $showNewInfoOnChannelAboutPage = new BoolProp(true),
         public BoolProp $largeSearchResults = new BoolProp(true),
         public BoolProp $swapSearchViewsAndDate = new BoolProp(false),

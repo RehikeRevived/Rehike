@@ -147,10 +147,13 @@ class Converter
             );
         }
 
-        // Trending item
-        $response[] = self::bakeGuideItem(
-            "/feed/trending", $strings->get("trending"), "SYSTEM::TRENDING"
-        );
+        if (Config::get()->appearance->showTrending->getValue())
+        {
+            // Trending item
+            $response[] = self::bakeGuideItem(
+                "/feed/trending", $strings->get("trending"), "SYSTEM::TRENDING"
+            );
+        }
 
         // Subscriptions item (if signed in)
         if ($signedIn)

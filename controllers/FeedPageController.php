@@ -24,6 +24,7 @@ use \Rehike\Util\Base64Url;
 use \Rehike\Model\History\HistoryModel;
 use \Rehike\Model\Browse\InnertubeBrowseConverter;
 use Rehike\ConfigManager\Config;
+use Rehike\i18n\i18n;
 use \Rehike\Util\ParsingUtils;
 
 use function Rehike\Async\async;
@@ -98,6 +99,8 @@ class FeedPageController extends NirvanaController implements IGetController
             case "FEsubscriptions":
                 $this->subscriptions($yt, $request);
                 break;
+            case "FEtrending":
+                $this->trendingStub($yt, $request);
             default:
                 $this->miscFeeds($yt, $request, $feedId);
                 break;
@@ -255,6 +258,30 @@ class FeedPageController extends NirvanaController implements IGetController
                 $this->setTitle($yt->page->title);
             }
         });
+    }
+
+    /**
+     * Prepares a stub page for the now-retired trending feed.
+     */
+    private function trendingStub(YtApp $yt, RequestMetadata $request): void
+    {
+        $i18n = i18n::getNamespace("trending");
+
+        $yt->page = (object)[
+            "content" => (object)[
+                "sectionListRenderer" => (object)[
+                    "contents" => [
+                        (object)[
+                            "messageRenderer" => (object)[
+                                "text" => (object)[
+                                    "simpleText" => $i18n->get("unavailableMessage"),
+                                ],
+                            ],
+                        ],
+                    ],
+                ],
+            ],
+        ];
     }
 
     /**
