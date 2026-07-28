@@ -1,0 +1,13 @@
+{
+    "compilerOptions": {
+        "allowImportingTsExtensions": true,
+        "noEmit": true,
+        "esModuleInterop": true,
+        "types": ["node"],
+        "lib": ["es2021"]
+    },
+    "include": [
+        "rehikebuild.ts",
+        "scripts/*"
+    ]
+}

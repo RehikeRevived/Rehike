@@ -1,16 +1,25 @@
-const { BuildTask } = require("./build_task");
-const RehikeBuild = require("./rehikebuild_main");
+/**
+ * @fileoverview Implements the JS build task.
+ * 
+ * @author Isabella Lulamoon <kawapure@gmail.com>
+ * @author Niko Yamamoto <kirasicecreamm@gmail.com>
+ * @author The Rehike Maintainers
+ */
 
-const gulp = require("gulp");
-const path = require("path");
-const closureCompilerBackend = require("google-closure-compiler");
+import { BuildTask, GulpTask } from "./build_task";
+import * as RehikeBuild from "./rehikebuild_main";
+
+import gulp from "gulp";
+import path from "path";
+import closureCompilerBackend from "google-closure-compiler";
 const GulpClosureCompiler = closureCompilerBackend.gulp();
-const GulpPreprocess = require("gulp-preprocess");
+import GulpPreprocess from "gulp-preprocess";
+import { Transform } from "stream";
+import Undertaker from "undertaker";
 
-class JSBuildTask extends BuildTask
+export default class JSBuildTask extends BuildTask
 {
-    /** @inheritdoc @override */
-    _buildGulpTask()
+    protected override _buildGulpTask(): GulpTask
     {
         const task = this._prepareGulpBackend();
         let result = task
@@ -26,8 +35,7 @@ class JSBuildTask extends BuildTask
         return result;
     }
     
-    /** @inheritdoc @override */
-    _prepareGulpBackend()
+    protected override _prepareGulpBackend(): NodeJS.ReadWriteStream
     {
         const buildFiles = this.inputFileNames.slice(0); // .slice(0) to clone the array
         
@@ -41,5 +49,3 @@ class JSBuildTask extends BuildTask
         return gulp.src(buildFiles, RehikeBuild.commonBuildCfg);
     }
 }
-
-exports.JSBuildTask = JSBuildTask;

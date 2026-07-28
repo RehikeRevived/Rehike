@@ -2,17 +2,21 @@
  * @fileoverview Provides the base class for Gulp builds tasks.
  * 
  * @author Isabella Lulamoon <kawapure@gmail.com>
+ * @author Niko Yamamoto <kirasicecreamm@gmail.com>
  * @author The Rehike Maintainers
  */
 
-const gulp = require("gulp");
-const through2 = require("through2");
-const path = require("path");
-const { Transform } = require("stream");
-const fs = require("fs/promises");
+import gulp from "gulp";
+import through2 from "through2";
+import path from "path";
+import { Transform } from "stream";
+import fs from "fs/promises";
 
-const RehikeBuild = require("./rehikebuild_main");
-const VflGenerator = require("./vfl_gen");
+import * as RehikeBuild from "./rehikebuild_main";
+import * as VflGenerator from "./vfl_gen";
+import Undertaker from "undertaker";
+
+export type GulpTask = Undertaker.Task & Transform;
 
 /**
  * Stores all registered build tasks.
@@ -20,34 +24,33 @@ const VflGenerator = require("./vfl_gen");
  * Note that new tasks should always be appended to the end of this array in
  * order for the build system to function correctly. Inserting an item in the
  * middle will mess things up.
- * 
- * @type {BuildTask[]}
  */
-const g_buildTaskRegistry = [];
+export const g_buildTaskRegistry: BuildTask[] = [];
+
+export const enum Status
+{
+    PENDING,
+    FINISHING,
+    FINISHED,
+    ERRORED,
+    UP_TO_DATE,
+}
 
 /**
  * Base class for Gulp build tasks.
  * 
  * @abstract
  */
-class BuildTask
+export abstract class BuildTask
 {
-    inputFileNames = [];
-    outputFileName = "";
-    displayName = "";
+    protected inputFileNames: string[] = [];
+    public outputFileName: string = "";
+    public displayName: string = "";
     
-    static Status = {
-        PENDING: 0,
-        FINISHING: 1,
-        FINISHED: 2,
-        ERRORED: 3,
-        UP_TO_DATE: 4,
-    };
+    _gulpTask: GulpTask = null; // TODO: Type
+    _status: Status = Status.PENDING;
     
-    _gulpTask = null;
-    _status = BuildTask.Status.PENDING;
-    
-    _data = null;
+    _data = null; // TODO: Type??
     
     _resolutionPromise = {
         resolve: null,
@@ -60,7 +63,11 @@ class BuildTask
         return this._resolutionPromise.promise;
     }
     
-    constructor(descriptor, inputFileNames, outputFileName)
+    constructor(
+        descriptor: RehikeBuild.BuildTaskDescriptor,
+        inputFileNames: string|string[],
+        outputFileName: string,
+    )
     {
         if (typeof inputFileNames == "string")
         {
@@ -83,29 +90,27 @@ class BuildTask
         });
     }
     
-    get gulpTask()
+    public get gulpTask()
     {
         this._ensureGulpTask();
         
         return this._gulpTask;
     }
     
-    get isPending()
+    public get isPending(): boolean
     {
-        return this._status == BuildTask.Status.PENDING;
+        return this._status == Status.PENDING;
     }
     
-    get status()
+    public get status(): Status
     {
         return this._status;
     }
     
     /**
      * Gets an iterator for all build tasks in the registry.
-     * 
-     * @returns {BuildTaskRegistryIterator}
      */
-    static getAllBuildTasks()
+    public static getAllBuildTasks(): BuildTaskRegistryIterator
     {
         return new BuildTaskRegistryIterator();
     }
@@ -113,7 +118,7 @@ class BuildTask
     /**
      * Ensures that the Gulp task exists, and creates it if it doesn't.
      */
-    _ensureGulpTask()
+    protected _ensureGulpTask(): void
     {
         if (!this._gulpTask)
         {
@@ -121,20 +126,20 @@ class BuildTask
             console.log("Creating gulp task");
             this._gulpTask = this._buildGulpTask();
             
-            this._gulpTask = this._gulpTask.pipe(this._getDataFromStream(this));
+            this._gulpTask = this._gulpTask.pipe(this._getDataFromStream(this)) as GulpTask;
             
             this._gulpTask.on("finish", async function() {
                 // Perform post-task events:
-                parent._status = BuildTask.Status.FINISHING;
+                parent._status = Status.FINISHING;
                 await parent._onAllTasksCompleted();
                 
                 // We're done building, so signal to any outside subscribers:
-                parent._status = BuildTask.Status.FINISHED;
+                parent._status = Status.FINISHED;
                 parent._resolutionPromise.resolve(parent._data);
             });
             
             this._gulpTask.on("error", function(e) {
-                parent._status = BuildTask.Status.ERRORED;
+                parent._status = Status.ERRORED;
                 parent._resolutionPromise.reject(e);
             });
         }
@@ -143,22 +148,20 @@ class BuildTask
     /**
      * Builds a Gulp task for the file.
      * 
-     * @abstract
      * @virtual
-     * @protected
      */
-    _buildGulpTask()
-    {
-        const gulp = this._prepareGulpBackend();
-        return gulp;
-    }
+    protected abstract _buildGulpTask(): GulpTask;
+    // {
+    //     const gulp = this._prepareGulpBackend();
+    //     return gulp;
+    // }
     
     /**
      * Sets up the Gulp backend for building the task.
      * 
      * @protected
      */
-    _prepareGulpBackend()
+    protected _prepareGulpBackend(): NodeJS.ReadWriteStream
     {
         return gulp.src(this.inputFileNames, RehikeBuild.commonBuildCfg);
     }
@@ -166,10 +169,9 @@ class BuildTask
     /**
      * Runs when all Gulp tasks are done running.
      * 
-     * @protected
      * @virtual
      */
-    async _onAllTasksCompleted()
+    protected async _onAllTasksCompleted()
     {
         // Ensure that the directories to the file path exist when attempting to load it:
         let fullOutputPath = path.join(RehikeBuild.REHIKE_ROOT_DIR, this.outputFileName);
@@ -203,11 +205,8 @@ class BuildTask
     
     /**
      * Gets the data from the Gulp transform stream.
-     * 
-     * @param {BuildTask} targetObj 
-     * @returns {Transform}
      */
-    _getDataFromStream(targetObj)
+    _getDataFromStream(targetObj: BuildTask): Transform
     {
         return through2.obj(function(file, encoding, callback) {
             targetObj._data = file;
@@ -228,17 +227,13 @@ class BuildTaskRegistryIterator
 {
     /**
      * The latest known item position in the build task registry.
-     * 
-     * @private
      */
-    _latestKnownItemPosition = 0;
+    private _latestKnownItemPosition = 0;
     
     /**
      * Check if new items were added to the registry since the last time we checked.
-     * 
-     * @returns {boolean}
      */
-    hasNewItems()
+    public hasNewItems(): boolean
     {
         return this._latestKnownItemPosition < g_buildTaskRegistry.length;
     }
@@ -248,10 +243,8 @@ class BuildTaskRegistryIterator
      * 
      * This function is also responsible for the decoration process so that they
      * work with Gulp.
-     * 
-     * @returns {IIteratorResponse}
      */
-    getNext()
+    public getNext(): IIteratorResponse
     {
         const chunk = g_buildTaskRegistry.slice(this._latestKnownItemPosition);
         
@@ -281,25 +274,19 @@ class BuildTaskRegistryIterator
     }
 }
 
-/**
- * @interface
- */
-class IIteratorResponse
+export interface IIteratorResponse
 {
     /**
      * Wrapped tasks for Gulp's Undertaker module.
      * 
      * @type {callback[]}
      */
-    gulpWrappers;
+    gulpWrappers; // TODO: Type.
     
     /**
      * All source build tasks for the chunk.
      * 
      * @type {BuildTask[]}
      */
-    tasks;
+    tasks: BuildTask[];
 }
-
-exports.g_buildTaskRegistry = g_buildTaskRegistry;
-exports.BuildTask = BuildTask;

@@ -2,16 +2,18 @@
  * @fileoverview Responsible for creating the VFL mapping.
  * 
  * @author Isabella Lulamoon <kawapure@gmail.com>
+ * @author Niko Yamamoto <kirasicecreamm@gmail.com>
  * @author The Rehike Maintainers
  */
 
-const crypto = require("crypto");
-const path = require("path");
-const fs = require("fs/promises");
-const gulp = require("gulp");
-const through2 = require("through2");
+import crypto from "crypto";
+import path from "path";
+import fs from "fs/promises";
+import gulp from "gulp";
+import through2 from "through2";
 
-const RehikeBuild = require("./rehikebuild_main");
+import * as RehikeBuild from "./rehikebuild_main";
+import { Status } from "./build_task";
 
 /**
  * The output destination at which to store the VFL cache.
@@ -26,21 +28,17 @@ const VFL_OUTPUT_DESTINATION = "includes/static_version_map.json";
  * 
  * This is exported to the file specified in {@link VFL_OUTPUT_DESTINATION} in
  * JSON format.
- * 
- * @var {Record<string, string>}
  */
-const g_vflMap = {};
+const g_vflMap: Record<string, string> = {};
 
 /**
  * Generates a VFL mapping from a finished build task.
- * 
- * @param {BuildTask} buildTask Finished build task with the output data.
  */
-function generateVflMappingFromBuildTask(buildTask)
+export function generateVflMappingFromBuildTask(buildTask: RehikeBuild.BuildTask): void
 {
     if (
-        buildTask.status != RehikeBuild.BuildTask.Status.FINISHING &&
-        buildTask.status != RehikeBuild.BuildTask.Status.FINISHED
+        buildTask.status != Status.FINISHING &&
+        buildTask.status != Status.FINISHED
     )
     {
         throw new Error("Attempted to generate VFL mapping from unfinished build task");
@@ -58,7 +56,7 @@ function generateVflMappingFromBuildTask(buildTask)
  * @param {string} filePath 
  * @param {string} fileContents 
  */
-function generateVflMappingForFile(filePath, fileContents)
+function generateVflMappingForFile(filePath: string, fileContents: string): void
 {
     // This is actually the same exact hashing algorithm as YouTube's VFL tool itself uses:
     let vflHash = crypto
@@ -78,10 +76,8 @@ function generateVflMappingForFile(filePath, fileContents)
 
 /**
  * Gets the current VFL map.
- * 
- * @returns {Record<string, string>}
  */
-function getCurrentVflMap()
+export function getCurrentVflMap(): Record<string, string>
 {
     return g_vflMap;
 }
@@ -89,7 +85,7 @@ function getCurrentVflMap()
 /**
  * Loads the hashes of all existing files into memory.
  */
-async function getHashesOfAllExistingFiles()
+export async function getHashesOfAllExistingFiles(): Promise<void>
 {
     return await RehikeBuild.promiseWrapStream(
         gulp.src("**/*",
@@ -123,7 +119,7 @@ async function getHashesOfAllExistingFiles()
 /**
  * Replaces the VFL cache file with new contents from the build results.
  */
-async function generateNewCache()
+export async function generateNewCache(): Promise<void>
 {
     const FILE_PATH = path.join(RehikeBuild.REHIKE_ROOT_DIR, VFL_OUTPUT_DESTINATION);
     
@@ -156,8 +152,3 @@ async function generateNewCache()
     
     await fh.close();
 }
-
-exports.getCurrentVflMap = getCurrentVflMap;
-exports.getHashesOfAllExistingFiles = getHashesOfAllExistingFiles;
-exports.generateVflMappingFromBuildTask = generateVflMappingFromBuildTask;
-exports.generateNewCache = generateNewCache;

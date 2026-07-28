@@ -2,19 +2,49 @@
  * @fileoverview Manages Gulp use in RehikeBuild.
  * 
  * @author Isabella Lulamoon <kawapure@gmail.com>
+ * @author Niko Yamamoto <kirasicecreamm@gmail.com>
+ * @author The Rehike Maintainers
  */
 
-const gulp = require("gulp");
-const chalk = require("chalk");
+import gulp, { Gulp, TaskFunction } from "gulp";
+import chalk from "chalk";
+
+// https://github.com/gulpjs/undertaker/blob/2d95b5273d6a61fd4ca09376e91faae1045bbbe2/lib/helpers/createExtensions.js#L36-L40
+interface GulpStartEvent
+{
+    uid: number;
+    name: string;
+    branch: string;
+    time: number;
+}
+
+// https://github.com/gulpjs/undertaker/blob/2d95b5273d6a61fd4ca09376e91faae1045bbbe2/lib/helpers/createExtensions.js#L48-L53
+interface GulpStopEvent
+{
+    uid: number;
+    name: string;
+    branch: string;
+    duration: number[];
+    time: number;
+}
+
+// https://github.com/gulpjs/undertaker/blob/2d95b5273d6a61fd4ca09376e91faae1045bbbe2/lib/helpers/createExtensions.js#L61-L67
+interface GulpErrorEvent
+{
+    uid: number;
+    name: string;
+    branch: string;
+    error: any;
+    duration: number[];
+    time: number;
+}
 
 /**
  * Sets up logging.
- * 
- * @param {gulp.Gulp} gulp 
  */
-function setupLogging(gulp)
+function setupLogging(gulp: Gulp): void
 {
-    gulp.on("start", function(event)
+    gulp.on("start", function(event: GulpStartEvent)
     {
         let info = parseLogCommand(event.name);
         
@@ -35,7 +65,7 @@ function setupLogging(gulp)
         }
     });
     
-    gulp.on("stop", function(event)
+    gulp.on("stop", function(event: GulpStopEvent)
     {
         let info = parseLogCommand(event.name);
         
@@ -56,7 +86,7 @@ function setupLogging(gulp)
         }
     });
     
-    gulp.on("error", function(event)
+    gulp.on("error", function(event: GulpErrorEvent)
     {
         // This error logging code sucks. Consider cleaning up when errors become prominent.
         let info = parseLogCommand(event.name);
@@ -69,11 +99,8 @@ setupLogging(gulp);
 
 /**
  * Runs a Gulp task.
- * 
- * @param {gulp.TaskFunction} task 
- * @param {function()} cb 
  */
-function runGulpTask(task, cb = null)
+export function runGulpTask(task: TaskFunction, cb: () => void = null)
 {
     // https://github.com/gulpjs/gulp-cli/blob/master/lib/versioned/%5E4.0.0/index.js#L74
     task(function(err)
@@ -90,12 +117,17 @@ function runGulpTask(task, cb = null)
     });
 }
 
+interface ILogCommand
+{
+    baseName: string;
+    noLog: boolean;
+    isPackage: boolean;
+}
+
 /**
  * Parses a log command.
- * 
- * @param {string} logCommand 
  */
-function parseLogCommand(logCommand)
+function parseLogCommand(logCommand: string): ILogCommand
 {
     let out = {
         baseName: logCommand,
@@ -125,7 +157,7 @@ function parseLogCommand(logCommand)
 }
 
 // Code taken from Gulp.
-var units = [
+var units: [unitStr: string, unitBase: number][] = [
     ['h', 3600e9],
     ['min', 60e9],
     ['s', 1e9],
@@ -133,7 +165,7 @@ var units = [
     ['μs', 1e3],
 ];
   
-function formatHrTime(hrtime)
+function formatHrTime(hrtime: number[]): string
 {
     if (!Array.isArray(hrtime) || hrtime.length !== 2)
     {
@@ -180,5 +212,3 @@ function formatHrTime(hrtime)
     return '';
 }
 // end gulp code
-
-exports.runGulpTask = runGulpTask;

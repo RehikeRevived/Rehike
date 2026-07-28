@@ -2,38 +2,40 @@
  * @fileoverview Main implementations for RehikeBuild
  * 
  * @author Isabella Lulamoon <kawapure@gmail.com>
+ * @author Niko Yamamoto <kirasicecreamm@gmail.com>
  * @author The Rehike Maintainers
  */
 
-const path = require("path");
-const assert = require("assert/strict");
+import * as path from "path";
+import assert from "assert/strict";
+import Stream from "stream";
 
-const { 
-    BuildTask, 
-    g_buildTaskRegistry: buildTaskRegistry 
-} = require("./build_task");
+import { g_buildTaskRegistry as buildTaskRegistry } from "./build_task";
+export { BuildTask } from "./build_task";
 
 // RehikeBuild root directory.
-const REHIKEBUILD_DIR = path.resolve(__dirname, "../");
+export const REHIKEBUILD_DIR = path.resolve(__dirname, "../");
 
 // Includes should be relative to the src/ directory, and this script resides in
 // src/build_tools/scripts, so we need to up two directories.
-const BASE_SRC_DIR = path.resolve(__dirname, "../..");
+export const BASE_SRC_DIR = path.resolve(__dirname, "../..");
 
 // Rehike root directory is three directories up from here.
-const REHIKE_ROOT_DIR = path.resolve(__dirname, "../../..");
+export const REHIKE_ROOT_DIR = path.resolve(__dirname, "../../..");
 
 // Static content directory.
-const REHIKE_STATIC_DIR = path.resolve(REHIKE_ROOT_DIR, "static");
+export const REHIKE_STATIC_DIR = path.resolve(REHIKE_ROOT_DIR, "static");
+
+export * as Parser from "./parse_rhbuild";
 
 // Build task backends:
-const { CSSBuildTask } = require("./css_build");
-const { JSBuildTask } = require("./js_build");
+import CSSBuildTask from "./css_build";
+import JSBuildTask from "./js_build";
 
 /**
  * Common build configuration options.
  */
-const commonBuildCfg = {
+export const commonBuildCfg = {
     base: BASE_SRC_DIR,
     root: BASE_SRC_DIR,
     cwd: BASE_SRC_DIR,
@@ -41,11 +43,8 @@ const commonBuildCfg = {
 
 /**
  * Wraps a Node.js stream for consumption alongside promises.
- * 
- * @param {Stream} stream
- * @returns {Promise<void>}
  */
-function promiseWrapStream(stream)
+export function promiseWrapStream(stream: Stream): Promise<void>
 {
     return new Promise((resolve, reject) => {
         stream.on("finish", resolve);
@@ -54,10 +53,32 @@ function promiseWrapStream(stream)
     });
 }
 
+export interface BuildTaskDescriptor
+{
+    baseName: string;
+    taskName: string;
+    
+    jsBuildFiles?: string[];
+    jsOutputBundle?: string;
+
+    cssBuildFiles?: Record<string, string>;
+    css2xBuild?: boolean;
+    cssIsCurrently2xBuildTask?: boolean;
+
+    protobufBuildFiles?: Record<string, string>;
+}
+
+const enum SourceLanguageName
+{
+    CSS = "css",
+    JS = "js",
+    Protobuf = "protobuf",
+}
+
 /**
  * Pushes a list of source files from a .rhbuild file to the global list.
  */
-function pushSourceFiles(descriptor)
+export function pushSourceFiles(descriptor: BuildTaskDescriptor)
 {
     assert(typeof descriptor.baseName == "string", JSON.stringify(descriptor));
     
@@ -65,7 +86,11 @@ function pushSourceFiles(descriptor)
     
     // Common function to decorate and push entries for all languages, assuming they
     // exist.
-    function buildSourceToSource(descriptor, srcEntry, languageName)
+    function buildSourceToSource(
+        descriptor: BuildTaskDescriptor,
+        srcEntry: Record<string, string>,
+        languageName: SourceLanguageName,
+    )
     {
         assert(typeof srcEntry == "object");
 
@@ -83,7 +108,7 @@ function pushSourceFiles(descriptor)
             
             switch (languageName)
             {
-                case "css":
+                case SourceLanguageName.CSS:
                     buildTask = new CSSBuildTask(descriptor, fullEntryPath, normalizedDestPath);
                     break;
             }
@@ -95,7 +120,12 @@ function pushSourceFiles(descriptor)
         }
     }
     
-    function buildManyToOne(descriptor, srcEntries, outputBundle, languageName)
+    function buildManyToOne(
+        descriptor: BuildTaskDescriptor,
+        srcEntries: string[],
+        outputBundle: string,
+        languageName: SourceLanguageName,
+    )
     {
         assert(typeof srcEntries == "object");
         assert(typeof outputBundle == "string");
@@ -117,7 +147,7 @@ function pushSourceFiles(descriptor)
         
         switch (languageName)
         {
-            case "js":
+            case SourceLanguageName.JS:
                 buildTask = new JSBuildTask(descriptor, fullEntryPaths, normalizedDestPath);
                 break;
         }
@@ -129,39 +159,32 @@ function pushSourceFiles(descriptor)
     }
     
     if (descriptor.cssBuildFiles != null)
-        buildSourceToSource(descriptor, descriptor.cssBuildFiles, "css");
+        buildSourceToSource(
+            descriptor,
+            descriptor.cssBuildFiles, 
+            SourceLanguageName.CSS
+        );
     
     if (descriptor.jsBuildFiles != null)
-        buildManyToOne(descriptor, descriptor.jsBuildFiles, descriptor.jsOutputBundle, "js");
+        buildManyToOne(
+            descriptor,
+            descriptor.jsBuildFiles,
+            descriptor.jsOutputBundle,
+            SourceLanguageName.JS
+        );
 
     if (descriptor.protobufBuildFiles != null)
-        buildSourceToSource(descriptor, descriptor.protobufBuildFiles, "protobuf");
+        buildSourceToSource(
+            descriptor,
+            descriptor.protobufBuildFiles,
+            SourceLanguageName.Protobuf
+        );
 }
 
 /**
  * Converts a path using Windows separators (\) to Unix ones (/).
- * 
- * @param {string} pathToModify
- * @return {string}
  */
-function unwindows(pathToModify)
+export function unwindows(pathToModify: string): string
 {
     return pathToModify.replace(new RegExp("\\" + path.sep, "g"), "/");
 }
-
-// Exported constants:
-exports.REHIKEBUILD_DIR = REHIKEBUILD_DIR;
-exports.BASE_SRC_DIR = BASE_SRC_DIR;
-exports.REHIKE_ROOT_DIR = REHIKE_ROOT_DIR;
-exports.REHIKE_STATIC_DIR = REHIKE_STATIC_DIR;
-
-// Exported classes:
-exports.BuildTask = BuildTask; // re-exported
-
-// Exported functions:
-exports.promiseWrapStream = promiseWrapStream;
-exports.pushSourceFiles = pushSourceFiles;
-exports.unwindows = unwindows;
-
-// Namespace aliases:
-exports.Parser = require("./parse_rhbuild");

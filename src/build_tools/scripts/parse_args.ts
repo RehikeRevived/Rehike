@@ -5,19 +5,21 @@
  * @author The Rehike Maintainers
  */
 
+export type ArgumentsRecord = Record<string, string[]|boolean>;
+
 const SHORT_ALIASES = {
     "p": "package",
     "v": "verbose",
 };
 
-let g_argCache = null;
+let g_argCache: ArgumentsRecord = null;
 
 /**
  * Gets the command-line arguments passed to RehikeBuild.
  * 
- * @returns {object} Key/value map of the arguments
+ * @returns {ArgumentsRecord} Key/value map of the arguments
  */
-function getArgs()
+export function getArgs(): ArgumentsRecord
 {
     if (g_argCache)
         return g_argCache;
@@ -61,5 +63,3 @@ function getArgs()
     g_argCache = result;
     return result;
 }
-
-exports.getArgs = getArgs;

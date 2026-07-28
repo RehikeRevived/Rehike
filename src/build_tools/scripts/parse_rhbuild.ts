@@ -2,21 +2,23 @@
  * @fileoverview Parsing utilities for rhbuild files.
  * 
  * @author Isabella Lulamoon <kawapure@gmail.com>
+ * @author Niko Yamamoto <kirasicecreamm@gmail.com>
  * @author The Rehike Maintainers
  */
 
-const gulp = require("gulp");
-const path = require("path");
-const through2 = require("through2");
-const RehikeBuild = require("./rehikebuild_main");
-const assert = require("assert/strict");
+import gulp from "gulp";
+import path from "path";
+import through2 from "through2";
+import * as RehikeBuild from "./rehikebuild_main";
+import assert from "assert/strict";
+import { Transform } from "stream";
 
 /**
  * Gulp task for setting up .rhbuild files.
  */
-function GulpSetupRhBuildTask(buildProjects = [])
+export function GulpSetupRhBuildTask(buildProjects: string[] = []): Transform
 {
-    let inputSource = "**/.rhbuild";
+    let inputSource: string|string[] = "**/.rhbuild";
     
     // If we're given a list of build packages to parse, then we want to only specify
     // those in the build sources. Since the package names correspond to the file-system
@@ -33,7 +35,7 @@ function GulpSetupRhBuildTask(buildProjects = [])
 /**
  * Gulp object wrapper for parsing .rhbuild files.
  */
-function gulpParseRhBuild()
+export function gulpParseRhBuild(): Transform
 {
     return through2.obj(function (file, encoding, callback)
     {
@@ -48,7 +50,7 @@ function gulpParseRhBuild()
  * 
  * @param {string} scriptContents Contents of an .rhbuild file.
  */
-function doParse(filePath, scriptContents)
+export function doParse(filePath: string, scriptContents: string): void
 {
     let TASK_NAME = null;
     let JS_BUILD_FILES = null;
@@ -95,7 +97,3 @@ function doParse(filePath, scriptContents)
         protobufBuildFiles: PROTOBUF_BUILD_FILES,
     });
 }
-
-exports.doParse = doParse;
-exports.gulpParseRhBuild = gulpParseRhBuild;
-exports.GulpSetupRhBuildTask = GulpSetupRhBuildTask;

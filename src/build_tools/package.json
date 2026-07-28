@@ -1,16 +1,20 @@
 {
   "dependencies": {
+    "@types/gulp": "^4.0.18",
+    "@types/node": "^26.1.2",
+    "@types/through2": "^2.0.41",
+    "@types/undertaker": "^1.2.12",
     "chalk": "^4.1.2",
     "google-closure-compiler": "^20240317.0.0",
     "google-closure-library": "^20230802.0.0",
     "gulp": "^5.0.0",
+    "gulp-preprocess": "^5.0.0",
     "gulp-sass": "^5.1.0",
+    "image-size": "^1.1.1",
     "sass": "^1.70.0",
     "streamx": "^2.16.1",
-    "through2": "^4.0.2"
-  },
-  "devDependencies": {
-    "gulp-preprocess": "^5.0.0",
-    "image-size": "^1.1.1"
+    "through2": "^4.0.2",
+    "tsx": "^4.23.1",
+    "typescript": "^7.0.2"
   }
 }

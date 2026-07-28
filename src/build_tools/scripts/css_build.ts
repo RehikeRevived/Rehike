@@ -1,39 +1,49 @@
-const { BuildTask, g_buildTaskRegistry } = require("./build_task");
+/**
+ * @fileoverview Implements the CSS build task.
+ * 
+ * @author Isabella Lulamoon <kawapure@gmail.com>
+ * @author Niko Yamamoto <kirasicecreamm@gmail.com>
+ * @author The Rehike Maintainers
+ */
 
-const sassBackend = require("sass");
-const gulpSassBackend = require("gulp-sass");
+import { BuildTask, g_buildTaskRegistry, GulpTask } from "./build_task";
+
+import sassBackend from "sass";
+import gulpSassBackend from "gulp-sass";
 const GulpSass = gulpSassBackend(sassBackend);
-const through2 = require("through2");
-const path = require("path");
-const fs = require("fs");
-const imageSize = require("image-size");
-const RehikeBuild = require("./rehikebuild_main");
-const VflGenerator = require("./vfl_gen");
+import through2 from "through2";
+import path from "path";
+import fs from "fs";
+import imageSize from "image-size";
+import * as RehikeBuild from "./rehikebuild_main";
+import * as VflGenerator from "./vfl_gen";
 
-class CSSBuildTask extends BuildTask
+export default class CSSBuildTask extends BuildTask
 {
     /**
      * Should we do a 2x resource build too?
-     * 
-     * @type {boolean}
      */
-    do2xBuild = false;
+    private do2xBuild: boolean = false;
     
     /**
      * A reference to the original descriptor given to the constructor.
      * 
      * This is cloned and modified for preparing the 2x build task.
      */
-    descriptor = null;
+    private descriptor: RehikeBuild.BuildTaskDescriptor = null;
     
     /**
      * Are we currently doing a 2x resource build?
      * 
      * @type {boolean}
      */
-    is2xBuild = false;
+    private is2xBuild: boolean = false;
     
-    constructor(descriptor, inputFileNames, outputFileName)
+    constructor(
+        descriptor: RehikeBuild.BuildTaskDescriptor,
+        inputFileNames: string|string[],
+        outputFileName: string,
+    )
     {
         super(descriptor, inputFileNames, outputFileName);
         
@@ -50,8 +60,7 @@ class CSSBuildTask extends BuildTask
         }
     }
     
-    /** @inheritdoc @override */
-    _buildGulpTask()
+    protected override _buildGulpTask(): GulpTask
     {
         const task = this._prepareGulpBackend();
         let currentBuildTask = this;
@@ -63,13 +72,6 @@ class CSSBuildTask extends BuildTask
             }))
             .pipe(GulpSass.sync({ outputStyle: "compressed" }).on("error", GulpSass.logError))
             .pipe(through2.obj(function(file, encoding, callback) {
-                // Temporary testing code: 
-                if (process.argv.includes("--test-branched-build-task"))
-                {
-                    let test = new BuildTask({taskName: "Fake test task."}, "fake", "fake");
-                    g_buildTaskRegistry.push(test);
-                }
-                
                 if (currentBuildTask.do2xBuild)
                 {
                     let descriptor2x = JSON.parse(JSON.stringify(currentBuildTask.descriptor));
@@ -97,7 +99,7 @@ class CSSBuildTask extends BuildTask
         return result;
     }
     
-    _determine2xPath(originalPath)
+    private _determine2xPath(originalPath: string): string
     {
         let extension = path.extname(originalPath);
         let base = originalPath.split(extension)[0];
@@ -106,16 +108,20 @@ class CSSBuildTask extends BuildTask
     
     /**
      * Transforms calls to `rehike.sprite()` to CSS backgrounds.
-     * 
-     * @param {} originalContent 
      */
-    _doRehikeSpriteTransform(originalContent)
+    _doRehikeSpriteTransform(originalContent: string): string
     {
         try
         {
+            // @ts-ignore "Named capturing groups are only available when
+            // targeting 'ES2018' or later.ts(1503)" - Erroneously reported.
             let rehikeSpriteCalls = originalContent.matchAll(/\@include\s+rehike\.sprite\s*\((?<arguments>.*?)\)\s*;/g);
             let result = originalContent;
             
+            // @ts-ignore "Type 'IterableIterator<RegExpExecArray>' can only be
+            // iterated through when using the '--downlevelIteration' flag or
+            // with a '--target' of 'es2015' or higher.ts(2802)" - Erroneously
+            // reported.
             for (let fnCall of rehikeSpriteCalls)
             {
                 let args = fnCall.groups.arguments;
@@ -172,11 +178,9 @@ class CSSBuildTask extends BuildTask
     }
 
     /**
-     * Updates all references to VFL 
-     * 
-     * @param {} fileContents
+     * Updates all references to versioned files in the CSS file.
      */
-    _vflize(fileContents)
+    _vflize(fileContents: string): string
     {
         const vflMap = VflGenerator.getCurrentVflMap();
 
@@ -194,5 +198,3 @@ class CSSBuildTask extends BuildTask
         return fileContents;
     }
 }
-
-exports.CSSBuildTask = CSSBuildTask;

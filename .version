@@ -1,10 +1,10 @@
 {
-	"previousHash": "8683e43eaeca9411d57bc186d4fe485900a62712",
-	"currentRevisionId": 1888,
-	"subject": "Remove Nightly/Release distinction",
-	"body": "Remove Nightly/Release distinction",
+	"previousHash": "b60f9bc242986438fea7f84fb9bd20160ab3aea3",
+	"currentRevisionId": 1889,
+	"subject": "Port RehikeBuild to TypeScript",
+	"body": "Port RehikeBuild to TypeScript",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785217028
+	"time": 1785233164
 }
