@@ -40,7 +40,6 @@ class DotVersion
             return;
         }
 
-        $info->isRelease = (bool)@$json->isRelease ?? false;
         $info->time = (int)@$json->time ?? null;
         $info->previousHash = (string)@$json->previousHash ?? null;
         $info->currentRevisionId = (int)@$json->currentRevisionId ?? null;

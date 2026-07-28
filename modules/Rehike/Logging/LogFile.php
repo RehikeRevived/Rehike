@@ -58,9 +58,6 @@ class LogFile
 
         $out .= "=== Configuration information ===\n";
         $out .= " - Rehike Revised version: " . VersionController::getVersion() . "\n";
-        $out .= " - Nightly release: " . (VersionController::$versionInfo->isRelease
-            ? "No"
-            : "Yes") . "\n";
         $out .= " - Git-cloned copy: " . (VersionController::$versionInfo->supportsDotGit
             ? "Yes"
             : "No") . "\n";

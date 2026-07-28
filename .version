@@ -1,10 +1,10 @@
 {
-	"previousHash": "b3207523dd4e1b0fdb5ed1afaa713c5abc4274f1",
-	"currentRevisionId": 1887,
-	"subject": "Refactor RehikeUtilsDelegate for PHP 8.1",
-	"body": "Refactor RehikeUtilsDelegate for PHP 8.1",
+	"previousHash": "8683e43eaeca9411d57bc186d4fe485900a62712",
+	"currentRevisionId": 1888,
+	"subject": "Remove Nightly/Release distinction",
+	"body": "Remove Nightly/Release distinction",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785216239
+	"time": 1785217028
 }

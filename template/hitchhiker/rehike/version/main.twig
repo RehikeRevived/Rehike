@@ -69,10 +69,7 @@
 	{%- endif -%}
 	{%- if page.nightlyInfo -%}
 		<div id="rehike-info-nightly" class="rehike-info">
-			<h1>
-				<span class="info-nightly-indicator-title">{{ page.nightlyInfo.headingText }}</span>{# quick display hack :3
-				#}<span class="info-nightly-indicator">Nightly</span>
-			</h1>
+			<h1>{{ page.nightlyInfo.headingText }}</h1>
 			{{ _self.nightly_info_commit(page.nightlyInfo.primaryItem) }}
 			{% if page.nightlyInfo.updateAvailable %}
 				<div class="update-available update-container">
