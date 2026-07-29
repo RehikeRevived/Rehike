@@ -26,6 +26,9 @@ verified: "確認済み"
 
 bylineFormat: "作者: %s"
 
+# Video thumbnail "WATCHED" string.
+watchedBadgeText: "再生済み"
+
 # Video thumbnail watch later button strings:
 addToWatchLater: "後で見る"
 addedToWatchLater: "追加済み"

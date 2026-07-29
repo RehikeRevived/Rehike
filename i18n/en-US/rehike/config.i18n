@@ -89,6 +89,11 @@ props:
       title: "Remove \"views\" text from view count on watch page"
       subtitle: >
         Before 2016, only the count itself was displayed, without any label.
+    watchedVideoThumbnailOverlayStyle:
+      title: "Watched video thumbnail overlay style"
+      values:
+        PROGRESS_BAR: "Red progress bar (November 2016 and later)"
+        WATCHED_BADGE: "\"WATCHED\" badge (October 2016 and before)"
     movingThumbnails:
       title: "Show an animated preview when hovering over a video"
       subtitle: >

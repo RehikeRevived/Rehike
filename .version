@@ -1,10 +1,10 @@
 {
-	"previousHash": "1173ab8accf4f0998ed8ba3fd198274a8d898063",
-	"currentRevisionId": 1894,
-	"subject": "Silly me",
-	"body": "Silly me",
+	"previousHash": "9770a372b4df85fd4063937f0d1603fbbca7cde3",
+	"currentRevisionId": 1895,
+	"subject": "Add option for old watched badge",
+	"body": "Add option for old watched badge",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785302739
+	"time": 1785303760
 }

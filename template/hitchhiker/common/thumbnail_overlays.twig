@@ -8,8 +8,12 @@
             {% from "common/uix/watch_later_button.twig" import render as watch_later %}
             {{ watch_later(overlay.thumbnailOverlayToggleButtonRenderer, id) }}
         {% elseif overlay.thumbnailOverlayResumePlaybackRenderer %}
+            {% if rehike.config.appearance.watchedVideoThumbnailOverlayStyle == 'PROGRESS_BAR' %}
             <span class="resume-playback-background"></span>
-            <span class="resume-playback-progress-bar" style="width:{{ overlay.thumbnailOverlayResumePlaybackRenderer.percentDurationWatched }}%"></span>
+            <span class="resume-playback-progress-bar" {{'style'}}="width:{{ overlay.thumbnailOverlayResumePlaybackRenderer.percentDurationWatched }}%"></span>
+            {% else %}{# WATCHED_BADGE #}
+            <span class="watched-badge">{{ rehike.i18n.get("global", "watchedBadgeText") }}</span>
+            {% endif %}
         {% endif %}
     {% endfor %}
 {% endmacro %}

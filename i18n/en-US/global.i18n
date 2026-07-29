@@ -29,6 +29,9 @@ verified: "Verified"
 
 bylineFormat: "by %s" # "by Username"
 
+# Video thumbnail "WATCHED" string.
+watchedBadgeText: "WATCHED"
+
 # Video thumbnail watch later button strings:
 addToWatchLater: "Watch later"
 addedToWatchLater: "Added"

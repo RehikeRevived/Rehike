@@ -86,6 +86,11 @@ props:
       title: "ウォッチページの視聴回数から「回視聴」テキストを削除"
       subtitle: >
         2016年以前、ラベルなしでカウントのみが表示されていました。
+    watchedVideoThumbnailOverlayStyle:
+      title: "再生済み動画サムネイルのオーバーレイスタイル"
+      values:
+        PROGRESS_BAR: "赤い進捗バー（2016年11月以降）"
+        WATCHED_BADGE: "「再生済み」バッジ（2016年10月以前）"
     movingThumbnails:
       title: "動画上でホバーしたときにアニメーションプレビューを表示"
       subtitle: >

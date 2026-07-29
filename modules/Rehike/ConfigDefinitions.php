@@ -39,6 +39,10 @@ class AppearanceConfigDefinitions implements IConfigDefinitionsProvider
         public BoolProp $useRyd = new BoolProp(true),
         public BoolProp $enableSponsorblockFixes = new BoolProp(true),
         public BoolProp $noViewsText = new BoolProp(false),
+        public EnumProp $watchedVideoThumbnailOverlayStyle = new EnumProp("PROGRESS_BAR", [
+            "PROGRESS_BAR",
+            "WATCHED_BADGE",
+        ]),
         public BoolProp $movingThumbnails = new BoolProp(true),
         public BoolProp $cssFixes = new BoolProp(true),
         public BoolProp $watchSidebarDates = new BoolProp(false),
