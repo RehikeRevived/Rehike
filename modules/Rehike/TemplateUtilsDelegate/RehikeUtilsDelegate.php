@@ -30,5 +30,6 @@ class RehikeUtilsDelegate extends RehikeUtilsDelegateBase
         public SignIn $signin = new SignIn(),
     )
     {
+        parent::__construct();
     }
 }
