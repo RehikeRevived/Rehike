@@ -6,8 +6,8 @@
 namespace Com\Youtube\Innertube\Request;
 
 use Google\Protobuf\Internal\GPBType;
-use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
+use Google\Protobuf\RepeatedField;
 
 /**
  * Generated from protobuf message <code>com.youtube.innertube.request.ModernBrowseVideoParams</code>
@@ -19,7 +19,14 @@ class ModernBrowseVideoParams extends \Google\Protobuf\Internal\Message
      */
     protected $legacy_sort = null;
     /**
-     * Generated from protobuf field <code>optional .com.youtube.innertube.request.ModernBrowseVideoParams.ModernSort sort = 2;</code>
+     * Deprecated circa 2026-07, and moved to a nested message in field 4. I do
+     * not know entirely why.
+     *
+     * Generated from protobuf field <code>optional .com.youtube.innertube.request.ModernBrowseVideoParams.ModernSort legacy_sort_2 = 2;</code>
+     */
+    protected $legacy_sort_2 = null;
+    /**
+     * Generated from protobuf field <code>optional .com.youtube.innertube.request.ModernBrowseVideoParams.ModernSortParams2 sort = 4;</code>
      */
     protected $sort = null;
 
@@ -30,7 +37,10 @@ class ModernBrowseVideoParams extends \Google\Protobuf\Internal\Message
      *     Optional. Data for populating the Message object.
      *
      *     @type int $legacy_sort
-     *     @type int $sort
+     *     @type int $legacy_sort_2
+     *           Deprecated circa 2026-07, and moved to a nested message in field 4. I do
+     *           not know entirely why.
+     *     @type \Com\Youtube\Innertube\Request\ModernBrowseVideoParams\ModernSortParams2 $sort
      * }
      */
     public function __construct($data = NULL) {
@@ -40,7 +50,7 @@ class ModernBrowseVideoParams extends \Google\Protobuf\Internal\Message
 
     /**
      * Generated from protobuf field <code>optional .com.youtube.innertube.request.BrowseRequestParams.Sort legacy_sort = 1;</code>
-     * @return int
+     * @return int one of the values in {@see \Com\Youtube\Innertube\Request\BrowseRequestParams\Sort}
      */
     public function getLegacySort()
     {
@@ -59,10 +69,10 @@ class ModernBrowseVideoParams extends \Google\Protobuf\Internal\Message
 
     /**
      * Generated from protobuf field <code>optional .com.youtube.innertube.request.BrowseRequestParams.Sort legacy_sort = 1;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Com\Youtube\Innertube\Request\BrowseRequestParams\Sort}
      * @return $this
      */
-    public function setLegacySort($var)
+    public function setLegacySort(int $var)
     {
         GPBUtil::checkEnum($var, \Com\Youtube\Innertube\Request\BrowseRequestParams\Sort::class);
         $this->legacy_sort = $var;
@@ -71,12 +81,50 @@ class ModernBrowseVideoParams extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>optional .com.youtube.innertube.request.ModernBrowseVideoParams.ModernSort sort = 2;</code>
-     * @return int
+     * Deprecated circa 2026-07, and moved to a nested message in field 4. I do
+     * not know entirely why.
+     *
+     * Generated from protobuf field <code>optional .com.youtube.innertube.request.ModernBrowseVideoParams.ModernSort legacy_sort_2 = 2;</code>
+     * @return int one of the values in {@see \Com\Youtube\Innertube\Request\ModernBrowseVideoParams\ModernSort}
+     */
+    public function getLegacySort2()
+    {
+        return isset($this->legacy_sort_2) ? $this->legacy_sort_2 : 0;
+    }
+
+    public function hasLegacySort2()
+    {
+        return isset($this->legacy_sort_2);
+    }
+
+    public function clearLegacySort2()
+    {
+        unset($this->legacy_sort_2);
+    }
+
+    /**
+     * Deprecated circa 2026-07, and moved to a nested message in field 4. I do
+     * not know entirely why.
+     *
+     * Generated from protobuf field <code>optional .com.youtube.innertube.request.ModernBrowseVideoParams.ModernSort legacy_sort_2 = 2;</code>
+     * @param int $var one of the values in {@see \Com\Youtube\Innertube\Request\ModernBrowseVideoParams\ModernSort}
+     * @return $this
+     */
+    public function setLegacySort2(int $var)
+    {
+        GPBUtil::checkEnum($var, \Com\Youtube\Innertube\Request\ModernBrowseVideoParams\ModernSort::class);
+        $this->legacy_sort_2 = $var;
+
+        return $this;
+    }
+
+    /**
+     * Generated from protobuf field <code>optional .com.youtube.innertube.request.ModernBrowseVideoParams.ModernSortParams2 sort = 4;</code>
+     * @return \Com\Youtube\Innertube\Request\ModernBrowseVideoParams\ModernSortParams2|null
      */
     public function getSort()
     {
-        return isset($this->sort) ? $this->sort : 0;
+        return $this->sort;
     }
 
     public function hasSort()
@@ -90,13 +138,12 @@ class ModernBrowseVideoParams extends \Google\Protobuf\Internal\Message
     }
 
     /**
-     * Generated from protobuf field <code>optional .com.youtube.innertube.request.ModernBrowseVideoParams.ModernSort sort = 2;</code>
-     * @param int $var
+     * Generated from protobuf field <code>optional .com.youtube.innertube.request.ModernBrowseVideoParams.ModernSortParams2 sort = 4;</code>
+     * @param \Com\Youtube\Innertube\Request\ModernBrowseVideoParams\ModernSortParams2 $var
      * @return $this
      */
-    public function setSort($var)
+    public function setSort(\Com\Youtube\Innertube\Request\ModernBrowseVideoParams\ModernSortParams2|null $var)
     {
-        GPBUtil::checkEnum($var, \Com\Youtube\Innertube\Request\ModernBrowseVideoParams\ModernSort::class);
         $this->sort = $var;
 
         return $this;

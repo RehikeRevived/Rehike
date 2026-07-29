@@ -165,7 +165,7 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * Unlike a Deferred class's Promise, an anonymous Promise is
      * automatically made into an Event and added to the event loop.
      * 
-     * @param ?callable(callable(mixed): void, callable(string|Throwable): void)
+     * @param ?callable((callable(mixed): void)|(callable(): void), callable(string|Throwable): void)
      *             : void $cb
      */
     public function __construct(

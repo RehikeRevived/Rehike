@@ -6,8 +6,8 @@
 namespace Com\Youtube\Innertube\Request;
 
 use Google\Protobuf\Internal\GPBType;
-use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
+use Google\Protobuf\RepeatedField;
 
 /**
  * Generated from protobuf message <code>com.youtube.innertube.request.BrowseRequestParams</code>
@@ -102,7 +102,7 @@ class BrowseRequestParams extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setPage($var)
+    public function setPage(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->page = $var;
@@ -134,9 +134,9 @@ class BrowseRequestParams extends \Google\Protobuf\Internal\Message
      * @param string $var
      * @return $this
      */
-    public function setTab($var)
+    public function setTab(string $var)
     {
-        GPBUtil::checkString($var, True);
+        GPBUtil::checkString($var, true);
         $this->tab = $var;
 
         return $this;
@@ -144,7 +144,7 @@ class BrowseRequestParams extends \Google\Protobuf\Internal\Message
 
     /**
      * Generated from protobuf field <code>optional .com.youtube.innertube.request.BrowseRequestParams.Sort sort = 3;</code>
-     * @return int
+     * @return int one of the values in {@see \Com\Youtube\Innertube\Request\BrowseRequestParams\Sort}
      */
     public function getSort()
     {
@@ -163,10 +163,10 @@ class BrowseRequestParams extends \Google\Protobuf\Internal\Message
 
     /**
      * Generated from protobuf field <code>optional .com.youtube.innertube.request.BrowseRequestParams.Sort sort = 3;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Com\Youtube\Innertube\Request\BrowseRequestParams\Sort}
      * @return $this
      */
-    public function setSort($var)
+    public function setSort(int $var)
     {
         GPBUtil::checkEnum($var, \Com\Youtube\Innertube\Request\BrowseRequestParams\Sort::class);
         $this->sort = $var;
@@ -176,7 +176,7 @@ class BrowseRequestParams extends \Google\Protobuf\Internal\Message
 
     /**
      * Generated from protobuf field <code>optional .com.youtube.innertube.request.BrowseRequestParams.Flow flow = 6;</code>
-     * @return int
+     * @return int one of the values in {@see \Com\Youtube\Innertube\Request\BrowseRequestParams\Flow}
      */
     public function getFlow()
     {
@@ -195,10 +195,10 @@ class BrowseRequestParams extends \Google\Protobuf\Internal\Message
 
     /**
      * Generated from protobuf field <code>optional .com.youtube.innertube.request.BrowseRequestParams.Flow flow = 6;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Com\Youtube\Innertube\Request\BrowseRequestParams\Flow}
      * @return $this
      */
-    public function setFlow($var)
+    public function setFlow(int $var)
     {
         GPBUtil::checkEnum($var, \Com\Youtube\Innertube\Request\BrowseRequestParams\Flow::class);
         $this->flow = $var;
@@ -208,7 +208,7 @@ class BrowseRequestParams extends \Google\Protobuf\Internal\Message
 
     /**
      * Generated from protobuf field <code>optional .com.youtube.innertube.request.BrowseRequestParams.LiveView live_view = 7;</code>
-     * @return int
+     * @return int one of the values in {@see \Com\Youtube\Innertube\Request\BrowseRequestParams\LiveView}
      */
     public function getLiveView()
     {
@@ -227,10 +227,10 @@ class BrowseRequestParams extends \Google\Protobuf\Internal\Message
 
     /**
      * Generated from protobuf field <code>optional .com.youtube.innertube.request.BrowseRequestParams.LiveView live_view = 7;</code>
-     * @param int $var
+     * @param int $var one of the values in {@see \Com\Youtube\Innertube\Request\BrowseRequestParams\LiveView}
      * @return $this
      */
-    public function setLiveView($var)
+    public function setLiveView(int $var)
     {
         GPBUtil::checkEnum($var, \Com\Youtube\Innertube\Request\BrowseRequestParams\LiveView::class);
         $this->live_view = $var;
@@ -262,7 +262,7 @@ class BrowseRequestParams extends \Google\Protobuf\Internal\Message
      * @param int $var
      * @return $this
      */
-    public function setShelfId($var)
+    public function setShelfId(int $var)
     {
         GPBUtil::checkInt32($var);
         $this->shelf_id = $var;
@@ -294,9 +294,8 @@ class BrowseRequestParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernMetadata $var
      * @return $this
      */
-    public function setModernMetadata($var)
+    public function setModernMetadata(\Com\Youtube\Innertube\Request\ModernMetadata|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernMetadata::class);
         $this->modern_metadata = $var;
 
         return $this;

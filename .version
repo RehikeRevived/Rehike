@@ -1,10 +1,10 @@
 {
-	"previousHash": "5e266f53c4c021073c6d33be3c7a73cf8422c17e",
-	"currentRevisionId": 1892,
-	"subject": "Fix crash on subscriptions feed",
-	"body": "Fix crash on subscriptions feed",
+	"previousHash": "1b6c822241dca5d0d2ef276f9d8887acc492915f",
+	"currentRevisionId": 1893,
+	"subject": "Fix channel videos tab sorting",
+	"body": "Fix channel videos tab sorting",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785299429
+	"time": 1785301101
 }

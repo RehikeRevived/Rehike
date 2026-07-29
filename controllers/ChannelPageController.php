@@ -30,6 +30,7 @@ use Com\Youtube\Innertube\Request\ModernBrowseShoppingParams;
 use Com\Youtube\Innertube\Request\ModernBrowseShortsParams;
 use Com\Youtube\Innertube\Request\ModernBrowseVideoParams;
 use Com\Youtube\Innertube\Request\ModernBrowseVideoParams\ModernSort;
+use Com\Youtube\Innertube\Request\ModernBrowseVideoParams\ModernSortParams2;
 use Com\Youtube\Innertube\Request\ModernMetadata;
 use Com\Youtube\Innertube\Request\ModernWebParams;
 use Rehike\Network;
@@ -140,9 +141,21 @@ class ChannelPageController extends NirvanaController implements IGetController,
                     // The default sort order is newest first.
                     $modernVideoParams = new ModernBrowseVideoParams();
                     
-                    // 2025-10: This is now counted as an invalid parameter. Whatever man.
-                    // I don't even care.
-                    //$modernVideoParams->setSort(ModernSort::LATEST);
+                    if (isset($request->params->sort))
+                    {
+                        $sortParams = new ModernSortParams2();
+
+                        $sortParams->setSort(match ($request->params->sort)
+                        {
+                            "p" => ModernSort::POPULAR,
+                            "da" => ModernSort::OLDEST,
+
+                            // "dd" and invalid parameters:
+                            default => ModernSort::LATEST,
+                        });
+
+                        $modernVideoParams->setSort($sortParams);
+                    }
                     
                     $modernParams->setVideosParams($modernVideoParams);
                     break;

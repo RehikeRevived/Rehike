@@ -13,6 +13,9 @@ use UnexpectedValueException;
 class ModernSort
 {
     /**
+     * Deprecated circa 2025-10 and counted as an invalid parameter which causes
+     * the request to be rejected.
+     *
      * Generated from protobuf enum <code>DEFAULT_SORT = 0;</code>
      */
     const DEFAULT_SORT = 0;

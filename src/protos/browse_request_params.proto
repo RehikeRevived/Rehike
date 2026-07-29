@@ -97,13 +97,27 @@ message ModernBrowseVideoParams {
   optional BrowseRequestParams.Sort legacy_sort = 1;
   
   enum ModernSort {
+    // Deprecated circa 2025-10 and counted as an invalid parameter which causes
+    // the request to be rejected.
     DEFAULT_SORT = 0;
+
     POPULAR = 2;
     LATEST = 4;
     OLDEST = 5;
   }
+
+  // New video sort parameters used since 2026-07:
+  message ModernSortParams2 {
+    optional ModernSort sort = 1;
+  }
   
-  optional ModernSort sort = 2;
+  // Deprecated circa 2026-07, and moved to a nested message in field 4. I do
+  // not know entirely why.
+  optional ModernSort legacy_sort_2 = 2;
+
+  reserved 3; // Unknown
+
+  optional ModernSortParams2 sort = 4;
 }
 message ModernBrowsePlaylistParams {}
 message ModernBrowseCommunityParams {}

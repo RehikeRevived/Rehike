@@ -6,8 +6,8 @@
 namespace Com\Youtube\Innertube\Request;
 
 use Google\Protobuf\Internal\GPBType;
-use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
+use Google\Protobuf\RepeatedField;
 
 /**
  * Generated from protobuf message <code>com.youtube.innertube.request.ModernWebParams</code>
@@ -124,9 +124,8 @@ class ModernWebParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernBrowseAboutParams $var
      * @return $this
      */
-    public function setAboutParams($var)
+    public function setAboutParams(\Com\Youtube\Innertube\Request\ModernBrowseAboutParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernBrowseAboutParams::class);
         $this->about_params = $var;
 
         return $this;
@@ -156,9 +155,8 @@ class ModernWebParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernBrowseShoppingParams $var
      * @return $this
      */
-    public function setShoppingParams($var)
+    public function setShoppingParams(\Com\Youtube\Innertube\Request\ModernBrowseShoppingParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernBrowseShoppingParams::class);
         $this->shopping_params = $var;
 
         return $this;
@@ -188,9 +186,8 @@ class ModernWebParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernBrowseFeaturedParams $var
      * @return $this
      */
-    public function setFeaturedParams($var)
+    public function setFeaturedParams(\Com\Youtube\Innertube\Request\ModernBrowseFeaturedParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernBrowseFeaturedParams::class);
         $this->featured_params = $var;
 
         return $this;
@@ -220,9 +217,8 @@ class ModernWebParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernBrowseVideoParams $var
      * @return $this
      */
-    public function setVideosParams($var)
+    public function setVideosParams(\Com\Youtube\Innertube\Request\ModernBrowseVideoParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernBrowseVideoParams::class);
         $this->videos_params = $var;
 
         return $this;
@@ -252,9 +248,8 @@ class ModernWebParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernBrowsePlaylistParams $var
      * @return $this
      */
-    public function setPlaylistParams($var)
+    public function setPlaylistParams(\Com\Youtube\Innertube\Request\ModernBrowsePlaylistParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernBrowsePlaylistParams::class);
         $this->playlist_params = $var;
 
         return $this;
@@ -284,9 +279,8 @@ class ModernWebParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernBrowseCommunityParams $var
      * @return $this
      */
-    public function setCommunityParams($var)
+    public function setCommunityParams(\Com\Youtube\Innertube\Request\ModernBrowseCommunityParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernBrowseCommunityParams::class);
         $this->community_params = $var;
 
         return $this;
@@ -316,9 +310,8 @@ class ModernWebParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernBrowseChannelsParams $var
      * @return $this
      */
-    public function setChannelsParams($var)
+    public function setChannelsParams(\Com\Youtube\Innertube\Request\ModernBrowseChannelsParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernBrowseChannelsParams::class);
         $this->channels_params = $var;
 
         return $this;
@@ -348,9 +341,8 @@ class ModernWebParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernBrowseSearchParams $var
      * @return $this
      */
-    public function setSearchParams($var)
+    public function setSearchParams(\Com\Youtube\Innertube\Request\ModernBrowseSearchParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernBrowseSearchParams::class);
         $this->search_params = $var;
 
         return $this;
@@ -380,9 +372,8 @@ class ModernWebParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernBrowseLiveParams $var
      * @return $this
      */
-    public function setLiveParams($var)
+    public function setLiveParams(\Com\Youtube\Innertube\Request\ModernBrowseLiveParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernBrowseLiveParams::class);
         $this->live_params = $var;
 
         return $this;
@@ -412,9 +403,8 @@ class ModernWebParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernBrowseShortsParams $var
      * @return $this
      */
-    public function setShortsParams($var)
+    public function setShortsParams(\Com\Youtube\Innertube\Request\ModernBrowseShortsParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernBrowseShortsParams::class);
         $this->shorts_params = $var;
 
         return $this;
@@ -444,9 +434,8 @@ class ModernWebParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernBrowseReleasesParams $var
      * @return $this
      */
-    public function setReleasesParams($var)
+    public function setReleasesParams(\Com\Youtube\Innertube\Request\ModernBrowseReleasesParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernBrowseReleasesParams::class);
         $this->releases_params = $var;
 
         return $this;
@@ -476,9 +465,8 @@ class ModernWebParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernBrowsePodcastsParams $var
      * @return $this
      */
-    public function setPodcastsParams($var)
+    public function setPodcastsParams(\Com\Youtube\Innertube\Request\ModernBrowsePodcastsParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernBrowsePodcastsParams::class);
         $this->podcasts_params = $var;
 
         return $this;
@@ -508,9 +496,8 @@ class ModernWebParams extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernBrowseCoursesParams $var
      * @return $this
      */
-    public function setCoursesParams($var)
+    public function setCoursesParams(\Com\Youtube\Innertube\Request\ModernBrowseCoursesParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernBrowseCoursesParams::class);
         $this->courses_params = $var;
 
         return $this;

@@ -6,8 +6,8 @@
 namespace Com\Youtube\Innertube\Request;
 
 use Google\Protobuf\Internal\GPBType;
-use Google\Protobuf\Internal\RepeatedField;
 use Google\Protobuf\Internal\GPBUtil;
+use Google\Protobuf\RepeatedField;
 
 /**
  * Generated from protobuf message <code>com.youtube.innertube.request.ModernMetadata</code>
@@ -62,9 +62,8 @@ class ModernMetadata extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernWebParams $var
      * @return $this
      */
-    public function setWebParams($var)
+    public function setWebParams(\Com\Youtube\Innertube\Request\ModernWebParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernWebParams::class);
         $this->web_params = $var;
 
         return $this;
@@ -94,9 +93,8 @@ class ModernMetadata extends \Google\Protobuf\Internal\Message
      * @param \Com\Youtube\Innertube\Request\ModernContinuationParams $var
      * @return $this
      */
-    public function setContinuationParams($var)
+    public function setContinuationParams(\Com\Youtube\Innertube\Request\ModernContinuationParams|null $var)
     {
-        GPBUtil::checkMessage($var, \Com\Youtube\Innertube\Request\ModernContinuationParams::class);
         $this->continuation_params = $var;
 
         return $this;
