@@ -1,10 +1,10 @@
 {
-	"previousHash": "9770a372b4df85fd4063937f0d1603fbbca7cde3",
-	"currentRevisionId": 1895,
-	"subject": "Add option for old watched badge",
-	"body": "Add option for old watched badge",
+	"previousHash": "8d708649180c88792a08b90a0defd40a936c7b75",
+	"currentRevisionId": 1896,
+	"subject": "Fix visual bug with the subscriber count text on the about tab of channels with 0 subscribers",
+	"body": "Fix visual bug with the subscriber count text on the about tab of channels with 0 subscribers",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785303760
+	"time": 1785305966
 }

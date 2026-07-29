@@ -33,7 +33,12 @@ class MChannelAboutMetadata
         $headerInfo = $c4Bakery->header->getAboutInfo();
 
         // This is just the subscriber count without any following words.
-        $subscriberCountText = $headerInfo["subscriberCount"];
+        $subscriberCountText = $headerInfo["subscriberCount"] ?? "0";
+
+        if (empty($subscriberCountText))
+        {
+            $subscriberCountText = "0";
+        }
 
         $hasSingleSubscriber = "1" == $subscriberCountText;
 

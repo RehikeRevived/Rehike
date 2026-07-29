@@ -308,9 +308,9 @@ class MHeader
         return $this->thumbnail;
     }
 
-    public function getSubscriptionCount()
+    public function getSubscriptionCount(): string
     {
-        return $this->subscriptionCount ?? "";
+        return $this->subscriptionCount ?? "0";
     }
     
     /**
