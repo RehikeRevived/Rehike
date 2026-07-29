@@ -54,6 +54,7 @@ class EnumProp extends AbstractAssociativeProp
     /**
      * Get the default value of the property.
      */
+    #[\Override]
     public function getDefaultValue(): mixed
     {
         return $this->defaultValue;
@@ -64,6 +65,7 @@ class EnumProp extends AbstractAssociativeProp
         return $this->validValues;
     }
 
+    #[\Override]
     public function getType(): string
     {
         return "enum";

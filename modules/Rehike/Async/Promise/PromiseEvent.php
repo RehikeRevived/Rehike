@@ -132,6 +132,7 @@ abstract class PromiseEvent/*<T>*/ extends Event
                 EventLoop::addEvent($this);
             }
 
+            #[\Override]
             final protected function onRun(): Generator/*<T>*/
             {
                 return ($this->onRunCb)($this->resolveApi, $this->rejectApi);

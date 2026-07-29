@@ -59,12 +59,14 @@ class ChannelPageController extends NirvanaController implements IGetController,
 
     public static string $requestedTab = "";
 
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         http_response_code(404);
         $this->template = "error/404";
     }
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         async(function() use (&$yt, $request) {

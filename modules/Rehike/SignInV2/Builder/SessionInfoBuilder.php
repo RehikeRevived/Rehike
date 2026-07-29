@@ -30,6 +30,7 @@ class SessionInfoBuilder implements IBuilder
         $this->googleAccounts = new BuilderCollection(GoogleAccountInfoBuilder::class);
     }
 
+    #[\Override]
     public function build(): SessionInfo
     {
         return new SessionInfo($this);

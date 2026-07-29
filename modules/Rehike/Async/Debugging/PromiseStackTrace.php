@@ -75,6 +75,7 @@ class PromiseStackTrace implements IPromiseStackTrace
     /**
      * Gets the simplified trace as an array.
      */
+    #[\Override]
     public function getTraceAsArray(): array
     {
         $result = [];
@@ -93,6 +94,7 @@ class PromiseStackTrace implements IPromiseStackTrace
     /**
      * Gets the simplified trace as a string.
      */
+    #[\Override]
     public function getTraceAsString(): string
     {
         return self::stringifyTrace($this->getTraceAsArray());
@@ -101,6 +103,7 @@ class PromiseStackTrace implements IPromiseStackTrace
     /**
      * Gets the original (advanced) trace as an array.
      */
+    #[\Override]
     public function getOriginalTraceAsArray(): array
     {
         return $this->originalTrace;
@@ -109,6 +112,7 @@ class PromiseStackTrace implements IPromiseStackTrace
     /**
      * Gets the original (advanced) trace as a string.
      */
+    #[\Override]
     public function getOriginalTraceAsString(): string
     {
         return self::stringifyTrace($this->getOriginalTraceAsArray());

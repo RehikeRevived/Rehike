@@ -30,6 +30,7 @@ class SubscriptionAjaxController extends AjaxController implements IPostControll
     public bool $useTemplate = false;
     public string $template = "";
 
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         $action = self::findAction();

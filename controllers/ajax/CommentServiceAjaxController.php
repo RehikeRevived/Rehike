@@ -27,6 +27,7 @@ use Rehike\ControllerV2\{
  */
 class CommentServiceAjaxController extends AjaxController implements IPostController
 {
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         $action = $this->findAction();

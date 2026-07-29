@@ -70,11 +70,13 @@ class EasyAccessMap implements ArrayAccess, IteratorAggregate
         $this->offsetSet(null, null); // inherit warning
     }
 
+    #[\Override]
     public function offsetExists(mixed $offset): bool
     {
         return isset($this->boundArray[$offset]);
     }
 
+    #[\Override]
     public function offsetSet(mixed $offset, mixed $value): void
     {
         trigger_error(
@@ -83,11 +85,13 @@ class EasyAccessMap implements ArrayAccess, IteratorAggregate
         );
     }
 
+    #[\Override]
     public function offsetUnset(mixed $offset): void
     {
         $this->offsetSet(null, null); // inherit warning
     }
 
+    #[\Override]
     public function offsetGet(mixed $offset): mixed
     {
         return isset($this->boundArray[$offset])
@@ -96,6 +100,7 @@ class EasyAccessMap implements ArrayAccess, IteratorAggregate
         ;
     }
 
+    #[\Override]
     public function getIterator(): ArrayIterator
     {
         return new ArrayIterator($this->boundArray);

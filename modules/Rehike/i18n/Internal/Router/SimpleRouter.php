@@ -22,11 +22,13 @@ use Rehike\i18n\Internal\Router\SimpleRouter\Cacher;
  */
 class SimpleRouter implements IRouter
 {
+    #[\Override]
     public function resolveLocation(string $langId, string $uri): ResourceInfo
     {
         return $this->internalResolveLocation($langId, $uri);
     }
 
+    #[\Override]
     public function resolveLocationAsEncoding(
             string $langId,
             string $uri,
@@ -36,11 +38,13 @@ class SimpleRouter implements IRouter
         return $this->internalResolveLocation($langId, $uri, $encoding);
     }
 
+    #[\Override]
     public function languageExists(string $langId): bool
     {
         return file_exists($this->getRootDir() . "/$langId");
     }
 
+    #[\Override]
     public function locationExists(string $langId, string $uri): bool
     {
         return $this->tryGetEffectivePath($langId, $uri, $ignored);

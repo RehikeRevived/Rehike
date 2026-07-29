@@ -35,6 +35,7 @@ class FatalErrorPage extends AbstractErrorPage
         }
     }
 
+    #[\Override]
     public function getTitle(): string
     {
         return "Fatal error";

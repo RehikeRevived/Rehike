@@ -25,11 +25,13 @@ class AddtoFragmentsController extends AjaxController implements IGetController,
     public string $template = "ajax/addto";
     public string $contentType = "application/xml";
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         $this->onPost($yt, $request);
     }
 
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         // Because YouTube's own server is a bit weird, this

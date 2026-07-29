@@ -14,6 +14,7 @@ abstract class BaseController implements IController
      */
     private RequestMetadata $request;
     
+    #[\Override]
     public function initializeController(RequestMetadata $request): void
     {
         $this->request = $request;

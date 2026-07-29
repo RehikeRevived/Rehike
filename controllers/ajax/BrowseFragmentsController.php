@@ -30,11 +30,13 @@ class BrowseFragmentsController extends AjaxController implements IGetController
 {
     public string $template = "ajax/browse";
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         $this->onPost($yt, $request);
     }
 
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         async(function() use (&$yt, $request)

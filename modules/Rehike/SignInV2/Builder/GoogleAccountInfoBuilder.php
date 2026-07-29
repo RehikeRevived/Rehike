@@ -57,6 +57,7 @@ final class GoogleAccountInfoBuilder implements IBuilder
         $this->ytChannels = new BuilderCollection(YtChannelAccountInfoBuilder::class);
     }
 
+    #[\Override]
     public function build(): GoogleAccountInfo
     {
         return new GoogleAccountInfo($this);

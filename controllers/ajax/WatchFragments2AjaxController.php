@@ -34,6 +34,7 @@ class WatchFragments2AjaxController extends AjaxController implements IPostContr
     // The real template will be set by subcontroller functions.
     public string $template = '404';
 
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         $fragsId = $_GET['frags'] ?? '';

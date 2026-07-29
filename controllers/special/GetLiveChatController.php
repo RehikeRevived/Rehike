@@ -24,6 +24,7 @@ class GetLiveChatController extends HitchhikerController implements IGetControll
     public const YTCFG_REGEX = "/ytcfg\.set\(({.*?})\);/";
     public bool $useTemplate = false;
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         async(function() use (&$yt, &$request) {

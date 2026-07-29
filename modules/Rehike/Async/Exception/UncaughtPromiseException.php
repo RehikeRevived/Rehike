@@ -1,8 +1,6 @@
 <?php
 namespace Rehike\Async\Exception;
 
-use Rehike\Attributes\Override;
-
 use Exception;
 
 /**
@@ -21,7 +19,6 @@ class UncaughtPromiseException extends Exception
         $this->class = $class;
     }
 
-    #[Override]
     public function __toString(): string
     {
         $class = $this->original::class;

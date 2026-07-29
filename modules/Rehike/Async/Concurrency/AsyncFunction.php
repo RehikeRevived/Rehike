@@ -76,6 +76,7 @@ class AsyncFunction implements IObjectWithTrackingCookie
     
     // XXX(isabella): Since async functions are just wrappers for promises, we'll
     // actually just share the tracking cookie with the promise.
+    #[\Override]
     public function getTrackingCookie(): TrackingCookie
     {
         return $this->ownPromise->getTrackingCookie();

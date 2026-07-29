@@ -34,6 +34,7 @@ abstract class NirvanaController extends HitchhikerController
     protected bool $delayLoadGuide = false;
 
     /** @inheritdoc */
+    #[\Override]
     protected function init(): void
     {
         // Finish stage 3 boot since we're loading into a main page which can

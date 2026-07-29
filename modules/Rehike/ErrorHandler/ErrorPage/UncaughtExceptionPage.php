@@ -21,6 +21,7 @@ class UncaughtExceptionPage extends AbstractErrorPage
         $this->exceptionLog = ExceptionLogger::getFormattedException($e);
     }
 
+    #[\Override]
     public function getTitle(): string
     {
         return "Uncaught exception";

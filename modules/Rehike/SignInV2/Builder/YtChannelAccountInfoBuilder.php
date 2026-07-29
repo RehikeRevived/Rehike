@@ -67,11 +67,13 @@ class YtChannelAccountInfoBuilder implements IBuilder, IBuilderWithParent
         $parentBuilder->ytChannels->push($this);
     }
     
+    #[\Override]
     public function getFinalizedParent(): GoogleAccountInfo
     {
         return $this->finalParent;
     }
     
+    #[\Override]
     public function setFinalizedParent(IBuiltObject $parent): void
     {
         if (!($parent instanceof GoogleAccountInfo))
@@ -82,6 +84,7 @@ class YtChannelAccountInfoBuilder implements IBuilder, IBuilderWithParent
         $this->finalParent = $parent;
     }
 
+    #[\Override]
     public function build(): YtChannelAccountInfo
     {
         return new YtChannelAccountInfo($this);

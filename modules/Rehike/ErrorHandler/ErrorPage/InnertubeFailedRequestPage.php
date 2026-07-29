@@ -24,6 +24,7 @@ class InnertubeFailedRequestPage extends UncaughtExceptionPage
         $this->innertubeFailedException = $e;
     }
 
+    #[\Override]
     public function getTitle(): string
     {
         return "Failed InnerTube request (probably YouTube server issue)";

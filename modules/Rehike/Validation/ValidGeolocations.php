@@ -9,6 +9,7 @@ namespace Rehike\Validation;
  */
 class ValidGeolocations implements IValidator
 {
+    #[\Override]
     public function validateString(string $input): bool
     {
         return in_array($input, self::VALID_LANGUAGES);

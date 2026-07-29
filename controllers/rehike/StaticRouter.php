@@ -19,6 +19,7 @@ use Rehike\ControllerV2\RequestMetadata;
  */
 class StaticRouter extends BaseController implements IGetController, IPostController
 {
+    #[\Override]
     public function get(): void
     {
         $baseMap = ResourceConstantsStore::getVersionMap();
@@ -59,6 +60,7 @@ class StaticRouter extends BaseController implements IGetController, IPostContro
         }
     }
 
+    #[\Override]
     public function post(): void
     {
         $this->get();

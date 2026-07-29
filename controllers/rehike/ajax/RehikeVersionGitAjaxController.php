@@ -26,6 +26,7 @@ class RehikeVersionGitAjaxController extends AjaxController implements IGetContr
 {
     public bool $useTemplate = false;
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void 
     {
         $action = self::findAction();

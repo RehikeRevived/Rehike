@@ -27,11 +27,13 @@ class DelegateAccountFragmentsController extends AjaxController implements IGetC
 {
     public string $template = "ajax/delegate_account";
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void 
     {
         $this->onPost($yt, $request);
     }
 
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void 
     {
         if (!SignIn::isSignedIn()) 

@@ -22,6 +22,7 @@ class OopsPageController extends HitchhikerController implements IGetController
 {
     public string $template = "oops";
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         $this->setTitle("Oops! Something went wrong.");

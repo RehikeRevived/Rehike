@@ -15,11 +15,13 @@ use Rehike\ControllerV2\RequestMetadata;
  */
 class RehikeServerInfoPageController extends BaseController implements IGetController, IPostController
 {
+    #[\Override]
     public function get(): void
     {
         phpinfo();
     }
 
+    #[\Override]
     public function post(): void
     {
         $this->get();

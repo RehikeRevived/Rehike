@@ -75,6 +75,7 @@ class FeedPageController extends NirvanaController implements IGetController
         "FEsubscriptions"
     ];
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         $feedId = $request->path[1] ?? "what_to_watch";

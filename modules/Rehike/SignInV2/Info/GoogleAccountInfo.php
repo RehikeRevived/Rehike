@@ -44,6 +44,7 @@ class GoogleAccountInfo extends GoogleAccountInfoBase implements IBuiltObject
     /**
      * @override
      */
+    #[\Override]
     public function getAuthUserId(): ?int
     {
         return $this->authUserId;

@@ -36,6 +36,7 @@ class ShareFragmentsAjax extends AjaxController implements IGetController
     private ?string $videoId;
     private ?string $listId;
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         $action = self::findAction();

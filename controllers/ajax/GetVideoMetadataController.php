@@ -35,11 +35,13 @@ class GetVideoMetadataController extends HitchhikerController implements IGetCon
 	public string $contentType = "application/json";
 	public bool $useTemplate = false;
 	
+	#[\Override]
 	public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         $this->onGet($yt, $request);
     }
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
 		$videoId = $request->params->video_id; 

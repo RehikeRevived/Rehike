@@ -4,7 +4,6 @@ namespace Rehike\Async\Concurrency;
 use Generator;
 use Rehike\Async\EventLoop\Event;
 use Rehike\Async\EventLoop\EventFlags;
-use Rehike\Attributes\Override;
 
 /**
  * Wrapper to put async functions onto the event loop.
@@ -22,7 +21,7 @@ final class AsyncFunctionEvent extends Event
         $this->asyncFunction = $func;
     }
     
-    #[Override]
+    #[\Override]
     public function fulfill(): void
     {
         parent::fulfill();
@@ -32,7 +31,7 @@ final class AsyncFunctionEvent extends Event
      * @suppress (PHP0420) : The routine never returns. It seems it contains an
      *                       infinite loop
      */
-    #[Override]
+    #[\Override]
     final protected function onRun(): Generator
     {
         while (true)
@@ -41,7 +40,7 @@ final class AsyncFunctionEvent extends Event
         }
     }
     
-    #[Override]
+    #[\Override]
     final public function getEventFlags(): int
     {
         // Since we rely on the execution of promises, this event should not block

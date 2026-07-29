@@ -37,11 +37,13 @@ class AnnotationsInvideoController extends AjaxController implements IGetControl
 	public string $contentType = "application/xml";
 	public bool $useTemplate = false;
 	
+	#[\Override]
 	public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         $this->onGet($yt, $request);
     }
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
 		$videoId = $request->params->video_id; 

@@ -1,8 +1,6 @@
 <?php
 namespace Rehike\i18n\Internal;
 
-use Rehike\Attributes\Override;
-
 use Rehike\i18n\Internal\Router\SimpleRouter;
 use Rehike\i18n\Internal\Router\IRouter;
 use Rehike\i18n\Internal\Lang\Record\LanguageRecord;
@@ -35,7 +33,7 @@ class RehikeTranslationRouter extends SimpleRouter implements IRouter
      */
     private const CACHE_FOLDER = "cache/i18n";
     
-    #[Override]
+    #[\Override]
     protected function getLanguageRecord(string $path, string $encoding): LanguageRecord
     {
         $fileModifiedTime = filemtime($path);

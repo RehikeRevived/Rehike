@@ -75,6 +75,7 @@ class Response implements IResponse
     /**
      * Get a text representation of the response.
      */
+    #[\Override]
     public function getText(): string
     {
         return $this->content;
@@ -83,6 +84,7 @@ class Response implements IResponse
     /**
      * Get the response decoded as JSON.
      */
+    #[\Override]
     public function getJson(): object|array
     {
         if ($a = @json_decode($this->content))

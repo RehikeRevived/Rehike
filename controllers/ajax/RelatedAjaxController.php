@@ -30,11 +30,13 @@ class RelatedAjaxController extends AjaxController implements IGetController, IP
     public bool $useTemplate = true;
     public string $template = "ajax/related";
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         $this->onPost($yt, $request);
     }
 
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         async(function() use ($yt, $request) {

@@ -3,7 +3,6 @@ namespace Rehike\Async\Exception;
 
 use Rehike\Async\Promise;
 use Rehike\Async\Debugging\PromiseStackTrace;
-use Rehike\Attributes\Override;
 
 use Exception;
 
@@ -34,7 +33,6 @@ class PromiseException extends Exception
         return $this->relatedPromise->latestTrace;
     }
 
-    #[Override]
     public function __toString(): string
     {
         $class = get_called_class();

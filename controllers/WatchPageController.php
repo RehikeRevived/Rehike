@@ -43,6 +43,7 @@ class WatchPageController extends NirvanaController implements IGetControllerAsy
     // Watch should only load the guide after everything else is done.
     protected bool $delayLoadGuide = true;
     
+    #[\Override]
     public function onGetAsync(): Promise
     {
         return async(function(){
@@ -312,6 +313,7 @@ class WatchPageController extends NirvanaController implements IGetControllerAsy
      * Specifically, this binds the player data to the SPF data in order to
      * refresh the player on the client-side.
      */
+    #[\Override]
     public function tryGetSpfData(?object &$data): bool
     {
         $yt = $this->yt;

@@ -23,6 +23,7 @@ class PlaylistVideoAjaxController extends AjaxController implements IPostControl
 {
     public bool $useTemplate = false;
 
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         $action = self::findAction();

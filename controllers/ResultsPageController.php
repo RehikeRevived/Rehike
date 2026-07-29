@@ -38,6 +38,7 @@ class ResultsPageController extends NirvanaController implements IGetController
     public static ?string $query;
     public static ?string $param;
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         async(function() use ($yt, $request) {

@@ -1,8 +1,6 @@
 <?php
 namespace Rehike\Network\Handler;
 
-use Rehike\Attributes\Override;
-
 use Rehike\Network\{
     Enum\NetworkResult,
     Handler\NetworkHandler,
@@ -59,14 +57,14 @@ class CurlHandler extends NetworkHandler
      */
     private bool $requestsDirty = false;
 
-    #[Override]
+    #[\Override]
     public function addRequest(IRequest $request): void
     {
         $this->requests[] = $this->convertRequest($request);
         $this->requestsDirty = true;
     }
 
-    #[Override]
+    #[\Override]
     public function clearRequests(): void
     {
         $this->requests = [];
@@ -133,7 +131,7 @@ class CurlHandler extends NetworkHandler
         $request->resolve($response);
     }
 
-    #[Override]
+    #[\Override]
     public function onRun(): Generator/*<void>*/
     {
         // Defined in CurlHandler

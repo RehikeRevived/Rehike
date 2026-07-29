@@ -43,6 +43,7 @@ class BackwardsCompatibilitySessionInfoFactory implements IBuilder
         $this->builder = new SessionInfoBuilder();
     }
     
+    #[\Override]
     public function build(): SessionInfo
     {
         if (isset($this->cachedSessionInfo))

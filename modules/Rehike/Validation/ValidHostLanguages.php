@@ -9,6 +9,7 @@ namespace Rehike\Validation;
  */
 class ValidHostLanguages implements IValidator
 {
+    #[\Override]
     public function validateString(string $input): bool
     {
         return in_array($input, self::VALID_LANGUAGES);

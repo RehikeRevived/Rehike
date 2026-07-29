@@ -31,6 +31,7 @@ class ProfileRedirectEndpointController extends HitchhikerController implements 
     // Doesn't have a corresponding page as this redirects the user.
     public bool $useTemplate = false;
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         if (!SignIn::isSignedIn())

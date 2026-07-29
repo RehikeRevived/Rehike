@@ -11,7 +11,6 @@ use Exception;
 use Generator;
 use Rehike\Async\EventLoop\EventFlags;
 use Rehike\Async\EventLoop\EventLoop;
-use Rehike\Attributes\Override;
 use Throwable;
 
 /**
@@ -131,7 +130,7 @@ class PromiseAllController extends PromiseEvent
      * @suppress (PHP0420) : The routine never returns. It seems it contains an
      *                       infinite loop
      */
-    #[Override]
+    #[\Override]
     final protected function onRun(): Generator
     {
         // In reality, there's no work to do at all. awaitPromiseArray does all the heavy lifting,
@@ -140,7 +139,7 @@ class PromiseAllController extends PromiseEvent
         while (true) yield;
     }
     
-    #[Override]
+    #[\Override]
     final public function getEventFlags(): int
     {
         // Obviously, Promise::all relies on its child promises to excute, so our event must not

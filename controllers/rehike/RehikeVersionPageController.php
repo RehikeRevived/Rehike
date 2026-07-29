@@ -30,6 +30,7 @@ class RehikeVersionPageController extends NirvanaController implements IGetContr
 
     public string $template = "rehike/version/main";
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         $yt->page = (object)self::bake();

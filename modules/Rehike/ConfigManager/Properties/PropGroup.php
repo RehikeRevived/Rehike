@@ -30,31 +30,37 @@ class PropGroup extends AbstractConfigProperty implements Iterator
         return $this->definitionsProvider;
     }
 
+    #[\Override]
     public function getType(): string
     {
         return self::class;
     }
 
+    #[\Override]
     public function current(): AbstractConfigProperty
     {
         return $this->items[$this->currentItem];
     }
     
+    #[\Override]
     public function key(): int
     {
         return $this->currentItem;
     }
 
+    #[\Override]
     public function rewind(): void
     {
         $this->currentItem = 0;
     }
 
+    #[\Override]
     public function next(): void
     {
         $this->currentItem++;
     }
 
+    #[\Override]
     public function valid(): bool
     {
         return isset($this->items[$this->currentItem]);

@@ -30,6 +30,7 @@ class ChannelSwitcherPageController extends HitchhikerController implements IGet
 {
     public string $template = "channel_switcher";
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         async(function() use (&$yt, &$request) {

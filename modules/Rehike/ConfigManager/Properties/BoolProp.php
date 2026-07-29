@@ -45,11 +45,13 @@ class BoolProp extends AbstractAssociativeProp
     /**
      * Get the default value of the property.
      */
+    #[\Override]
     public function getDefaultValue(): bool
     {
         return $this->defaultValue;
     }
 
+    #[\Override]
     public function getType(): string
     {
         return "bool";

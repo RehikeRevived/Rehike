@@ -9,7 +9,6 @@ use Rehike\Async\Debugging\IObjectWithTrackingCookie;
 use Rehike\Async\Debugging\TraceEventId;
 use Rehike\Async\Debugging\Tracing;
 use Rehike\Async\Debugging\TrackingCookie;
-use Rehike\Attributes\Override;
 
 use const E_USER_WARNING;
 use function trigger_error;
@@ -101,6 +100,7 @@ abstract class Event implements IEvent, IObjectWithTrackingCookie
         $this->ensureTrackingCookie();
     }
     
+    #[\Override]
     public function getTrackingCookie(): TrackingCookie
     {
         $this->ensureTrackingCookie();
@@ -119,7 +119,7 @@ abstract class Event implements IEvent, IObjectWithTrackingCookie
     /**
      * Run the event.
      */
-    #[Override]
+    #[\Override]
     final public function run(bool $reset = false): void
     {
         $this->ensureTrackingCookie();
@@ -174,7 +174,7 @@ abstract class Event implements IEvent, IObjectWithTrackingCookie
      */
     abstract protected function onRun(): Generator/*<void>*/;
     
-    #[Override]
+    #[\Override]
     public function getEventFlags(): int
     {
         return EventFlags::None;
@@ -183,6 +183,7 @@ abstract class Event implements IEvent, IObjectWithTrackingCookie
     /**
      * Check if the event is fulfilled.
      */
+    #[\Override]
     public function isFulfilled(): bool
     {
         return $this->fulfilled;

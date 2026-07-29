@@ -23,6 +23,7 @@ class RehikeExtensionsPageController extends NirvanaController implements IGetCo
 {
     public string $template = "rehike/extensions_page/main";
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         $yt->page = new ExtensionsPageModel();

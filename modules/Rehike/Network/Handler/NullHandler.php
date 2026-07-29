@@ -1,8 +1,6 @@
 <?php
 namespace Rehike\Network\Handler;
 
-use Rehike\Attributes\Override;
-
 use Rehike\Network\IRequest;
 use Rehike\Network\Exception\NoSupportedHandlerException;
 
@@ -19,16 +17,17 @@ use Generator;
  */
 final class NullHandler extends NetworkHandler
 {
-    #[Override]
+    #[\Override]
     public function addRequest(IRequest $r): void
     {
         throw new NoSupportedHandlerException();
     }
 
-    #[Override]
+    #[\Override]
     public function clearRequests(): void {}
 
     /** @return Generator<void> */
+    #[\Override]
     public function onRun(): Generator/*<void>*/
     {
         if (false) yield;

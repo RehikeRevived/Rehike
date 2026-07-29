@@ -44,6 +44,7 @@ abstract class AbstractAssociativeProp extends AbstractConfigProperty
     /**
      * Gets the type of the property.
      */
+    #[\Override]
     abstract public function getType(): string;
     
     /**

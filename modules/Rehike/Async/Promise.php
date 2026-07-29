@@ -283,6 +283,7 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * @param callable(mixed): mixed $cb
      * @return Promise<T>
      */
+    #[\Override]
     public function then(callable $cb): Promise/*<T>*/
     {
         Tracing::logEvent(TraceEventId::PromiseThen, $this->cookie);
@@ -309,6 +310,7 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * @param callable(Throwable): void $cb
      * @return Promise<T>
      */
+    #[\Override]
     public function catch(callable/*<Throwable>*/ $cb): Promise/*<T>*/
     {
         Tracing::logEvent(TraceEventId::PromiseCatch, $this->cookie);
@@ -342,6 +344,7 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * @internal
      * @param ?T $data
      */
+    #[\Override]
     public function resolve(/*?T*/ mixed $data = null): void
     {
 if (ENABLE_DEFERRED_PROMISES) {
@@ -416,6 +419,7 @@ if (ENABLE_DEFERRED_PROMISES) {
      * 
      * @internal
      */
+    #[\Override]
     public function reject(string|Throwable $e): void
     {
 if (ENABLE_DEFERRED_PROMISES) {
@@ -551,11 +555,13 @@ if (ENABLE_DEFERRED_PROMISES) {
         return count($this->thens) - 1;
     }
     
+    #[\Override]
     public function getTrackingCookie(): TrackingCookie
     {
         return $this->cookie;
     }
     
+    #[\Override]
     public function throwsOnUnresolved(): bool
     {
         return $this->throwOnUnresolved;

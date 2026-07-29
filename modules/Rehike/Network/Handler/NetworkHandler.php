@@ -1,8 +1,6 @@
 <?php
 namespace Rehike\Network\Handler;
 
-use Rehike\Attributes\Override;
-
 use Rehike\Async\EventLoop\Event;
 use Rehike\Async\EventLoop\EventFlags;
 use Rehike\Network\{
@@ -39,7 +37,7 @@ abstract class NetworkHandler extends Event
         $this->fulfilled = false;
     }
     
-    #[Override]
+    #[\Override]
     public function getEventFlags(): int
     {
         return EventFlags::MayResetFulfillment;

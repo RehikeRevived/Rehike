@@ -56,6 +56,7 @@ class YtChannelAccountInfo extends GoogleAccountInfoBase implements IBuiltObject
     /**
      * @override
      */
+    #[\Override]
     public function getAuthUserId(): ?int
     {
         return $this->getOwnerAccount()->getAuthUserId();
@@ -65,6 +66,7 @@ class YtChannelAccountInfo extends GoogleAccountInfoBase implements IBuiltObject
      * Get the email address of the account which is used to access this
      * channel.
      */
+    #[\Override]
     public function getAccountEmail(): ?string
     {
         return $this->ownerAccount->getAccountEmail();

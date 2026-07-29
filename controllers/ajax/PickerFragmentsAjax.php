@@ -29,12 +29,14 @@ class PickerFragmentsAjax extends AjaxController implements IGetController, IPos
     private string $baseUrl = "/";
     
     /** @override */
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         $this->route($yt, $request);
     }
     
     /** @override */
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         $this->route($yt, $request);
@@ -76,6 +78,7 @@ class PickerFragmentsAjax extends AjaxController implements IGetController, IPos
     }
     
     /** @override */
+    #[\Override]
     public function doGeneralRender(): void
     {
         header("Content-Type: application/json");

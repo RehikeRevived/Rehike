@@ -23,6 +23,7 @@ class InnertubePlayerProxyController extends HitchhikerController implements IPo
 {
     public bool $useTemplate = false;
 
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         async(function() use (&$yt, &$request) {

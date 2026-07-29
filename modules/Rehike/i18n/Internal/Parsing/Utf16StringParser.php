@@ -83,26 +83,31 @@ class Utf16StringParser implements IStringParser
         }
     }
 
+    #[\Override]
     public function getCursor(): int
     {
         return $this->cursor;
     }
 
+    #[\Override]
     public function setCursor(int $value): void
     {
         $this->cursor = $value;
     }
 
+    #[\Override]
     public function getSize(): int
     {
         return $this->size;
     }
 
+    #[\Override]
     public function isOutOfBounds(): bool
     {
         return $this->cursor > $this->size || $this->cursor < 0;
     }
 
+    #[\Override]
     public function read(
             int $offset = 0, 
             int $amount = 1,
@@ -131,24 +136,28 @@ class Utf16StringParser implements IStringParser
         return mb_convert_encoding($result, "UTF-8", "UTF-16");
     }
 
+    #[\Override]
     public function next(): self
     {
         $this->cursor += 2;
         return $this;
     }
 
+    #[\Override]
     public function prev(): self
     {
         $this->cursor -= 2;
         return $this;
     }
 
+    #[\Override]
     public function skip(int $amount): self
     {
         $this->cursor += $amount * 2;
         return $this;
     }
 
+    #[\Override]
     public function rewind(int $amount): self
     {
         $this->cursor -= $amount * 2;

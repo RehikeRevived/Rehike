@@ -24,6 +24,7 @@ class RehikeUpdateConfigRouter extends AjaxController implements IPostController
 {
     public bool $useTemplate = false;
 
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         $input = \json_decode(\file_get_contents('php://input'), true);

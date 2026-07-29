@@ -31,6 +31,7 @@ class RehikeConfigPageController extends NirvanaController implements IGetContro
         "advanced"
     ];
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         $tab = $request->path[2] ?? self::DEFAULT_TAB;

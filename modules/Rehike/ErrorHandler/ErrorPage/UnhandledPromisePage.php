@@ -14,6 +14,7 @@ use Throwable;
  */
 class UnhandledPromisePage extends UncaughtExceptionPage
 {
+    #[\Override]
     public function getTitle(): string
     {
         return "Unhandled Promise";

@@ -18,16 +18,19 @@ class FailedToWriteConfigPage extends AbstractErrorPage
 {
     private InnertubeFailedRequestException $innertubeFailedException;
 
+    #[\Override]
     public function getTitle(): string
     {
         return "Failed to write the configuration file";
     }
     
+    #[\Override]
     public function shouldDisplayIssueTrackerLink(): bool
     {
         return false;
     }
     
+    #[\Override]
     public function shouldDisplayMessageLogs(): bool
     {
         return false;

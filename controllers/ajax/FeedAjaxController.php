@@ -24,6 +24,7 @@ class FeedAjaxController extends AjaxController implements IGetController, IPost
 {
     public string $template = "ajax/feed/get_notifications";
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         if (!@$yt->signin["isSignedIn"]) self::error();
@@ -86,6 +87,7 @@ class FeedAjaxController extends AjaxController implements IGetController, IPost
         }
     }
 
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         if (!@$yt->signin["isSignedIn"]) self::error();

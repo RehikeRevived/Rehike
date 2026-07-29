@@ -38,6 +38,7 @@ class PlaylistPageController extends NirvanaController implements IGetController
 {
     public string $template = "playlist";
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         async(function() use (&$yt, $request) {

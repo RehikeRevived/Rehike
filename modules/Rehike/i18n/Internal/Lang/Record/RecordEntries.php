@@ -14,21 +14,25 @@ class RecordEntries extends stdClass implements ArrayAccess
 {
     private int $iterationPosition = 0;
 
+    #[\Override]
     public function offsetExists(mixed $offset): bool
     {
         return isset($this->{$offset});
     }
 
+    #[\Override]
     public function offsetGet(mixed $offset): mixed
     {
         return $this->{$offset};
     }
 
+    #[\Override]
     public function offsetSet(mixed $offset, mixed $value): void
     {
         $this->{$offset} = $this->value;
     }
 
+    #[\Override]
     public function offsetUnset(mixed $offset): void
     {
         unset($this->{$offset});

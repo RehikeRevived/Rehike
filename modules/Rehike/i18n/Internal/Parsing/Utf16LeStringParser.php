@@ -1,7 +1,6 @@
 <?php
 namespace Rehike\i18n\Internal\Parsing;
 
-use Rehike\Attributes\Override;
 use Exception;
 
 /**
@@ -15,7 +14,6 @@ use Exception;
  */
 final class Utf16LeStringParser extends Utf16StringParser
 {
-    #[Override]
     public function __construct(string $source)
     {
         parent::__construct($source);
@@ -23,7 +21,7 @@ final class Utf16LeStringParser extends Utf16StringParser
         $this->endianEncoding = "UTF-16LE";
     }
 
-    #[Override]
+    #[\Override]
     final protected function determineEncoding(): void
     {
         parent::determineEncoding();

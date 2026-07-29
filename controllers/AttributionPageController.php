@@ -24,6 +24,7 @@ class AttributionPageController extends HitchhikerController
 {
     public string $template = "attribution";
 
+    #[\Override]
     public function onGet(YtApp $yt, RequestMetadata $request): void
     {
         if (!isset($request->params->v))

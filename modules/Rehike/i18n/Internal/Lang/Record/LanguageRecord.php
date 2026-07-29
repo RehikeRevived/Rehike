@@ -17,6 +17,7 @@ class LanguageRecord implements IResourceRecord
         $this->entries = $entries;
     }
 
+    #[\Override]
     public function toObject(): object
     {
         return $this->entries;

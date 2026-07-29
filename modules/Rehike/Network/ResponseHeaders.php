@@ -83,21 +83,25 @@ class ResponseHeaders implements ArrayAccess, Iterator
         $this->offsetSet(null, null); // inherit warning
     }
 
+    #[\Override]
     public function offsetExists(mixed $offset): bool
     {
         return isset($this->boundArray[$offset]);
     }
 
+    #[\Override]
     public function offsetSet(mixed $offset, mixed $value): void
     {
         trigger_error(__CLASS__ . "::\$boundArray is read only.", E_USER_WARNING);
     }
 
+    #[\Override]
     public function offsetUnset(mixed $offset): void
     {
         $this->offsetSet(null, null); // inherit warning
     }
 
+    #[\Override]
     public function offsetGet(mixed $offset): mixed
     {
         return isset($this->boundArray[$offset])
@@ -106,26 +110,31 @@ class ResponseHeaders implements ArrayAccess, Iterator
         ;
     }
 
+    #[\Override]
     public function rewind(): void
     {
         reset($this->boundArray);
     }
 
+    #[\Override]
     public function current(): mixed
     {
         return current($this->boundArray);
     }
 
+    #[\Override]
     public function key(): mixed
     {
         return key($this->boundArray);
     }
 
+    #[\Override]
     public function next(): void
     {
         next($this->boundArray);
     }
 
+    #[\Override]
     public function valid(): bool
     {
         return key($this->boundArray) !== null;

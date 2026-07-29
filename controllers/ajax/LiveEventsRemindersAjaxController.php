@@ -27,6 +27,7 @@ class LiveEventsRemindersAjaxController extends AjaxController implements IPostC
 {
     public bool $useTemplate = false;
 
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         $action = self::findAction();

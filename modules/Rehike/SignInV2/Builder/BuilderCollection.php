@@ -70,16 +70,19 @@ class BuilderCollection implements ArrayAccess, IteratorAggregate
     //-----------------------------------------------------------------------------------------------------------------
     // implementation of ArrayAccess:
     //
+    #[\Override]
     public function offsetExists(mixed $offset): bool
     {
         return isset($this->items[$offset]);
     }
     
+    #[\Override]
     public function offsetGet(mixed $offset): mixed
     {
         return $this->items[$offset];
     }
     
+    #[\Override]
     public function offsetSet(mixed $offset, mixed $value): void
     {
         if (!($value instanceof IBuilder))
@@ -90,6 +93,7 @@ class BuilderCollection implements ArrayAccess, IteratorAggregate
         $this->items[$offset] = $value;
     }
     
+    #[\Override]
     public function offsetUnset(mixed $offset): void
     {
         unset($this->items[$offset]);
@@ -98,6 +102,7 @@ class BuilderCollection implements ArrayAccess, IteratorAggregate
     //-----------------------------------------------------------------------------------------------------------------
     // implementation of IteratorAggregate:
     //
+    #[\Override]
     public function getIterator(): Traversable
     {
         return new ArrayIterator($this->items);

@@ -51,6 +51,7 @@ class TrackingCookie implements Stringable
         $this->uid = self::$s_categoryTracker[$category];
     }
     
+    #[\Override]
     public function __toString(): string
     {
         return md5("$this->category-$this->uid");

@@ -24,6 +24,7 @@ class ServiceAjaxController extends AjaxController implements IPostController
 {
     public bool $useTemplate = false;
 
+    #[\Override]
     public function onPost(YtApp $yt, RequestMetadata $request): void
     {
         if (!@$request->params->name) self::error();
