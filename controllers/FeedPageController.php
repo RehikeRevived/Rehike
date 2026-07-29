@@ -363,6 +363,11 @@ class FeedPageController extends NirvanaController implements IGetController
                     "shelfRenderer" => $rcontents[0]->richSectionRenderer->content->shelfRenderer
                 ]
             ];
+
+            // HACKHACK(leymonaide): Disabled for now. This was causing a crash.
+            // Keeping the code commented as it presumably served some sort of
+            // function, but I don't really have a clue what it is.
+            /*
             $menu = &$contents[0]->shelfRenderer->menu->menuRenderer->topLevelButtons;
 
             // Fix the state of the shelf menu accordingly
@@ -373,6 +378,7 @@ class FeedPageController extends NirvanaController implements IGetController
                     $button->buttonRenderer->isSelected = !$button->buttonRenderer->isSelected;
                 }
             }
+            */
 
             // Snip the shelf off the array so we can work on the videos themselves
             array_shift($rcontents);

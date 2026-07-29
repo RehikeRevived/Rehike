@@ -1,10 +1,10 @@
 {
-	"previousHash": "9752c4d35bb31c4c4f61e6a9b89094984a20c086",
-	"currentRevisionId": 1891,
-	"subject": "Hide links to the now-unavailable trending feed by default",
-	"body": "Hide links to the now-unavailable trending feed by default",
+	"previousHash": "5e266f53c4c021073c6d33be3c7a73cf8422c17e",
+	"currentRevisionId": 1892,
+	"subject": "Fix crash on subscriptions feed",
+	"body": "Fix crash on subscriptions feed",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785282603
+	"time": 1785299429
 }
