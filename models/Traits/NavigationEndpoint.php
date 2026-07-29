@@ -10,7 +10,7 @@ namespace Rehike\Model\Traits;
  */
 class NavigationEndpoint
 {
-    public static function createEndpoint($url)
+    public static function createEndpoint(string $url): object
     {
         return (object) [
             "commandMetadata" => (object) [

@@ -177,9 +177,9 @@ class MChannelAboutMetadata
         return $out;
     }
 
-    public static function getRichStat($text, $isolator)
+    public static function getRichStat(string $text, string $isolator): ?object
     {
-        if ("" == $text) return;
+        if ("" == $text) return null;
 
         $number = preg_replace(
             str_replace("/g", "/", $isolator), "", $text

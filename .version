@@ -1,10 +1,10 @@
 {
-	"previousHash": "9b438207b5be3bb4b038aef7abcf54e19555d1db",
-	"currentRevisionId": 1899,
-	"subject": "Expand all Override attribute usage, remove Rehike's custom attribute",
-	"body": "Expand all Override attribute usage, remove Rehike's custom attribute",
+	"previousHash": "71e6832d95f35987ba68a0f1992f86caef007952",
+	"currentRevisionId": 1900,
+	"subject": "Run automatic linter fixes for MissingParamType",
+	"body": "Run automatic linter fixes for MissingParamType",
 	"branch": "dev-psalm-refactoring",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785316820
+	"time": 1785318522
 }

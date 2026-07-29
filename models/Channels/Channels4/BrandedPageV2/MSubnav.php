@@ -148,7 +148,7 @@ class MSubnav
         return new MSubnavMenuButton("sort", $activeText, $options);
     }
 
-    public function getFlowButton($view)
+    public function getFlowButton(string $view): MSubnavMenuButton
     {
         $i18n = i18n::getNamespace("channels");
 

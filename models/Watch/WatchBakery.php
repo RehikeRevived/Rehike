@@ -692,7 +692,7 @@ class WatchBakery
         }
     }
 
-    public function getIsOwner(&$secondaryInfo)
+    public function getIsOwner(object &$secondaryInfo)
     {
         if (!SignIn::isSignedIn()) return false;
         

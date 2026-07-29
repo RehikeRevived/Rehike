@@ -94,7 +94,7 @@ class MSubscriptionActions
     /**
      * Build a subscription actions model from a standard InnerTube WEB data.
      */
-    public static function fromData($data, $count = "", $branded = true)
+    public static function fromData(object $data, ?string $count = "", bool $branded = true): self
     {
         return new self([
             "branded" => $branded,
@@ -152,7 +152,7 @@ class MSubscriptionActions
         ]);
     }
 
-    public static function buildMock($count = "", $branded = true)
+    public static function buildMock(string $count = "", bool $branded = true): self
     {
         $i18n = i18n::getNamespace("misc");
 
@@ -166,7 +166,7 @@ class MSubscriptionActions
         ]);
     }
 
-    public static function signedOutStub($count = "", $branded = true)
+    public static function signedOutStub(?string $count = "", bool $branded = true): self
     {
         return new self([
             "longText" => $count,

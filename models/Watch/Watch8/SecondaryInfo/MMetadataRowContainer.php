@@ -12,7 +12,7 @@ class MMetadataRowContainer
 
     public $items = [];
 
-    public function __construct(WatchBakery $bakery, &$rows)
+    public function __construct(WatchBakery $bakery, ?array &$rows)
     {
         $i18n = i18n::getNamespace("watch");
         
@@ -133,7 +133,7 @@ class MMetadataRowContainer
             array_unshift($this->items, $item);
     }
 
-    protected function createSimpleField($title, $text, $href = null)
+    protected function createSimpleField(string $title, ?string $text, ?string $href = null): object
     {
         return (object)[
             "metadataRowRenderer" => (object)[
@@ -153,7 +153,7 @@ class MMetadataRowContainer
         ];
     }
 
-    protected function getCategoryField(WatchBakery $bakery)
+    protected function getCategoryField(WatchBakery $bakery): ?object
     {
         $i18n = i18n::getNamespace("watch");
         $title = $i18n->get("metadataCategory");
@@ -169,6 +169,8 @@ class MMetadataRowContainer
         {
             return self::createSimpleField($title, $category);
         }
+
+        return null;
     }
 
     protected function getLocalizedCategoryName(string $playerStr): string
@@ -198,7 +200,7 @@ class MMetadataRowContainer
         };
     }
 
-    protected function getLicenseField()
+    protected function getLicenseField(): object
     {
         $i18n = i18n::getNamespace("watch");
 

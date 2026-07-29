@@ -152,7 +152,7 @@ class UserPrefs
         unset($this->prefs[$key]);
     }
     
-    protected function setValue(int $key, $value): void
+    protected function setValue(int $key, string $value): void
     {
         $this->prefs[$key] = (string)$value;
     }

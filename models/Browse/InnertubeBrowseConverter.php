@@ -15,7 +15,7 @@ use Rehike\Model\Common\MCollaborator;
 
 class InnertubeBrowseConverter
 {
-    public static function generalLockupConverter($items, $context = [])
+    public static function generalLockupConverter(array $items, array $context = []): array
     {
         foreach ($items as &$item) foreach ($item as $name => &$content)
         {
@@ -90,11 +90,13 @@ class InnertubeBrowseConverter
 
     /**
      * Process a shelf renderer.
-     * 
+     *
      * This is also, for the most part, supported natively.
      * Ditto above.
+     *
+     * @param array{channelRendererNoMeta?:true,channelRendererUnbrandedSubscribeButton?:true,channelRendererNoSubscribeCount?:true} $context
      */
-    public static function shelfRenderer($data, $context = [])
+    public static function shelfRenderer(object $data, array $context = []): object
     {
         foreach ($data->content as $name => &$value)
         {
@@ -172,11 +174,13 @@ class InnertubeBrowseConverter
 
     /**
      * Process a section list renderer.
-     * 
+     *
      * Again, mostly natively supported, but we want to
      * easily modify any lockups that need it.
+     *
+     * @param array{channelRendererUnbrandedSubscribeButton?:true,channelRendererChannelBadge?:true,searchMetadataOrder?:bool} $context
      */
-    public static function sectionListRenderer($data, $context = [])
+    public static function sectionListRenderer(object $data, array $context = []): object
     {
         foreach ($data->contents as &$content) foreach ($content as $name => &$value)
         {
@@ -422,9 +426,9 @@ class InnertubeBrowseConverter
     /**
      * Convert a rich item renderer to its canonical type.
      * 
-     * @return object
+     * @param array{listView?:true} $context
      */
-    public static function richItemRenderer($data, $context = [])
+    public static function richItemRenderer(object $data, array $context = []): object
     {
         if (!@$context["listView"])
         {

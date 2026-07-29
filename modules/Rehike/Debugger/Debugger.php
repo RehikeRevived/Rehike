@@ -264,7 +264,7 @@ class Debugger
     /**
      * Add data to the context.
      */
-    public static function addContext(string $name, mixed $value): void
+    public static function addContext(string $name, array $value): void
     {
         self::$context->{$name} = $value;
     }

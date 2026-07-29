@@ -13,7 +13,7 @@ use Rehike\Model\Share\MShareTabBar;
  */
 class ShareEmbedModel
 {
-    public static function bake($videoId, $title, $listData)
+    public static function bake(?string $videoId, ?string $title, ?object $listData): object
     {
         $response = (object) [];
         $i18n = i18n::getNamespace("share");

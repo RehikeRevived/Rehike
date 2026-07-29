@@ -275,7 +275,10 @@ class CommentThread
         return $converter->bakeCommentRenderer();
     }
 
-    public function commentThreadRenderer($context)
+    /**
+     * @param object{comment:object{commentRenderer:object}} $context
+     */
+    public function commentThreadRenderer(object $context)
     {
         $out = [];
 
@@ -607,7 +610,7 @@ class CommentThread
             ];
     }
     
-    private function addLikeCount(&$context)
+    private function addLikeCount(array|object &$context)
     {
         // Adds to context:
         /*

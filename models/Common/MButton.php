@@ -71,7 +71,7 @@ class MButton
         }
     }
 
-    protected function setText($string)
+    protected function setText(string $string): void
     {
         $this->text = (object)[
             "runs" => [(object)[

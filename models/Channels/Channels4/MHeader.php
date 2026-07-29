@@ -266,7 +266,10 @@ class MHeader
         }
     }
 
-    public function addTabs($tabs, $partSelect = false)
+    /**
+     * @param object[] $tabs
+     */
+    public function addTabs(array $tabs, $partSelect = false): void
     {
         $this->tabs = [];
 

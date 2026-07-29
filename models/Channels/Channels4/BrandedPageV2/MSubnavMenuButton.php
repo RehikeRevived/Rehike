@@ -20,7 +20,7 @@ class MSubnavMenuButton
         }
     }
 
-    public function addMenu($menu)
+    public function addMenu(MSubnavMenuButtonMenu $menu): void
     {
         $this->items[] = $menu;
     }

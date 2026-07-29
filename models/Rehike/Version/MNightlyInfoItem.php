@@ -134,7 +134,7 @@ class MNightlyInfoItem
         return $me;
     }
 
-    private static function trimHash($hash)
+    private static function trimHash(string $hash): string
     {
         return substr($hash, 0, 7);
     }

@@ -30,17 +30,20 @@ abstract class AbstractException extends \Exception
         return $instance;
     }
 
-    private function _setFile($a): void
+    private function _setFile(string $a): void
     {
         $this->file = $a;
     }
 
-    private function _setLine($a): void
+    private function _setLine(int $a): void
     {
         $this->line = $a;
     }
 
-    private function _setTrace($a): void
+    /**
+     * @param list<array{args?:array,class?:class-string,file?:string,function?:string,line?:int,type?:'->'|'::'}> $a
+     */
+    private function _setTrace(array $a): void
     {
         $this->trace = $a;
     }

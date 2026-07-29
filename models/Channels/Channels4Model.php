@@ -497,7 +497,7 @@ class Channels4Model
         }
     }
     
-    public function initSecondaryColumn(&$response)
+    public function initSecondaryColumn(array &$response): void
     {
         if (!isset($response["secondaryContent"]))
         {
@@ -509,7 +509,7 @@ class Channels4Model
         }
     }
 
-    public function getTabContents($content)
+    public function getTabContents(object $content): object
     {
         if (isset($content->sectionListRenderer->contents[0]->itemSectionRenderer->contents[0]->channelAboutFullMetadataRenderer))
         {
@@ -577,7 +577,7 @@ class Channels4Model
         }
     }
 
-    public function handleGridTab($data, $parentTab, $rich = false)
+    public function handleGridTab(object $data, object $parentTab, bool $rich = false): object
     {
         $response = [];
 
@@ -712,7 +712,7 @@ class Channels4Model
         return $this->currentTab;
     }
 
-    public function registerBaseUrl($baseUrl)
+    public function registerBaseUrl(string $baseUrl): void
     {
         $this->baseUrl = $baseUrl;
     }

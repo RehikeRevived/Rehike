@@ -378,7 +378,7 @@ class ChannelPageController extends NirvanaController implements IGetController,
      * otherwise this will have no effect and will simply take you to the
      * featured tab of the channel.
      */
-    public function handleLiveTabRedirect($path)
+    public function handleLiveTabRedirect(string $path): void
     {
         Network::innertubeRequest(
             action: "navigation/resolve_url",
