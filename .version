@@ -1,10 +1,10 @@
 {
-	"previousHash": "8d708649180c88792a08b90a0defd40a936c7b75",
-	"currentRevisionId": 1896,
-	"subject": "Fix visual bug with the subscriber count text on the about tab of channels with 0 subscribers",
-	"body": "Fix visual bug with the subscriber count text on the about tab of channels with 0 subscribers",
-	"branch": "master",
+	"previousHash": "6570bed2bb2ce201e08942498e39a962beb8eb36",
+	"currentRevisionId": 1897,
+	"subject": "Introduce psalm as a dependency for codebase linting",
+	"body": "Introduce psalm as a dependency for codebase linting",
+	"branch": "dev-psalm-refactoring",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785305966
+	"time": 1785316263
 }
