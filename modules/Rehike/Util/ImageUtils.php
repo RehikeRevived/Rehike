@@ -13,7 +13,7 @@ class ImageUtils
     /**
      * Change the size attribute of a yt3.ggpht.com image URL
      */
-    public static function changeSize(string $url, int $size): string
+    public static function changeSize(string $url, int $size): ?string
     {
         return preg_replace("/=s\d+-/", "=s" . (string) $size . "-", $url);
     }
@@ -21,7 +21,7 @@ class ImageUtils
     /**
      * Change the width attribute of a yt3.ggpht.com image URL
      */
-    public static function changeWidth(string $url, int $width): string
+    public static function changeWidth(string $url, int $width): ?string
     {
         return preg_replace("/-w\d+-/", "-w" . (string) $width . "-", $url);
     }
@@ -29,7 +29,7 @@ class ImageUtils
     /**
      * Change the height attribute of a yt3.ggpht.com image URL
      */
-    public static function changeHeight(string $url, int $height): string
+    public static function changeHeight(string $url, int $height): ?string
     {
         return preg_replace("/-h\d+-/", "-h" . (string) $height . "-", $url);
     }

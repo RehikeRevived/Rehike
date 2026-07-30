@@ -38,7 +38,7 @@ class NamespaceBoundLanguageApi
     {
         if (LanguageApi::tryFormatDateTime($format, $timestamp, $out))
         {
-            return $out;
+            return $out ?? "";
         }
 
         return "";

@@ -15,11 +15,11 @@ class ExtractUtils
     /**
      * Isolate any count with a set input by replacing other parts of a
      * substring with an empty string.
-     * 
+     *
      * @param $input       Base string.
      * @param $substrRegex Substrings to replace
      */
-    public static function isolateCount(?string $input, string $substrRegex): string
+    public static function isolateCount(?string $input, string $substrRegex): ?string
     {
         if (!$input) return '';
         return preg_replace(

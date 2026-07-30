@@ -337,11 +337,11 @@ class Nameserver
      * hostname.
      * 
      * For example:
-     *     https://www.google.com/search?q=hello
+     * https://www.google.com/search?q=hello
      * becomes:
      *     www.google.com
      */
-    public static function getHostName(string $uri): string
+    public static function getHostName(string $uri): ?string
     {
         return preg_replace("/([A-Za-z]+:\/\/)|(\/.*)/", "", $uri);
     }

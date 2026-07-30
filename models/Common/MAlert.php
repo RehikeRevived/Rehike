@@ -59,12 +59,12 @@ class MAlert
 
     /**
      * Parse the alert type format returned from InnerTube
-     * 
-     * @param string $type Alert type returne from InnerTube.
-     * 
-     * @return string
+     *
+     * @param string $type Alert type returned from InnerTube.
+     *
+     * @return self::*|null
      */
-    public static function parseInnerTubeType($type)
+    public static function parseInnerTubeType($type): ?string
     {
         switch ($type)
         {
@@ -81,5 +81,7 @@ class MAlert
                 return self::TypeSuccess;
                 break;
         }
+
+        return null;
     }
 }

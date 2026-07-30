@@ -46,13 +46,11 @@ class DotGit
     /**
      * Return an info array that can be merged with the DotVersion
      * format.
-     * 
-     * @return string[]
      */
-    public static function getInfo(VersionInfo $versionInfo)
+    public static function getInfo(VersionInfo $versionInfo): void
     {
         if (!self::canUse())
-            return []; // Add nothing at all
+            return; // Add nothing at all
 
         if ($branch = self::getBranch())
             $versionInfo->branch = $branch;
