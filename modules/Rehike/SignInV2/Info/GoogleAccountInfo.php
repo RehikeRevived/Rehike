@@ -41,9 +41,6 @@ class GoogleAccountInfo extends GoogleAccountInfoBase implements IBuiltObject
             ->buildAll();
     }
     
-    /**
-     * @override
-     */
     #[\Override]
     public function getAuthUserId(): ?int
     {

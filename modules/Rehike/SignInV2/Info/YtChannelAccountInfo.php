@@ -53,9 +53,6 @@ class YtChannelAccountInfo extends GoogleAccountInfoBase implements IBuiltObject
         $this->isDefaultChannel=  $builder->isDefaultChannel;
     }
     
-    /**
-     * @override
-     */
     #[\Override]
     public function getAuthUserId(): ?int
     {

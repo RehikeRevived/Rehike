@@ -75,7 +75,6 @@ class PickerFragmentsAjax extends AjaxController implements IGetController, IPos
         }
     }
     
-    /** @override */
     #[\Override]
     public function doGeneralRender(): void
     {

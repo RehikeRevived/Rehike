@@ -1,10 +1,10 @@
 {
-	"previousHash": "d4fa17ed10bb8fee75dbe4a210cfeb543221e966",
-	"currentRevisionId": 1902,
-	"subject": "Run automatic linter fixes for MismatchingDocblockParamType",
-	"body": "Run automatic linter fixes for MismatchingDocblockParamType",
+	"previousHash": "7bef8370c8637cf38ba8e0721fc1d5ece9bec80a",
+	"currentRevisionId": 1903,
+	"subject": "Get rid of our final @override doc comments",
+	"body": "Get rid of our final @override doc comments",
 	"branch": "dev-psalm-refactoring",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785390072
+	"time": 1785390208
 }
