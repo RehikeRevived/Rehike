@@ -100,8 +100,6 @@ class GetVideoMetadataController extends HitchhikerController implements IGetCon
                 $rydResponse = (object) [];
             }
 			
-			$videoId = $yt->videoId; 
-			
 			// Wrapped in isset to prevent crashes
 			if (isset($yt->watchNextResponse->contents->twoColumnWatchNextResults->results->results))
 			{
@@ -139,7 +137,7 @@ class GetVideoMetadataController extends HitchhikerController implements IGetCon
                 ? ExtractUtils::isolateSubCnt(ParsingUtils::getText($secondaryInfo->owner->videoOwnerRenderer->subscriberCountText))
                 : null
             ;
-			$i18n = i18n::getNamespace("channels");
+
 			if ($subscribeCount === "1")
             {
                 $subscribeCount = i18n::getFormattedString(
@@ -180,7 +178,7 @@ class GetVideoMetadataController extends HitchhikerController implements IGetCon
 			$metadata->user_info->external_id = substr($authorUid,2);
 			//$metadata->user_info->subscription_button_html = "<span class=\" yt-uix-button-subscription-container\" ><button class=\"yt-uix-button yt-uix-button-size-default yt-uix-button-subscribe-branded yt-uix-button-has-icon yt-uix-subscription-button yt-can-buffer\" type=\"button\" onclick=\";return false;\" aria-busy=\"false\" aria-live=\"polite\" aria-role=\"button\" data-channel-external-id=\"UCM9gXqO8VQKZDrnOdRweqIQ\" data-href=\"https://accounts.google.com/ServiceLogin?passive=true&amp;continue=http%3A%2F%2Fwww.youtube.com%2Fsignin%3Faction_handle_signin%3Dtrue%26app%3Ddesktop%26continue_action%3DQUFFLUhqa1VzZ05DNXJiRzAyMG9aekNZLTRSaVhqd0F6QXxBQ3Jtc0trYnJETWRqbkhlZlNhNHJ1Q1F4YkJhQUlnZEZMWEdXWV9WRVVLMThHdVhuWVpZeTVRSXZ2TEdmZFpzNDBCV3MtN2dCc3NjOGZkclF5TDU5SjRlM1JFLW11djFDQzFkbEhFbzFvYk1QSk5EN3pJLV9rekYtXzFFR1ZDNUFKei1TVUdHNnI3UzBTeFZEQlNscHZZS3dXSTVNZXB5aEVESGlDaHQ3UUhSeE1KRkNmSHRlUy1aNDMyUXFjTFlhWUVER1k5OFhFeTU%253D%26feature%3Dsubscribe%26hl%3Dru%26next%3D%252Fchannel%252FUCM9gXqO8VQKZDrnOdRweqIQ&amp;hl=ru&amp;service=youtube&amp;uilel=3\" data-style-type=\"branded\" data-sessionlink=\"feature=trailer-endscreen&amp;ei=Om6kU7-tL8KwqAPNjYCoBA\"><span class=\"yt-uix-button-icon-wrapper\"><img src=\"http://s.ytimg.com/yts/img/pixel-vfl3z5WfW.gif\" class=\"yt-uix-button-icon yt-uix-button-icon-subscribe\"></span><span class=\"yt-uix-button-content\"><span class=\"subscribe-label\" aria-label=\"Подписаться\">Подписаться</span><span class=\"subscribed-label\" aria-label=\"Отменить подписку\">Подписка оформлена</span><span class=\"unsubscribe-label\" aria-label=\"Отменить подписку\">Отменить подписку</span> </span></button><span class=\"yt-subscription-button-subscriber-count-branded-horizontal\" >30</span>  <span class=\"yt-subscription-button-disabled-mask\" title=\"\"></span>\n</span>";
 			$metadata->user_info->image_url = $secondaryInfo->owner->videoOwnerRenderer->thumbnail->thumbnails[0]->url;
-			$metadata->user_info->subscriber_count_string = $num_subscribers;
+			$metadata->user_info->subscriber_count_string = $subscribeCount;
 			$metadata->user_info->channel_paid = 0;
 			$metadata->user_info->channel_url = $secondaryInfo->owner->videoOwnerRenderer->navigationEndpoint->commandMetadata->webCommandMetadata->url;
 			$metadata->user_info->username = null;

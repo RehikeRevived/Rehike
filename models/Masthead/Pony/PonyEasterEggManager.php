@@ -82,8 +82,6 @@ class PonyEasterEggManager
             return false;
         };
         
-        $pony = null;
-        
         $pony = match (true)
         {
             $hasPony("twilight sparkle") => new Pony(Pony::TWILIGHT_SPARKLE),

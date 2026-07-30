@@ -182,8 +182,6 @@ class Debugger
      */
     public static function expose(): void
     {
-        $i18n = i18n::getNamespace("rehike/debugger");
-
         $context = &self::$context;
 
         $context->condensed = self::$condensed;

@@ -33,6 +33,8 @@ class DateTimeApi
     {
         $dt = $this->cultureInfo->dateTimeInfo;
 
+        // TODO(leymonaide): This is currently unused, but it probably doesn't
+        // exist for no reason.
         $format = match($format) {
             DateTimeFormats::DATE => $dt->date,
             DateTimeFormats::DATE_WITH_TIME => $dt->dateWithTime,

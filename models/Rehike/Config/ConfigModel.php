@@ -40,7 +40,6 @@ class ConfigModel extends RehikePanelPage
         $response = new self($tab);
         $i18n = i18n::getNamespace("rehike/config");
         $tabs = (object) $i18n->getAllTemplates()->tabs;
-        $props = json_decode(json_encode($i18n->getAllTemplates()->props))->{$tab};
 
         $response->tab = $tab;
 

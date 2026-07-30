@@ -35,7 +35,7 @@ class MCollaborator
             // XXX(isabella): For now, we will just assume any case like this means there's a badge. If
             // this has some false positives, then uncomment the below condition (and expand it with
             // other cases)
-            $attachment = $listItem->title->attachmentRuns[0]->element->type->imageType->image->sources[0]->clientResource;
+            //$attachment = $listItem->title->attachmentRuns[0]->element->type->imageType->image->sources[0]->clientResource;
             //if ($attachment->imageName == "CHECK_CIRCLE_FILLED")
             //{
                 $this->verified = true;
@@ -69,9 +69,16 @@ class MCollaborator
     /**
      * Builds a subscription actions renderer from the subscribe button information from
      * the InnerTube dialog.
+     * 
+     * TODO(leymonaide): This function has a few weird things going on with it.
+     * Firstly, it is not referenced at all, which actually saves us, because it
+     * attempts to reference $firstItem, which does not exist. Looks like it
+     * might have been copied from
+     * {@see Rehike\Model\Watch\Watch8\PrimaryInfo\MOwner::initFromFirstCollaborator}.
      */
     public function buildSubscriptionActions(object $frameworkUpdates, bool $branded = true): ?MSubscriptionActions
     {
+        /*
         // Build the subscription button:
         if (!SignIn::isSignedIn())
         {
@@ -86,6 +93,7 @@ class MCollaborator
                 $viewModel, $viewModelParser, $this->subscriberCount, $branded
             );
         }
+        */
         
         return null;
     }

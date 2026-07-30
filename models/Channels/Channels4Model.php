@@ -606,6 +606,8 @@ class Channels4Model
 
         if ($rich && @$_GET["flow"] == "list")
         {
+            // TODO(leymonaide): This path is currently not utilized correctly.
+            // Nothing is done with the resulting $token.
             if (isset($data->items[count($data->items) - 1]->continuationItemRenderer))
             {
                 $token = &$data->items[count($data->items) - 1]->continuationItemRenderer->continuationEndpoint->continuationCommand->token;

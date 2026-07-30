@@ -158,7 +158,6 @@ class AnnotationsInvideoController extends AjaxController implements IGetControl
                 "params" => $yt->playerParams
             ] + $sharedRequestParams
         );
-        $storyboardRequest = new Promise(fn($r) => $r());
 
         Promise::all([
 			"player"     => $playerRequest,
@@ -242,7 +241,7 @@ class AnnotationsInvideoController extends AjaxController implements IGetControl
                 ? ExtractUtils::isolateSubCnt(ParsingUtils::getText($secondaryInfo->owner->videoOwnerRenderer->subscriberCountText))
                 : null
             ;
-			$i18n = i18n::getNamespace("channels");
+
 			if ($subscribeCount === "1")
             {
                 $subscribeCount = i18n::getFormattedString(

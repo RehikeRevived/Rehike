@@ -29,8 +29,6 @@ class TemplateManager
         $defaultViewsDir = Constants\VIEWS_DIR;
 
         $fileSystemLoader = new \Twig\Loader\FilesystemLoader();
-        
-        $templateDirs = [];
 
         // Add default (no extensions) template paths:
         $fileSystemLoader->addPath(

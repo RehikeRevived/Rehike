@@ -195,7 +195,6 @@ class VideoRendererViewModelConverter extends BasicVMC
 
                         $run->text = $channel->name;
                         $run->navigationEndpoint = $channel->navigationEndpoint;
-                        $badgeIcon = @$channel->rawData->title->attachmentRuns[0]->element->type->imageType->image->sources[0]->clientResource->imageName ?? null;
                     }
                     
                     $result->shortBylineText = $bylineText;

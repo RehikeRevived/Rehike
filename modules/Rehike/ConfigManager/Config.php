@@ -84,8 +84,6 @@ class Config
             "sources" => [],
         ];
 
-        $currentPath = explode(".", $previousPath);
-
         // This should just work out...
         $defs = (array)$defsObj;
 

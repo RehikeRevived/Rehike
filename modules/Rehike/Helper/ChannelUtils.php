@@ -27,8 +27,6 @@ class ChannelUtils
     public static function getUcid(string $requestPath): Promise/*<?string>*/
     {
         return async(function() use (&$requestPath) {
-            $path = explode("/", $requestPath);
-
             if (in_array($requestPath[0], ["channel", "user", "c"]))
             {
                 switch ($requestPath[0])

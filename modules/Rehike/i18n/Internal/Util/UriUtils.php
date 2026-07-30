@@ -21,8 +21,6 @@ final class UriUtils
      */
     public static function getLanguageListForUri(string $uri): array
     {
-        $result = [];
-
         $result =
             i18n::getConfigApi()->getPreferredLanguageIds();
         $result[] =

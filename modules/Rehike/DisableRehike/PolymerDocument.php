@@ -77,7 +77,7 @@ class PolymerDocument
      */
     private static function findScriptNonce(string $text): ?string
     {
-        $nonceIndex = preg_match("/nonce=\"([A-Za-z0-9-_]+)\"/", $text, $matches);
+        preg_match("/nonce=\"([A-Za-z0-9-_]+)\"/", $text, $matches);
         $nonce = $matches[1];
 
         return $nonce ?? null;

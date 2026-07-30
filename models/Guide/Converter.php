@@ -117,13 +117,6 @@ class Converter
         // language file to store these strings in.
         $strings = i18n::getNamespace("guide");
 
-        // Get signin info if possible (needed for the UCID)
-        $signinInfo = null;
-
-        // Casted to object in order to access in string interpolation
-        if ($signedIn)
-            $signinInfo = Signin::getSessionInfo();
-
         $mainSection = $data->items[0]->guideSectionRenderer->items;
 
         $homeItem = self::getItemByIcon($mainSection, InnertubeIcons::WHAT_TO_WATCH);

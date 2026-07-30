@@ -185,8 +185,6 @@ class MSubnav
 
     public static function fromData(Channels4Model $parent, $data): self
     {
-        $i18n = i18n::getNamespace("channels");
-
         $baseUrl = $parent->getBaseUrl();
 
         $i = new self($parent);

@@ -395,8 +395,6 @@ abstract class HitchhikerController extends PageController
      */
     public function postInit(): void
     {
-        $template = $this->template;
-        
         if (isset(self::$currentEndpoint))
         {
             $this->yt->currentEndpoint = self::$currentEndpoint;

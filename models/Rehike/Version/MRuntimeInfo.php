@@ -68,7 +68,6 @@ class MRuntimeInfo
     private function getWindowsInfo(): object
     {
         $logo = "win8";
-        $alternateOsName = "Windows";
 
         $baseInfo = new RuntimeInfo;
         $buildNumber = $baseInfo->osBuildNumber;

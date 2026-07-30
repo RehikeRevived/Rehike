@@ -148,7 +148,7 @@ class StringTranslationManager
 
         if (str_contains($text, "Mio") || str_contains($text, "Brd"))
         {
-            $regexResult = preg_match("/([0-9,]*)/", $text, $matches);
+            preg_match("/([0-9,]*)/", $text, $matches);
             $num = str_replace(",", ".", $matches[1]);
             
             // PHP is insane for this being the way that you insert into the

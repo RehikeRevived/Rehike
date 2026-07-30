@@ -148,7 +148,7 @@ class DateTimeStringTranslator
                 "am" => $dt->am,
                 "pm" => $dt->pm
             };
-            $this->replaceSubstringIfNotDirty($day, $word);
+            $this->replaceSubstringIfNotDirty($translation, $word);
         }
 
         return $this->result;

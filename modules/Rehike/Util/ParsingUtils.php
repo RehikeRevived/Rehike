@@ -333,15 +333,16 @@ class ParsingUtils
                 $run->bold = true;
             }
 
-            $endpoint = null;
-            if ($endpoint = @$commandRun->onTap->innertubeCommand)
+            if (($endpoint = @$commandRun->onTap->innertubeCommand))
             {
                 $run->navigationEndpoint = $endpoint;
             }
 
             if ($previousStart + $previousLength < $irun->startIndex)
             {
-                $start = 0; $length = 0;
+                $start = 0;
+                $length = 0;
+
                 if ($previousStart == 0 && $previousLength == 0)
                 {
                     $start = 0;

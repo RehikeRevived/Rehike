@@ -286,12 +286,6 @@ class ConfigModelContents
             $title = $i18n->title;
         }
 
-        $subtitle = null;
-        if (isset($i18n->subtitle))
-        {
-            $subtitle = $i18n->subtitle;
-        }
-
         $values = [];
         $selectedValue = null;
 
