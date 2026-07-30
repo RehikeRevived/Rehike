@@ -95,10 +95,8 @@ class MActionButton extends MButton
     /**
      * Build a watch8 add to playlists button, or its signed out
      * stub.
-     * 
-     * @return void
      */
-    public static function buildAddtoButton($videoId)
+    public static function buildAddtoButton($videoId): self
     {
         $i18n = i18n::getNamespace("watch");
 

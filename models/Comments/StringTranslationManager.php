@@ -140,7 +140,7 @@ class StringTranslationManager
         return $date;
     }
 
-    public static function convertLikeCount(?string $text): ?string
+    public static function convertLikeCount(?string $text): array|string|null
     {
         // Parsing the like count is easy, but there are some cases where it
         // returns partial numbers even in German. These can be calculated

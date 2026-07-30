@@ -293,11 +293,12 @@ class Network
 
     /**
      * Request the public YouTube Data API v3.
-     * 
+     *
      * This uses a unique key, and as such, doesn't have any limitations.
-     * 
+     *
      * @author Aubrey Pankow <aubyomori@gmail.com>
-     * @return Promise<Response>
+     *
+     * @return Promise<IResponse>
      */
     public static function dataApiRequest(
         string $action, 

@@ -191,16 +191,16 @@ class PlayerUpdater
 
     /**
      * Extract the signature timestamp of a player application.
-     * 
+     *
      * Signature timestamp, or STS, is a security key that YouTube
      * includes to prevent unauthorised access to stream URLs. This
      * is, funnily enough, useless if you have the player request
      * the video itself, but for many other cases it is required.
-     * 
+     *
      * Without the signature timestamp, the streams will fail to 
      * download or be severely throttled to the point where watching
      * the video is impossible.
-     * 
+     *
      * STS is synchronised between the player source code and the
      * InnerTube player API, making it necessary to also forward this
      * value to that if you're intending on using the API directly.
@@ -212,7 +212,7 @@ class PlayerUpdater
 
         if (isset($matches[1]))
         {
-            return (int)$matches[1];
+            return (string)(int)$matches[1];
         }
         else
         {

@@ -187,6 +187,7 @@ class SessionInfo implements IBuiltObject
      */
     public function didAnyRequestFail(): bool
     {
-        return $this->sessionErrors & SessionErrors::FAILED_REQUEST;
+        return ($this->sessionErrors & SessionErrors::FAILED_REQUEST)
+            != SessionErrors::SUCCESS;
     }
 }

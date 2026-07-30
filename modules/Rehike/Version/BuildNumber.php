@@ -40,6 +40,6 @@ class BuildNumber
         
         $baseNum = floor($diff / (60 * 60 * 24));
         
-        return self::LEGACY_BUILDNUM_CUTOFF_NUM + $baseNum;
+        return (int)(self::LEGACY_BUILDNUM_CUTOFF_NUM + $baseNum);
     }
 }

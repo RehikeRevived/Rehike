@@ -19,8 +19,6 @@ class DotVersion
 
     /**
      * Return info from the .version file.
-     * 
-     * @return string[]
      */
     public static function getInfo(VersionInfo $info): void
     {

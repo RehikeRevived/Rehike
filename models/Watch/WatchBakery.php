@@ -724,6 +724,10 @@ class WatchBakery
         {
             FullViewCountsViewCountFormat::RawNumber => self::formatViewCountTextWithNumber((int)$fullViewCount->viewCount),
             
+            // TODO(leymonaide): This is not a good way to trigger a warning
+            // here. I think that the best approach would be to convert it into
+            // an exception, and have callers catch it. As it stands, this
+            // returns a number type, which will cause a TypeError anyways.
             FullViewCountsViewCountFormat::BadResult => 
                 trigger_error("BadResult should not make it into " . __METHOD__, E_USER_WARNING),
             
