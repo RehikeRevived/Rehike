@@ -33,7 +33,7 @@ class MCommentReplyButton extends MButton
         $this->text = $data["text"];
     }
 
-    public static function fromData($data, $id)
+    public static function fromData($data, $id): self
     {
         $dialog = $data->navigationEndpoint->createCommentReplyDialogEndpoint->dialog->commentReplyDialogRenderer ?? null;
         $params = $dialog->replyButton->buttonRenderer->serviceEndpoint->createCommentReplyEndpoint->createReplyParams ?? "";

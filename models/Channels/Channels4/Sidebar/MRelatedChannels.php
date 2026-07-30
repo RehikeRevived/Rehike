@@ -9,7 +9,7 @@ class MRelatedChannels
     public $items = [];
     public $seeMoreButton;
 
-    public static function fromShelf($shelf)
+    public static function fromShelf($shelf): self
     {
         $me = new self();
 

@@ -19,12 +19,12 @@ class MSubnav
         $this->parent = $parent;
     }
 
-    public function addBackButton($href)
+    public function addBackButton($href): void
     {
         $this->backButton = new MSubnavBackButton($href);
     }
 
-    public static function bakeVideos(Channels4Model $parent)
+    public static function bakeVideos(Channels4Model $parent): self
     {
         $i = new self($parent);
 
@@ -105,7 +105,7 @@ class MSubnav
         }        
     }
 
-    public function getSortButton($sort)
+    public function getSortButton($sort): ?MSubnavMenuButton
     {
         $i18n = i18n::getNamespace("channels");
         $baseUrl = $this->parent->getBaseUrl();
@@ -142,7 +142,7 @@ class MSubnav
                 ];
                 break;
             default:
-                return;
+                return null;
         }
 
         return new MSubnavMenuButton("sort", $activeText, $options);
@@ -183,7 +183,7 @@ class MSubnav
         return new MSubnavMenuButton("flow", $activeText, $options);
     }
 
-    public static function fromData(Channels4Model $parent, $data)
+    public static function fromData(Channels4Model $parent, $data): self
     {
         $i18n = i18n::getNamespace("channels");
 

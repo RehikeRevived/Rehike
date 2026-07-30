@@ -10,7 +10,10 @@ use Rehike\YtApp;
 
 class PlaylistModel
 {
-    public static function bake($dataHost)
+    /**
+     * @return object{alerts:list{MAlert}}
+     */
+    public static function bake($dataHost): object
     {
         $i18n = i18n::getNamespace("playlist");
         $response = (object) [];

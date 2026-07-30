@@ -245,13 +245,13 @@ class MYtWalker extends MTabContent
 
     /**
      * Define an attribute definition on the attrs associative array.
-     * 
+     *
      * @param array  $attrs Associative array of attributes.
      * @param string $path  Path to write to.
      * @param string $key   Key to define.
      * @param mixed  $attr  Value to set.
      */
-    public static function defineAttr(&$attrs, $path, $key, $attr)
+    public static function defineAttr(&$attrs, $path, $key, $attr): void
     {
         if (!isset($attrs["$path.$key"]))
         {

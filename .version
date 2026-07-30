@@ -1,10 +1,10 @@
 {
-	"previousHash": "71e6832d95f35987ba68a0f1992f86caef007952",
-	"currentRevisionId": 1900,
-	"subject": "Run automatic linter fixes for MissingParamType",
-	"body": "Run automatic linter fixes for MissingParamType",
+	"previousHash": "d462774caf9dd08919405b69e26ab1a4a7aac219",
+	"currentRevisionId": 1901,
+	"subject": "Run automatic linter fixes for MissingReturnType",
+	"body": "Run automatic linter fixes for MissingReturnType",
 	"branch": "dev-psalm-refactoring",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785318522
+	"time": 1785389565
 }

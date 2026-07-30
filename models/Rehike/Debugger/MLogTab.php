@@ -16,7 +16,10 @@ class MLogTab extends MTabContent
         $this->richDebuggerRenderer[] = new class {
             public bool $isLogTab = true;
             
-            public function getLogs()
+            /**
+             * @return string[]
+             */
+            public function getLogs(): array
             {
                 return DebugLogger::getLogs();
             }

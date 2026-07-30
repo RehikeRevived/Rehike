@@ -24,7 +24,7 @@ class CommentsHeader
     public ?string $createParams;
     public ?string $commentText;
 
-    public static function fromData($data)
+    public static function fromData($data): self
     {
         $new = new self();
 

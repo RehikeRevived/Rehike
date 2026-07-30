@@ -12,7 +12,7 @@ use Rehike\Util\ParsingUtils;
  */
 class ShareBoxModel
 {
-    public static function bake(string $videoId, ?string $title, ?string $listId)
+    public static function bake(string $videoId, ?string $title, ?string $listId): object
     {
         $response = (object) [];
         $i18n = i18n::getNamespace("share");
@@ -116,7 +116,7 @@ class ShareBoxModel
         return $response;
     }
 
-    public static function playlistBake(mixed $listModel, string $listId)
+    public static function playlistBake(mixed $listModel, string $listId): object
     {
         $response = (object) [];
         $i18n = i18n::getNamespace("share");

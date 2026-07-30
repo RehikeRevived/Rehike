@@ -51,7 +51,7 @@ final class AntiSwallowedErrorHelper
         }
     }
 
-    public static function _handleShutdown()
+    public static function _handleShutdown(): void
     {
         if (self::$pendingResolutionCount > 0)
         {

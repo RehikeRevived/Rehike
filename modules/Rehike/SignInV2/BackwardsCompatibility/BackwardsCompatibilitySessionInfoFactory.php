@@ -33,7 +33,7 @@ class BackwardsCompatibilitySessionInfoFactory implements IBuilder
         self::$instance = new self();
     }
     
-    public static function getInstance()
+    public static function getInstance(): self
     {
         return self::$instance;
     }

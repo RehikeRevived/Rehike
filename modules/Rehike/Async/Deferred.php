@@ -68,7 +68,7 @@ trait Deferred/*<T>*/
      * Thrown when a Deferred class doesn't have an initialised
      * Promise.
      */
-    private static function getNoPromiseException()
+    private static function getNoPromiseException(): \Exception
     {
         $class = static::class;
 

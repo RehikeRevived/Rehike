@@ -145,7 +145,7 @@ class Channels4Model
         "shorts",
     ];
 
-    public function bake(YtApp $yt, object $data, ?object $sidebarData = null, ?object $ownerData = null)
+    public function bake(YtApp $yt, object $data, ?object $sidebarData = null, ?object $ownerData = null): object
     {
         $i18n = i18n::getNamespace("channels");
 
@@ -637,7 +637,7 @@ class Channels4Model
         return (object)$response;
     }
 
-    public function handleBackstage($data)
+    public function handleBackstage($data): object
     {
         $response = [
             "backstageRenderer" => [
@@ -659,7 +659,10 @@ class Channels4Model
         return (object)$response;
     }
 
-    public function getSidebarData($shelves, &$featuredData)
+    /**
+     * @return ?non-empty-list<object{relatedChannelsRenderer:mixed}>
+     */
+    public function getSidebarData($shelves, &$featuredData): ?array
     {
         $channelsShelves = [];
 
@@ -707,7 +710,7 @@ class Channels4Model
         $this->currentTab = $currentTab;
     }
 
-    public function getCurrentTab()
+    public function getCurrentTab(): string
     {
         return $this->currentTab;
     }
@@ -717,12 +720,12 @@ class Channels4Model
         $this->baseUrl = $baseUrl;
     }
 
-    public function getBaseUrl()
+    public function getBaseUrl(): ?string
     {
         return $this->baseUrl;
     }
 
-    public function getVideosSort()
+    public function getVideosSort(): int
     {
         return $this->videosSort;
     }
@@ -833,8 +836,10 @@ class Channels4Model
      * would think that it's a proper value from a response. The only code that
      * currently relies on this is a debug print, but it's best not to let
      * anything be confused.
+     *
+     * @return array{frameworkUpdates?:mixed}
      */
-    private function getFrameworkUpdatesContext()
+    private function getFrameworkUpdatesContext(): array
     {
         return (isset($this->responseData->frameworkUpdates)
             ? [

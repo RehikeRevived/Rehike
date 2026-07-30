@@ -69,7 +69,7 @@ class MOwner
     /**
      * Initialises from a standard single-owner video.
      */
-    private function initSingleUser(WatchBakery $bakery)
+    private function initSingleUser(WatchBakery $bakery): void
     {
         $secInfo = &$bakery->secondaryInfo;
         $info = $secInfo->owner->videoOwnerRenderer;
@@ -133,10 +133,10 @@ class MOwner
     
     /**
      * Initialises for a video with multiple collaborators.
-     * 
+     *
      * In this case, the first collaborator's information is the main one shown.
      */
-    private function initFromFirstCollaborator(WatchBakery $bakery)
+    private function initFromFirstCollaborator(WatchBakery $bakery): void
     {
         $firstItem = $bakery->collaborators->getCollaborators()[0];
         

@@ -10,7 +10,7 @@ class AttributionModel
     public $header;
     public $contents;
 
-    public static function bake($dataHost, $videoId)
+    public static function bake($dataHost, $videoId): object
     {
         $i18n = i18n::getNamespace("attribution");
         $response = (object) [];

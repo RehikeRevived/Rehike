@@ -12,8 +12,10 @@ trait Runs
 {
     /**
      * Create a run.
+     *
+     * @return object{text:mixed,navigationEndpoint?:object{commandMetadata:object{webCommandMetadata:object{url:mixed}}}}
      */
-    public function createRun($text, $href = null)
+    public function createRun($text, $href = null): object
     {
         return (object)([
             "text" => $text

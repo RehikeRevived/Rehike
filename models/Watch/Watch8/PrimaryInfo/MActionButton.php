@@ -202,7 +202,7 @@ class MActionButton extends MButton
     /**
      * Build a watch8 more button.
      */
-    public static function buildMoreButton()
+    public static function buildMoreButton(): self
     {
         $i18n = i18n::getNamespace("watch");
 

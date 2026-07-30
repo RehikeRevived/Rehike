@@ -185,14 +185,16 @@ class Converter
     /**
      * This function is responsible for getting the Best of YouTube
      * section.
-     * 
+     *
      * Best of YouTube used to be directly obtained from InnerTube,
      * but as of late 2022, they've changed it in a way that makes
      * it incompatible with Hitchhiker. Now, we build it entirely
      * locally, including the images (which are in 
      * /rehike/static/best_of_youtube)
+     *
+     * @return object{guideSectionRenderer:object}
      */
-    public static function getBestOfYouTubeSection()
+    public static function getBestOfYouTubeSection(): object
     {
         $strings = i18n::getNamespace("guide");
 
@@ -556,10 +558,13 @@ class Converter
     }
 
     /**
+     *
      * Build the subscription promo section.
      * This shows when you have no subscriptions.
+     *
+     * @psalm-return object{guideSubscriptionsPromoSectionRenderer:object}
      */
-    public static function buildSubscriptionsPromoSection()
+    public static function buildSubscriptionsPromoSection(): object
     {
         $i18n = i18n::getNamespace("guide");
         $response = (object) [];

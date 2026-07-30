@@ -35,7 +35,7 @@ class ConfigModel extends RehikePanelPage
         parent::__construct($tabId);
     }
 
-    public static function bake(string $tab, $status = null)
+    public static function bake(string $tab, $status = null): self
     {
         $response = new self($tab);
         $i18n = i18n::getNamespace("rehike/config");

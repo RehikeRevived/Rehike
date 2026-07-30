@@ -29,7 +29,7 @@ class NamespaceBoundLanguageApi
         return LanguageApi::getRawString($this->uri, $name);
     }
 
-    public function format(string $name, mixed ...$args)
+    public function format(string $name, mixed ...$args): string
     {
         return LanguageApi::getFormattedString($this->uri, $name, ...$args);
     }
@@ -44,7 +44,7 @@ class NamespaceBoundLanguageApi
         return "";
     }
 
-    public function formatNumber(int $number, int $numberOfDecimalPoints = 0)
+    public function formatNumber(int $number, int $numberOfDecimalPoints = 0): ?string
     {
         if (LanguageApi::tryFormatNumber($number, $result, $numberOfDecimalPoints))
         {

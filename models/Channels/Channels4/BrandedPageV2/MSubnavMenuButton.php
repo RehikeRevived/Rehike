@@ -25,7 +25,7 @@ class MSubnavMenuButton
         $this->items[] = $menu;
     }
 
-    public static function fromData($data)
+    public static function fromData($data): self
     {
         $items = [];
 

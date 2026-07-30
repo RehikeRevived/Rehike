@@ -25,12 +25,12 @@ abstract class MTabContent
     /**
      * Create a tab model and automatically wrap it. This should be the general
      * way of creating a tab.
-     * 
+     *
      * @param string $title    Title of the tab.
      * @param string $id       Unique ID for the tab.
      * @param bool   $selected Whether or not the tab is selected.
      */
-    public static function createTab($title, $id, $selected = false)
+    public static function createTab($title, $id, $selected = false): MTab
     {
         $me = new static();
 

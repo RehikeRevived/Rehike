@@ -13,7 +13,7 @@ use Rehike\FormattedString;
 */
 class ChannelSwitcherModel
 {
-    public static function bake(?array $channels, ?object $switcher, ?string $next)
+    public static function bake(?array $channels, ?object $switcher, ?string $next): object
     {
         $response = (object) [];
         $response->channels = [];

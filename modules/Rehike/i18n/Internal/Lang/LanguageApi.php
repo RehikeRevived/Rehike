@@ -58,7 +58,7 @@ class LanguageApi
             int $format,
             int $timestamp = 0,
             ?string &$out
-    )
+    ): bool
     {
         $langs = UriUtils::getLanguageListForUri("");
 

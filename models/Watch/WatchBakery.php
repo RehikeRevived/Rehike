@@ -692,7 +692,7 @@ class WatchBakery
         }
     }
 
-    public function getIsOwner(object &$secondaryInfo)
+    public function getIsOwner(object &$secondaryInfo): bool
     {
         if (!SignIn::isSignedIn()) return false;
         
@@ -713,7 +713,7 @@ class WatchBakery
         }
     }
     
-    public function getHasMultipleOwners()
+    public function getHasMultipleOwners(): bool
     {
         return isset($this->secondaryInfo->owner->videoOwnerRenderer->avatarStack);
     }

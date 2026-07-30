@@ -277,8 +277,10 @@ class CommentThread
 
     /**
      * @param object{comment:object{commentRenderer:object}} $context
+     *
+     * @return array{commentThreadRenderer:array{commentRenderer?:mixed,commentRepliesRenderer?:mixed}}
      */
-    public function commentThreadRenderer(object $context)
+    public function commentThreadRenderer(object $context): array
     {
         $out = [];
 
@@ -297,7 +299,7 @@ class CommentThread
         return ['commentThreadRenderer' => $out];
     }
 
-    public function commentRenderer(object $context, bool $isReply = false)
+    public function commentRenderer(object $context, bool $isReply = false): array|object
     {
         // Right now, the method is to modify a
         // standard InnerTube response.
@@ -596,7 +598,10 @@ class CommentThread
         return $context->continuationEndpoint->continuationCommand;
     }
 
-    private function repliesContinuationRenderer($context)
+    /**
+     * @return array{token:CommentsContinuation,text:null|string}
+     */
+    private function repliesContinuationRenderer($context): array
     {
         $context = $context->button->buttonRenderer;
         
@@ -610,7 +615,7 @@ class CommentThread
             ];
     }
     
-    private function addLikeCount(array|object &$context)
+    private function addLikeCount(array|object &$context): void
     {
         // Adds to context:
         /*
@@ -647,7 +652,7 @@ class CommentThread
 		}
     }
 
-    private function getLikeCountFromLabel($label)
+    private function getLikeCountFromLabel($label): ?string
     {
         // return preg_replace("/[^0-9]/", "", $label);
         return StringTranslationManager::convertLikeCount($label);

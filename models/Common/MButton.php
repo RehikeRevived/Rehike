@@ -80,7 +80,7 @@ class MButton
         ];
     }
 
-    protected function addRun($object)
+    protected function addRun($object): void
     {
         $this->text->runs[] = $object;
     }

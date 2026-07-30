@@ -77,7 +77,7 @@ class Sidebar
         ];
     }
 
-    protected function buildVersionSection()
+    protected function buildVersionSection(): object
     {
         $versionStrings = i18n::getNamespace("rehike/version");
         

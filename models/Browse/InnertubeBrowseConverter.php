@@ -401,8 +401,10 @@ class InnertubeBrowseConverter
 
     /**
      * Convert a rich grid renderer to regular grid renderer
+     *
+     * @return object{items:list<object>}
      */
-    public static function richGridRenderer($data, $context = [])
+    public static function richGridRenderer($data, $context = []): object
     {
         $items = [];
 

@@ -43,7 +43,7 @@ class MCommentVoteButton extends MButton
         $this->isDisabled = $data["isDisabled"];
     }
 
-    public static function fromData($data)
+    public static function fromData($data): self
     {
         $type = strtolower(@$data->defaultIcon->iconType) ?? null;
         $checked = $data->isToggled ?? false;

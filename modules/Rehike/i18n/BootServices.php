@@ -60,7 +60,7 @@ class BootServices
         \Rehike\Profiler::end("i18nboot");
     }
     
-    private static function initializeCoffeeTranslation(string $langId)
+    private static function initializeCoffeeTranslation(string $langId): void
     {
         i18n::getConfigApi()
             ->setCultureFileName("_culture.i18n")

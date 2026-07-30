@@ -116,7 +116,7 @@ class MSubscriptionActions
         ViewModelParser $viewModelParser,
         string $subscriberCount = "",
         bool $branded = true
-    )
+    ): self
     {
         // In order to determine whether or not the user is subscribed, we need to parse
         // the mutation entities.

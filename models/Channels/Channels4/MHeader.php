@@ -318,8 +318,10 @@ class MHeader
     
     /**
      * Gets information that we move to be displayed only on the about tab in Rehike.
+     *
+     * @return array{username:?string,subscriberCount:?string,pronouns:?string,videoCount:?string}
      */
-    public function getAboutInfo()
+    public function getAboutInfo(): array
     {
         return [
             "username" => $this->username,
