@@ -64,7 +64,7 @@ class RecordEntries extends stdClass implements ArrayAccess
     }
     
     // Rehike-specific change for now:
-    public static function __set_state(array $state): object
+    public static function __set_state(array $state): self
     {
         $pThis = new self();
         

@@ -509,6 +509,9 @@ class Channels4Model
         }
     }
 
+    /**
+     * @return object{sectionListRenderer:object,brandedPageV2SubnavRenderer:?MSubnav}
+     */
     public function getTabContents(object $content): object
     {
         if (isset($content->sectionListRenderer->contents[0]->itemSectionRenderer->contents[0]->channelAboutFullMetadataRenderer))
@@ -577,6 +580,9 @@ class Channels4Model
         }
     }
 
+    /**
+     * @return object{brandedPageV2SubnavRenderer?:MSubnav,browseContentGridRenderer?:object,items?:array}
+     */
     public function handleGridTab(object $data, object $parentTab, bool $rich = false): object
     {
         $response = [];
@@ -662,9 +668,9 @@ class Channels4Model
     }
 
     /**
-     * @return ?non-empty-list<object{relatedChannelsRenderer:mixed}>
+     * @return non-empty-list<object{relatedChannelsRenderer:MRelatedChannels}>|null
      */
-    public function getSidebarData($shelves, &$featuredData): ?array
+    public function getSidebarData($shelves, &$featuredData): array|null
     {
         $channelsShelves = [];
 

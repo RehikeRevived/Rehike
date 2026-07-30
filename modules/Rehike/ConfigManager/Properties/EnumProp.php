@@ -60,6 +60,9 @@ class EnumProp extends AbstractAssociativeProp
         return $this->defaultValue;
     }
 
+    /**
+     * @return string[]
+     */
     public function getValidValues(): array
     {
         return $this->validValues;

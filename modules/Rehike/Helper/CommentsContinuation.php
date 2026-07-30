@@ -25,7 +25,7 @@ class CommentsContinuation extends stdClass
         $this->displayNameMap = (object)[];
     }
     
-    public function supplyDisplayNameMap(object $displayNames): self
+    public function supplyDisplayNameMap(object $displayNames): static
     {
         $this->displayNameMap = $displayNames;
         

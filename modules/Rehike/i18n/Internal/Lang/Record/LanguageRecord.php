@@ -17,6 +17,9 @@ class LanguageRecord implements IResourceRecord
         $this->entries = $entries;
     }
 
+    /**
+     * @return RecordEntries
+     */
     #[\Override]
     public function toObject(): object
     {
@@ -92,7 +95,7 @@ class LanguageRecord implements IResourceRecord
     }
     
     // Rehike-specific change for now:
-    public static function __set_state(array $state): object
+    public static function __set_state(array $state): self
     {
         $pThis = (new \ReflectionClass(self::class))->newInstanceWithoutConstructor();
         

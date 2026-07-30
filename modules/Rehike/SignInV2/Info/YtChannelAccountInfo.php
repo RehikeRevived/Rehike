@@ -96,9 +96,6 @@ class YtChannelAccountInfo extends GoogleAccountInfoBase implements IBuiltObject
         return $this->ucid;
     }
     
-    /**
-     * 
-     */
     public function getSwitchUrl(?string $nextUrl = null, bool $alwaysSkipIdentityPrompt = false): ?string
     {
         $nextSegment = "";

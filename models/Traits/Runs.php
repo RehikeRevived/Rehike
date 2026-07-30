@@ -13,9 +13,9 @@ trait Runs
     /**
      * Create a run.
      *
-     * @return object{text:mixed,navigationEndpoint?:object{commandMetadata:object{webCommandMetadata:object{url:mixed}}}}
+     * @return object{text:string,navigationEndpoint?:object{commandMetadata:object{webCommandMetadata:object{url:string}}}}
      */
-    public function createRun($text, $href = null): object
+    public function createRun(string $text, ?string $href = null): object
     {
         return (object)([
             "text" => $text

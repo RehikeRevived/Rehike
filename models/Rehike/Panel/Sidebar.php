@@ -51,6 +51,9 @@ class Sidebar
         $this->selectCurrentItem();
     }
 
+    /**
+     * @return object[]
+     */
     protected function buildConfigSection(): array
     {
         $configStrings = i18n::getNamespace("rehike/config");
@@ -153,6 +156,9 @@ class Sidebar
         }
     }
 
+    /**
+     * @return array{buttonRenderer:MButton,rehikeDialogRenderer:MConfirmDialog}
+     */
     private static function getDisableRehikeButton(): array
     {
         $i18n = i18n::getNamespace("rehike/disable_rehike");

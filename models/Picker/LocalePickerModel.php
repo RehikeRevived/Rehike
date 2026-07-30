@@ -92,7 +92,7 @@ class LocalePickerModel extends PickerModel
         }
     }
     
-    private function itemFromInnertube(object $data): ?object
+    private function itemFromInnertube(object $data): MPickerItemButton
     {
         $result = new MPickerItemButton();
         

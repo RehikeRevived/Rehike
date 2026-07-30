@@ -1,10 +1,10 @@
 {
-	"previousHash": "e0e875f0228dee8620c370225a1f478d03359541",
-	"currentRevisionId": 1907,
-	"subject": "Run automatic linter fixes for InvalidNullableReturnType",
-	"body": "Run automatic linter fixes for InvalidNullableReturnType",
+	"previousHash": "ca0046e3124dde777adba32dfff54b0a14bd78a4",
+	"currentRevisionId": 1908,
+	"subject": "Run automatic linter fixes for LessSpecificReturnType",
+	"body": "Run automatic linter fixes for LessSpecificReturnType",
 	"branch": "dev-psalm-refactoring",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785392743
+	"time": 1785397698
 }

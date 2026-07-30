@@ -278,7 +278,7 @@ class CommentThread
     /**
      * @param object{comment:object{commentRenderer:object}} $context
      *
-     * @return array{commentThreadRenderer:array{commentRenderer?:mixed,commentRepliesRenderer?:mixed}}
+     * @return array{commentThreadRenderer:array{commentRenderer?:array|object,commentRepliesRenderer?:mixed}}
      */
     public function commentThreadRenderer(object $context): array
     {

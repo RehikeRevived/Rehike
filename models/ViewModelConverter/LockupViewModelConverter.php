@@ -20,7 +20,7 @@ class LockupViewModelConverter extends BasicVMC
         return $this->style;
     }
     
-    public function setStyle(int $newStyle): self
+    public function setStyle(int $newStyle): static
     {
         $this->style = $newStyle;
         return $this;

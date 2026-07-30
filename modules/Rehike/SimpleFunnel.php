@@ -116,6 +116,8 @@ class SimpleFunnel
 
     /**
      * Convert a list of response headers to HTTP-compatible ones.
+     *
+     * @return string[]
      */
     public static function responseHeadersToHttp(
             ResponseHeaders $headers, 
@@ -197,7 +199,7 @@ class SimpleFunnelResponse extends \Rehike\Network\Internal\Response
     /**
      * Output the response of the page.
      */
-    public function output(): void
+    public function output(): never
     {
         http_response_code($this->status);
 

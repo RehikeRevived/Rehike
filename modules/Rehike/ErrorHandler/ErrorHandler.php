@@ -69,7 +69,7 @@ final class ErrorHandler
         self::$isEnabled = false;
     }
     
-    public static function reportFailedToWriteConfig(): void
+    public static function reportFailedToWriteConfig(): never
     {
         self::exileAsyncErrorHandling();
         

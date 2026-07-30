@@ -108,7 +108,7 @@ class Converter
      * @param bool $signedIn
      * @return object (guideSectionRenderer)
      */
-    public static function getMainSection($data, $signedIn = false)
+    public static function getMainSection($data, $signedIn = false): object
     {
         $response = [];
 
@@ -637,7 +637,7 @@ class Converter
      * @param bool $signedIn
      * @return object (guideSectionRenderer})
      */
-    public static function getEndSection($signedIn = false)
+    public static function getEndSection($signedIn = false): object
     {
         $response = [];
 
@@ -677,7 +677,7 @@ class Converter
      * @param string $icon (will be a thumbnail unless prefixed with SYSTEM::)
      * @return object (guideEntryRenderer)
      */
-    public static function bakeGuideItem($endpoint, $name, $icon)
+    public static function bakeGuideItem($endpoint, $name, $icon): object
     {
         //
         // Step 1: Determine the endpoint of the data and create a new

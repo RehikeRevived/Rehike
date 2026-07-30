@@ -116,10 +116,10 @@ abstract class RehikeUtilsDelegateBase extends stdClass
      * @author Taniko Yamamoto <kirasicecreamm@gmail.com>
      * @author The Rehike Maintainers
      * 
-     * @param string $obj to cast
+     * @param object $obj to cast
      * @return array of the casted object
      */
-    public static function obj2arr($obj): array
+    public static function obj2arr(?object $obj): array
     {
         return (array)$obj;
     }

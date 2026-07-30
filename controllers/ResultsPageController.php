@@ -176,9 +176,11 @@ class ResultsPageController extends NirvanaController implements IGetController
 
     /**
      * Get information for the paginator at the bottom of the search page.
-     * 
+     *
      * @param int $resultsCount  The number of results for the query.
      * @param int $index         Index at which to start the first result.
+     *
+     * @return object{resultsPerPage:20,pageNumber:float,pagesCount:float}
      */
     public static function getPaginatorInfo(int $resultsCount, int $index): object
     {
@@ -228,10 +230,10 @@ class ResultsPageController extends NirvanaController implements IGetController
 
     /**
      * Returns the URL for a page's index.
-     * 
+     *
      * @param string $sp    Standard base64 encoded parameter to be modified.
      * @param int    $page  The page number to encode.
-     * 
+     *
      * @return string  URL for that page.
      */
     public static function getPageParamUrl(?string $sp = null, int $page = 1): string

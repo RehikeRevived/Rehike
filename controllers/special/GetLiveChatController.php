@@ -81,7 +81,7 @@ class GetLiveChatController extends HitchhikerController implements IGetControll
         });
     }
 
-    public static function error(string $msg): void
+    public static function error(string $msg): never
     {
         http_response_code(400);
         echo "[Rehike] Fatal error while attempting to load live chat: $msg";

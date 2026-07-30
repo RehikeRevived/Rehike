@@ -20,7 +20,7 @@ class PlaylistHeaderViewModelConverter extends BasicVMC
         $this->playlistId = $playlistId;
     }
     
-    public function bake(): ?object
+    public function bake(): object
     {
         $i18n = i18n::getNamespace("playlist");
         $regexes = i18n::getNamespace("regex");

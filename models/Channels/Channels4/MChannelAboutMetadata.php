@@ -133,12 +133,12 @@ class MChannelAboutMetadata
      * This among the other new things from channel page use the same commandRuns
      * bullshit that the description does. Fortunately, here it isn't actually
      * used to split apart strings, so it's pretty painless to parse it.
-     * 
+     *
      * Anyways, this function converts the new link format back to the old one.
      * Icons and everything.
-     * 
+     *
      * @param array $links  channelAboutFullMetaDataRenderer.links object
-     * @return array
+     * @return object[]
      */
     private static function convertLinks(array $links): array
     {

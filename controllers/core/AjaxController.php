@@ -27,7 +27,7 @@ abstract class AjaxController extends HitchhikerController
         return null;
     }
 
-    protected static function error(): void
+    protected static function error(): never
     {
         http_response_code(400);
         die('{"errors":[]}');

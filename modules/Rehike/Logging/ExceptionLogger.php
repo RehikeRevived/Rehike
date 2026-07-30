@@ -50,6 +50,9 @@ class ExceptionLogger
         return $output;
     }
 
+    /**
+     * @return Throwable[]
+     */
     private static function getExceptionChain(Throwable $e): array
     {
         // Always just add the initial exception since it will never be a

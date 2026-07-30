@@ -103,6 +103,8 @@ class GuidePlaylistsManager
     /**
      * Processes the playlists feed response from InnerTube and normalizes the
      * result.
+     *
+     * @return object[]
      */
     protected function processInnertubeData(array $baseItems): array
     {
@@ -144,6 +146,8 @@ class GuidePlaylistsManager
 
     /**
      * Builds the cache for multi-user support.
+     *
+     * @return object{accountId:?string,expire:int,items:array}
      */
     protected function buildCache(array $items): object
     {
@@ -159,6 +163,8 @@ class GuidePlaylistsManager
 
     /**
      * Performs cache validation functions.
+     *
+     * @return object{isValid:bool,items:mixed}
      */
     protected function validateCache(mixed $cacheObj): object
     {

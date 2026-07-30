@@ -25,6 +25,9 @@ class DependentProp extends AbstractConfigProperty
         $this->prop = $prop;
     }
 
+    /**
+     * @return class-string
+     */
     #[\Override]
     public function getType(): string
     {

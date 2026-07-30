@@ -29,6 +29,7 @@ use Rehike\Network\Internal\Response;
 class PlayerUpdater
 {
     /**
+     *
      * Gets the page URL used to retrieve player resource URLs.
      * 
      * The URL for the YouTube player JS can only be found
@@ -55,6 +56,8 @@ class PlayerUpdater
     /**
      * Request all necessary player information for the requested player
      * revision.
+     *
+     * @return object{baseJsUrl:string,baseCssUrl:string,embedJsUrl:string,signatureTimestamp:string,latestJsUrl:string,latestCssUrl:string}
      */
     public static function requestPlayerInfo(): object
     {

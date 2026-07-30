@@ -174,6 +174,9 @@ abstract class Event implements IEvent, IObjectWithTrackingCookie
      */
     abstract protected function onRun(): Generator/*<void>*/;
     
+    /**
+     * @return EventFlags::*
+     */
     #[\Override]
     public function getEventFlags(): int
     {

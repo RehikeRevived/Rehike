@@ -106,9 +106,11 @@ class MNetworkRequest
     
     /**
      * Normalises HTTP headers into a common format for the sake of the client.
-     * 
+     *
      * All header names are normalised to a lowercase encoding using hyphens to
      * separate words.
+     *
+     * @return array<string, string>
      */
     private static function normalizeHeaders(iterable $headers): array
     {

@@ -45,7 +45,7 @@ final class Bootloader
     /**
      * Performs an early shutdown.
      */
-    public static function doEarlyShutdown(): void
+    public static function doEarlyShutdown(): never
     {
         // Silence shutdown errors such as the unhandled promise error
         if (class_exists("Rehike\\Async\\Promise", false))
@@ -173,7 +173,7 @@ final class Bootloader
     /**
      * Ran after all page logic is done.
      */
-    private static function shutdown(bool $early = false): void
+    private static function shutdown(bool $early = false): never
     {
         $finishedRequest = false;
         try

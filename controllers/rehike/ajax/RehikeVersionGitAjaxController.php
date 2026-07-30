@@ -43,6 +43,9 @@ class RehikeVersionGitAjaxController extends AjaxController implements IGetContr
         echo json_encode($result);
     }
 
+    /**
+     * @return object{status:string,dialogHtml?:string,dialogRid?:int}
+     */
     protected function gitPull(): object
     {
         $result = $this->gitExec("git pull --rebase");
@@ -103,6 +106,9 @@ class RehikeVersionGitAjaxController extends AjaxController implements IGetContr
         return TemplateManager::render([], "rehike/version/ajax/git_dialog");
     }
 
+    /**
+     * @return object[]
+     */
     protected function getDialogMessage(string $header, string $result): array
     {
         $output = [];
@@ -138,6 +144,8 @@ class RehikeVersionGitAjaxController extends AjaxController implements IGetContr
 
     /**
      * Executes a Git command.
+     *
+     * @return array{code:int,out:string,err:string}
      */
     protected function gitExec(string $cmd): array
     {

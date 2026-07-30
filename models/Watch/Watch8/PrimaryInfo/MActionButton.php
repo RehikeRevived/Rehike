@@ -144,10 +144,8 @@ class MActionButton extends MButton
 
     /**
      * Build a watch8 share button.
-     * 
-     * @return MActionButton|null
      */
-    public static function buildShareButton()
+    public static function buildShareButton(): self
     {
         $i18n = i18n::getNamespace("watch");
 

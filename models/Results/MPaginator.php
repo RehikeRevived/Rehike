@@ -47,6 +47,9 @@ class MPaginator
         }
     }
 
+    /**
+     * @return MPaginatorButton[]
+     */
     public static function getVisiblePages(int $pageNumber, int $pagesCount): array
     {
         // The range for pagination is 1 page before the current, and up to 5 after it.

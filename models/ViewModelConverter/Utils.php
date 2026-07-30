@@ -12,9 +12,11 @@ class Utils
     /**
      * Detects the type of an InnerTube command, which is ambiguous in view
      * models.
-     * 
+     *
      * @author Taniko Yamamoto <kirasicecreamm@gmail.com>
      * @author The Rehike Maintainers
+     *
+     * @return 'navigationEndpoint'|'serviceEndpoint'
      */
     public static function detectInnertubeCommandType(object $command): string
     {

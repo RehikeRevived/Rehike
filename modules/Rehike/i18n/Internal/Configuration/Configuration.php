@@ -67,6 +67,8 @@ final class Configuration
 
     /**
      * Gets the user's preferred language IDs.
+     *
+     * @return string[]
      */
     public function getPreferredLanguageIds(): array
     {

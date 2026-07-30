@@ -146,6 +146,8 @@ class SessionInfo implements IBuiltObject
     /**
      * Gets a list of other YouTube channels accessible under the current
      * Google Account.
+     *
+     * @return YtChannelAccountInfo[]
      */
     public function getYoutubeChannels(): array
     {

@@ -37,10 +37,7 @@ class SwitcherParser
         $this->response = $response;
     }
 
-    /**
-     * 
-     */
-    public function parse(): self
+    public function parse(): static
     {
         $accountSections = $this->getAccountSections();
         

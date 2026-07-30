@@ -195,6 +195,8 @@ final class Tasks
      *
      * Unfortunately, it seems to take about 10 seconds for such a request to register, so
      * it's really slow to do.
+     *
+     * @return Promise<void>
      */
     private static function populateVisitorDataRecommendations(string $visitor): Promise/*<void>*/
     {
