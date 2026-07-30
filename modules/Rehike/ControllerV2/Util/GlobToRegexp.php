@@ -20,7 +20,7 @@ class GlobToRegexp
     /**
      * Convert a glob to a regex pattern.
      */
-    public static function convert(string $pattern, string $filename, int $flags = 0): string
+    public static function convert(string $pattern, string $filename, int $flags = 0): string|false
     {
         $regexFlags = "";
 

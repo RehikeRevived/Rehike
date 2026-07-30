@@ -68,11 +68,11 @@ class StaticRouter extends BaseController implements IGetController, IPostContro
 
     /**
      * Gets the MIME type for a filename.
-     * 
+     *
      * The default PHP limitation is a little bit broken, so we only use it as a
      * fallback and try to detect the MIME type on our own.
      */
-    private function getMimeType(string $filename): string
+    private function getMimeType(string $filename): string|false
     {
         $ext = FileSystem::getExtension($filename);
 

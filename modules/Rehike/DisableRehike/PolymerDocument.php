@@ -86,7 +86,7 @@ class PolymerDocument
     /**
      * Gets the JS config in JSON format (a JS object).
      */
-    private static function getDisablePolymerJsConfig(): string
+    private static function getDisablePolymerJsConfig(): string|false
     {
         $i18n = i18n::getNamespace("rehike/disable_rehike");
         $strings = $i18n->getAllTemplates();

@@ -15,10 +15,8 @@ class Spf
     /**
      * Look at the request parameters and determine if SPF
      * was requested (over the normal state).
-     * 
-     * @return string|null if string, the SPF state (navigate/etc.)
      */
-    public static function isSpfRequested()
+    public static function isSpfRequested(): string|false
     {
         if (isset($_GET["spf"]))
         {
