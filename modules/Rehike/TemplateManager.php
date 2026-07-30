@@ -53,8 +53,8 @@ class TemplateManager
 
     /**
      * Register the global state variable ($yt)
-     * 
-     * @param object $yt (reference)
+     *
+     * @param YtApp $yt (reference)
      * @return void
      */
     public static function registerGlobalState(YtApp $yt): void

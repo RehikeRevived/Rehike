@@ -317,8 +317,8 @@ abstract class HitchhikerController extends PageController
     /**
      * Defines the API for handling GET requests. Pages should always use this;
      * only subcontrollers may override onGet() directly.
-     * 
-     * @param object $yt                Template data.
+     *
+     * @param YtApp $yt                 Template data.
      * @param RequestMetadata $request  Reports request metadata.
      */
     public function onGet(YtApp $yt, RequestMetadata $request): void {}
@@ -326,8 +326,8 @@ abstract class HitchhikerController extends PageController
     /**
      * Defines the API for handling POST requests. Pages should always use this;
      * only subcontrollers may override onPost() directly.
-     * 
-     * @param object $yt                Template data.
+     *
+     * @param YtApp $yt                 Template data.
      * @param RequestMetadata $request  Reports request metadata.
      */
     public function onPost(YtApp $yt, RequestMetadata $request): void {}

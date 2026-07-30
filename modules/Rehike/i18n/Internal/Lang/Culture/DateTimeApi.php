@@ -23,12 +23,12 @@ class DateTimeApi
 
     /**
      * Format a date/time string.
-     * 
-     * @param DateTimeFormats $format
+     *
+     * @param DateTimeFormats::* $format
      */
     public function formatDateTime(
             int $format = DateTimeFormats::DATE,
-            int $timestamp
+            int $timestamp = 0,
     ): string
     {
         $dt = $this->cultureInfo->dateTimeInfo;

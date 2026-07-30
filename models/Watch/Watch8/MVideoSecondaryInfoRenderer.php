@@ -64,9 +64,8 @@ class MVideoSecondaryInfoRenderer
 
     /**
      * Fix description link text.
-     * 
-     * @param object $runs  runs object
-     * @param 
+     *
+     * @param array $runs  runs object
      */
     private static function fixDescLinks(array &$runs): void
     {

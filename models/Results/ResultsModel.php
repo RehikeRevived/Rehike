@@ -18,7 +18,7 @@ class ResultsModel
      *
      * @param object $data           From search response
      * @param object $paginatorInfo  Info for paginated buttons at the bottom
-     * @param object $query          The search query that was entered in the searchbox
+     * @param string $query          The search query that was entered in the searchbox
      * @param array  $dapidata       Data API data for channel video counts
      */
     public static function bake(object $data, object $paginatorInfo, string $query, array $dapidata = []): object

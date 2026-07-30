@@ -75,14 +75,14 @@ class WatchBakery
 
     /**
      * Bake a watch page model
-     * 
+     *
      * This is the insertion point, so other operations are
      * performed within this function as well.
-     * 
-     * @param object $yt (global state)
+     *
+     * @param YtApp  $yt (global state)
      * @param object $data from watch results response
      * @param object $rydData from RYD API response
-     * 
+     *
      * @return Promise<object>
      */
     public function bake(YtApp &$yt, object $data, string $videoId, ?object $rydData = null): Promise/*<object>*/
@@ -631,8 +631,8 @@ class WatchBakery
 
     /**
      * Get autoplay recommendation
-     * 
-     * @param object $results (index of the results)
+     *
+     * @param array $results (index of the results)
      * @return int The index of the recommendation, or -1 if no autoplay video.
      */
     public function getRecomAutoplay(array $results)

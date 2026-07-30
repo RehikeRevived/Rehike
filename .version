@@ -1,10 +1,10 @@
 {
-	"previousHash": "d462774caf9dd08919405b69e26ab1a4a7aac219",
-	"currentRevisionId": 1901,
-	"subject": "Run automatic linter fixes for MissingReturnType",
-	"body": "Run automatic linter fixes for MissingReturnType",
+	"previousHash": "d4fa17ed10bb8fee75dbe4a210cfeb543221e966",
+	"currentRevisionId": 1902,
+	"subject": "Run automatic linter fixes for MismatchingDocblockParamType",
+	"body": "Run automatic linter fixes for MismatchingDocblockParamType",
 	"branch": "dev-psalm-refactoring",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785389565
+	"time": 1785390072
 }
