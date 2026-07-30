@@ -102,14 +102,4 @@ class SecurityLightbox
             $this->i18n->get("runningAsSystemMessage")
         );
     }
-
-    private function createDismissButton(): MButton
-    {
-        $button = new MButton([
-            "style" => "STYLE_DEFAULT",
-            "id" => "rehike-security-notice-dismiss-button"
-        ]);
-
-        return $button;
-    }
 }
