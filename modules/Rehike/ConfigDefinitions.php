@@ -140,7 +140,7 @@ class ConfigDefinitions implements IConfigDefinitionsProvider
     {
         $changedAnything = false;
         
-        $migrateAndRemoveOriginal = function(string $prop, \Closure $cb) use (&$changedAnything) {
+        $migrateAndRemoveOriginal = function(string $prop, \Closure $cb) use (&$changedAnything): void {
             $originalProperty = Config::getRawConfigProp($prop);
             if ($originalProperty !== null)
             {

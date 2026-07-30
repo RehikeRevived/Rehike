@@ -1,10 +1,10 @@
 {
-	"previousHash": "ca0046e3124dde777adba32dfff54b0a14bd78a4",
-	"currentRevisionId": 1908,
-	"subject": "Run automatic linter fixes for LessSpecificReturnType",
-	"body": "Run automatic linter fixes for LessSpecificReturnType",
+	"previousHash": "4164c7aa21dd57316cd882acdd9768484adc5401",
+	"currentRevisionId": 1909,
+	"subject": "Run automatic linter fixes for MissingClosureReturnType",
+	"body": "Run automatic linter fixes for MissingClosureReturnType",
 	"branch": "dev-psalm-refactoring",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785397698
+	"time": 1785397849
 }
