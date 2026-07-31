@@ -44,7 +44,7 @@ class RehikeVersionGitAjaxController extends AjaxController implements IGetContr
     }
 
     /**
-     * @return object{status:string,dialogHtml?:string,dialogRid?:int}
+     * @return object{status:'SUCCESS'|'FAILED',dialogHtml?:string,dialogRid?:int}
      */
     protected function gitPull(): object
     {
@@ -136,8 +136,6 @@ class RehikeVersionGitAjaxController extends AjaxController implements IGetContr
                 ]
             ]
         ];
-
-        \Rehike\YtApp::getInstance()->aaaa = $result;
 
         return $output;
     }

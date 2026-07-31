@@ -22,5 +22,5 @@ class Html5PageController extends HitchhikerController implements IGetController
 {
     public string $template = "html5";
     
-    // onGet inherited from HitchhikerController
+    // The rest inherited from HitchhikerController
 }

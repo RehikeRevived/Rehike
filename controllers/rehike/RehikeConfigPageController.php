@@ -23,9 +23,9 @@ class RehikeConfigPageController extends NirvanaController implements IGetContro
 {
     public string $template = "rehike/config/main";
 
-    const DEFAULT_TAB = "appearance";
+    public const DEFAULT_TAB = "appearance";
 
-    const VALID_TABS = [
+    public const VALID_TABS = [
         "appearance",
         "experiments",
         "advanced"

@@ -15,6 +15,7 @@ use Rehike\ControllerV2\{
     IGetController,
     IPostController,
 };
+use Rehike\Model\Guide\MGuide;
 
 /**
  * Watch fragments ajax controller
@@ -57,7 +58,7 @@ class WatchFragments2AjaxController extends AjaxController implements IPostContr
         $this->template = "ajax/watch_fragments2/guide";
 
         $yt->appbar = new MAppbar();
-        $this->getPageGuide()->then(function ($guide) use ($yt) {
+        $this->getPageGuide()->then(function (MGuide $guide) use ($yt) {
             $yt->appbar->addGuide($guide);
         });
     }

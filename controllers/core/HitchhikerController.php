@@ -53,15 +53,6 @@ abstract class HitchhikerController extends PageController
 
     /**
      * Stores all information that is sent to Twig for rendering the page.
-     * 
-     * @var YtApp $yt
-     *   + useModularCore (bool, required) - Toggles base.js/core.js use by Hitchhiker.
-     *   + modularCoreModules (string[]) - Defines base.js page modules.
-     *   + spfEnabled (bool, required) - Enables YouTube SPF (soft loading).
-     *   + spf (bool, required) - True if the page is navigated to via SPF.
-     *   + title (string) - Page title name
-     *   + appbar (object) - Available in NirvanaController; defines YouTube Appbar.
-     *   + page (object) - Page metadata
      */
     protected YtApp $yt;
 
@@ -83,8 +74,6 @@ abstract class HitchhikerController extends PageController
 
     /**
      * What the Content-Type header should be in the response
-     * 
-     * @var string
      */
     public string $contentType = "text/html";
 
@@ -94,20 +83,12 @@ abstract class HitchhikerController extends PageController
      * This function should not be overridden for page-specific
      * functionality. Use the controller's API (onGet()) for that.
      * 
-     * @param YtApp $yt                  Template data.
-     * 
-     * @param string $template           Passes a template in and out of the function.
-     *                                   For API usage, you can safely ignore this. It only
-     *                                   matters on the technical end.
-     * 
-     * @param RequestMetadata $request   Reports request metadata.
-     * 
      * @deprecated Should be moved to getAsync() in the future.
      */
     public function get(): void
     {
         header("Content-Type: " .  $this->contentType);
-        $this->yt = \Rehike\YtApp::getInstance();
+        $this->yt = YtApp::getInstance();
         $this->init();
 
         $this->onGet($this->yt, $this->getRequest());
@@ -127,20 +108,12 @@ abstract class HitchhikerController extends PageController
      * This function should not be overridden for page-specific
      * functionality. Use the controller's API (onPost()) for that.
      * 
-     * @param YtApp $yt                  Template data.
-     *
-     * @param string $template           Passes a template in and out of the function.
-     *                                   For API usage, you can safely ignore this. It only
-     *                                   matters on the technical end.
-     * 
-     * @param RequestMetadata $request   Reports request metadata.
-     * 
      * @deprecated Should be moved to postAsync() in the future
      */
     public function post(): void
     {
         header("Content-Type: " .  $this->contentType);
-        $this->yt = \Rehike\YtApp::getInstance();
+        $this->yt = YtApp::getInstance();
         $this->init();
 
         $this->onPost($this->yt, $this->getRequest());
@@ -163,10 +136,10 @@ abstract class HitchhikerController extends PageController
         return async(function()
         {
             header("Content-Type: " .  $this->contentType);
-            $this->yt = \Rehike\YtApp::getInstance();
+            $this->yt = YtApp::getInstance();
             $this->init();
 
-            yield $this->onGetAsync($this->yt, $this->getRequest());
+            yield $this->onGetAsync();
 
             $this->postInit();
 
@@ -185,10 +158,10 @@ abstract class HitchhikerController extends PageController
         return async(function()
         {
             header("Content-Type: " .  $this->contentType);
-            $this->yt = \Rehike\YtApp::getInstance();
+            $this->yt = YtApp::getInstance();
             $this->init();
             
-            yield $this->onPostAsync($this->yt, $this->getRequest());
+            yield $this->onPostAsync();
             
             $this->postInit();
             
@@ -260,8 +233,10 @@ abstract class HitchhikerController extends PageController
      * As Rehike implements a Nirvana frontend primarily, this behaviour
      * is unused by the base Hitchhiker controller. This function
      * is used by NirvanaController.
+     * 
+     * @return Promise<MGuide>
      */
-    public function getPageGuide(): Promise
+    public function getPageGuide(): Promise/*<MGuide>*/
     {
         return new Promise(function ($resolve) {
             Network::innertubeRequest("guide")->then(function ($response) 
@@ -362,11 +337,6 @@ abstract class HitchhikerController extends PageController
 
     /**
      * Set initial variables for this controller type.
-     * 
-     * @param $yt        Template data.
-     * @param $template  Backend template data.
-     * 
-     * @return void
      */
     protected function init(): void
     {
@@ -389,9 +359,6 @@ abstract class HitchhikerController extends PageController
      * Defines the tasks performed after the page is done being built.
      * 
      * Mainly, this prepares data internally to prepare sending to Twig.
-     * 
-     * @param $yt        Template data.
-     * @param $template  Backend template data.
      */
     public function postInit(): void
     {

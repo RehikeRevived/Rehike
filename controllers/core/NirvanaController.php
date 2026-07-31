@@ -86,8 +86,6 @@ abstract class NirvanaController extends HitchhikerController
      * Define the page to use a JS page module.
      * 
      * @param string $module  Name of the module (not URL)
-     * 
-     * @return void
      */
     protected function useJsModule(string $module): void
     {

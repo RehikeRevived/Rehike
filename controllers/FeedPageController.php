@@ -58,11 +58,13 @@ class FeedPageController extends NirvanaController implements IGetController
      * the homepage, trending page, and subscriptions page.
      * 
      * @see MFeedAppbarNav
+     * 
+     * @var string[]
      */
-    const FEED_APPBAR_SUPPORTED_IDS = [
+    public const FEED_APPBAR_SUPPORTED_IDS = [
         "FEwhat_to_watch",
         "FEtrending",
-        "FEsubscriptions"
+        "FEsubscriptions",
     ];
 
     /**
@@ -70,9 +72,11 @@ class FeedPageController extends NirvanaController implements IGetController
      * 
      * If the user is signed out, they will be redirected to the homepage. This
      * is to maintain compatibility with the standard YouTube server.
+     * 
+     * @var string[]
      */
-    const SIGNIN_REQUIRED_IDS = [
-        "FEsubscriptions"
+    public const SIGNIN_REQUIRED_IDS = [
+        "FEsubscriptions",
     ];
 
     #[\Override]
@@ -113,6 +117,8 @@ class FeedPageController extends NirvanaController implements IGetController
      * 
      * Internally, the homepage is known as FEwhat_to_watch, which corresponds
      * with its older name "What to Watch".
+     * 
+     * @return Promise<void>
      */
     private function whatToWatch(YtApp $yt): Promise
     {
@@ -125,15 +131,15 @@ class FeedPageController extends NirvanaController implements IGetController
             $yt->masthead->searchbox->autofocus = true;
             
             $STRATEGIES = [
-                "getWhatToWatchShelves",
-                "getWhatToWatchModern",
+                $this->getWhatToWatchShelves(...),
+                $this->getWhatToWatchModern(...),
             ];
             
             $anySuccess = false;
             
             foreach ($STRATEGIES as $strat)
             {
-                $success = yield $this->{$strat}($yt);
+                $success = yield $strat($yt);
                 if ($success)
                 {
                     $anySuccess = true;
@@ -141,11 +147,6 @@ class FeedPageController extends NirvanaController implements IGetController
                 }
             }
             
-            // // Try strategies:
-            // if (true == yield $this->getWhatToWatchShelves($yt) ||
-            //     true == yield $this->getWhatToWatchModern($yt)
-            // );
-            // else
             if (!$anySuccess)
             {
                 throw new \Exception("Failed to get what to watch feed");
@@ -235,6 +236,9 @@ class FeedPageController extends NirvanaController implements IGetController
 
     /**
      * History feed.
+     *
+     * TODO(leymonaide): Currently unused. The history feed seems to use the
+     * default route.
      */
     private function history(YtApp $yt, RequestMetadata $request): void
     {
@@ -312,9 +316,13 @@ class FeedPageController extends NirvanaController implements IGetController
             $ytdata = $response->getJson();
 
             if (isset($ytdata->contents->twoColumnBrowseResultsRenderer))
-            foreach ($ytdata->contents->twoColumnBrowseResultsRenderer->tabs as $tab)
-            if (isset($tab->tabRenderer->content))
-                $content = $tab->tabRenderer->content;
+            {
+                foreach ($ytdata->contents->twoColumnBrowseResultsRenderer->tabs as $tab)
+                if (isset($tab->tabRenderer->content))
+                {
+                    $content = $tab->tabRenderer->content;
+                }
+            }
 
             if (isset($content->sectionListRenderer))
             {
@@ -326,13 +334,20 @@ class FeedPageController extends NirvanaController implements IGetController
             $yt->page->content = $content;
 
             if (isset($ytdata->header))
-            foreach ($ytdata->header as $header)
-            if (isset($header->title))
-            if (isset($header->title->runs)
-            || isset($header->title->simpleText))
-                $this->setTitle(ParsingUtils::getText($header->title));
-            else
-                $this->setTitle($header->title);
+            {
+                foreach ($ytdata->header as $header)
+                if (isset($header->title))
+                {
+                    if (isset($header->title->runs) || isset($header->title->simpleText))
+                    {
+                        $this->setTitle(ParsingUtils::getText($header->title));
+                    }
+                    else
+                    {
+                        $this->setTitle($header->title);
+                    }
+                }
+            }
         });
     }
 

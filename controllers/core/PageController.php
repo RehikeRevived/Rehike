@@ -16,15 +16,6 @@ class PageController extends BaseController
 {
     /**
      * Stores all information that is sent to Twig for rendering the page.
-     * 
-     * @var YtApp $yt
-     *   + useModularCore (bool, required) - Toggles base.js/core.js use by Hitchhiker.
-     *   + modularCoreModules (string[]) - Defines base.js page modules.
-     *   + spfEnabled (bool, required) - Enables YouTube SPF (soft loading).
-     *   + spf (bool, required) - True if the page is navigated to via SPF.
-     *   + title (string) - Page title name
-     *   + appbar (object) - Available in NirvanaController; defines YouTube Appbar.
-     *   + page (object) - Page metadata
      */
     protected YtApp $yt;
 
