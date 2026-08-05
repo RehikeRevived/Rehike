@@ -131,6 +131,7 @@ var c_resolvedPromise = Promise.resolve();
 module.WebPoClient = function()
 {
     this.minter = new module.PoTokenMinter();
+    log(this);
 };
 
 /**
@@ -164,14 +165,14 @@ module.WebPoClient.prototype.f = function(obj)
     return c_resolvedPromise;
 };
 
-module.WebPoClient.prototype.m = function()
+module.WebPoClient.prototype.m = function(args)
 {
     if (args.mc)
     {
         return this.minter.mintAsU8Array(args.c);
     }
     
-    throw new Error("Unhandled case.");
+    logAndThrow("Unhandled case.");
 };
 
 module.WebPoClient.prototype.mws = function(args)
@@ -181,7 +182,7 @@ module.WebPoClient.prototype.mws = function(args)
         return this.minter.mint(args.c);
     }
     
-    throw new Error("Unhandled case.");
+    logAndThrow("Unhandled case.");
 };
 
 /** @static */
@@ -195,9 +196,13 @@ if (!(c_havuokmhhsName in window))
 {
     /** @implements {IHavuokmhhs}  */
     window[c_havuokmhhsName] = {
+        is_rehike: true,
         bevasrs: {
             wpc: function()
             {
+                log("Requesting a new WebPoClient from the factory...", new Error().stack);
+                var startTime = performance.now();
+
                 // Defer resolution until all required state is ready:
                 return Promise.all([
                     // Wait for the global WebPO client to be initialised:
@@ -212,7 +217,12 @@ if (!(c_havuokmhhsName in window))
                             module.s_webpoClient.initialize().then(resolve);
                         }
                     }),
-                ]).then(function() { return module.s_webpoClient; });
+                ]).then(function()
+                {
+                    var endTime = performance.now() - startTime;
+                    log("Created new WebPoClient in", endTime, "ms.", module.s_webpoClient, new Error().stack);
+                    return module.s_webpoClient;
+                });
             }
         }
     };

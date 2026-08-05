@@ -88,8 +88,11 @@ module.PoTokenMinter.prototype.initialize = function()
             
             var processFunc = self.postProcessFunctions[0];
             var u8Token = base64ToU8(self.integrityToken);
-            var acquirePo = processFunc(u8Token);
-            
+            log("Created webPoSignalOutput with processFunc", processFunc, "and u8Token", u8Token);
+            return processFunc(u8Token);
+        })
+        .then(function(acquirePo)
+        {
             if (typeof acquirePo !== "function")
             {
                 logAndThrow("acquirePo is not a function.");
@@ -118,13 +121,24 @@ module.PoTokenMinter.prototype.mintAsU8Array = function(identity, opt_noLog)
     
     if (!this.initialized)
     {
-        throw new Error("The WebPO token minter is not yet initialised.");
+        logAndThrow("The WebPO token minter is not yet initialised.");
     }
     
     var identityU8 = (new TextEncoder()).encode(identity);
     var poBuffer = this.acquirePo(identityU8);
+
+    if (!poBuffer)
+    {
+        logAndThrow("Failed to mint a valid PO token, got a null or falsy value.");
+    }
+
+    if (!(poBuffer instanceof Uint8Array))
+    {
+        logAndThrow("Failed to mint a valid PO token, did not get a Uint8Array.");
+    }
+
     if (!opt_noLog)
-        log("Generated POT (as U8 array):", u8ToBase64(poBuffer, true));
+        log("Generated POT (as U8 array):", u8ToBase64(poBuffer, true), "for identity", identity);
     return poBuffer;
 };
 
@@ -141,7 +155,7 @@ module.PoTokenMinter.prototype.mintAsU8Array = function(identity, opt_noLog)
 module.PoTokenMinter.prototype.mint = function(identity)
 {
     var poToken = u8ToBase64(this.mintAsU8Array(identity, true), true);
-    log("Generated POT:", poToken);
+    log("Generated POT:", poToken, "for identity", identity);
     return poToken;
 };
 

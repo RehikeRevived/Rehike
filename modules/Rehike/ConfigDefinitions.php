@@ -70,6 +70,8 @@ class ExperimentsConfigDefinitions implements IConfigDefinitionsProvider
             "USE_EMBEDDED_PLAYER_DIRECTLY",
         ]),
         public BoolProp $alwaysUseContentPoToken = new BoolProp(false),
+        public BoolProp $potGenUseInnertubeForIntegrityToken = new BoolProp(true),
+        public BoolProp $potGenScrapePolymerForBotguardContext = new BoolProp(true),
     )
     {
         $this->tickInjectionForScheduling = (new BoolProp(false))->registerUpdateCb(function() {

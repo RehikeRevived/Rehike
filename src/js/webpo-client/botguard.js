@@ -6,7 +6,9 @@
  */
 
 /** @constant */
-var c_generateItUrl = "https://jnn-pa.googleapis.com/$rpc/google.internal.waa.v1.Waa/GenerateIT";
+var c_jnnBaseUrl = "https://jnn-pa.googleapis.com/$rpc/google.internal.waa.v1.Waa/";
+/** @constant */
+var c_jnnBaseUrlYti = "https://www.youtube.com/api/jnn/v1/";
 /** @constant */
 var c_wpoRequestKey = "O43z0dpjhgX20SCx4KAo";
 
@@ -69,10 +71,13 @@ module.botguard.getClient = function()
     }
 
     var getAttPromise;
+    var useYtiAttGet = (window.yt && window.yt.config_ && window.yt.config_.REHIKE_ATT_USE_YTI_ATT_GET) || false;
 
     if (yt.getConfig("REHIKE_ASYNC_ATT_REQUEST"))
     {
-        getAttPromise = module.botguard.requestAttestationClient_();
+        getAttPromise = useYtiAttGet
+            ? module.botguard.requestAttestationClient_()
+            : module.botguard.requestAttestationClient2_();
     }
     else if (yt.getConfig("REHIKE_ATT"))
     {
@@ -130,7 +135,7 @@ module.botguard.generateIntegrityTokenContext = function()
                         botguardResponse: bgResponse,
                         webPoSignalOutput: webPoSignalOutput
                     });
-                }, [, , webPoSignalOutput]);
+                }, [undefined, undefined, webPoSignalOutput, undefined]);
             });
         })
         .then(function(snapshotResponse)
@@ -139,8 +144,15 @@ module.botguard.generateIntegrityTokenContext = function()
                 c_wpoRequestKey,
                 snapshotResponse.botguardResponse
             ];
+
+            // Determine the GenerateIT URL:
+            var useGapiJnn = (window.yt && window.yt.config_ && window.yt.config_.REHIKE_ATT_USE_GAPI_FOR_JNN) || false;
+            var generateItUrl = (useGapiJnn ? c_jnnBaseUrl : c_jnnBaseUrlYti) +
+                "GenerateIT";
+            log("Using " + (useGapiJnn ? "Google APIs" : "InnerTube") + " for Jnn API requests.");
+            log("Fetching: " + generateItUrl);
             
-            return fetch(c_generateItUrl, {
+            return fetch(generateItUrl, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json+protobuf",
@@ -168,6 +180,7 @@ module.botguard.generateIntegrityTokenContext = function()
             };
             module.botguard.integrityToken = result;
             rehike.pubsub.publish("webpo-integrity-token-generated", result);
+            log("Integrity token generated: ", result);
             return result;
         });
 };
@@ -254,7 +267,7 @@ module.botguard.wrapBotguardInterface_ = function(vm, att)
             passEventFunction: c,
             checkCameraFunction: d
         });
-    }, true, undefined, function() { /** no-op */ }, [ [], [] ])[0];
+    }, true, undefined, function() { /** no-op */ }, [ [], [] ], undefined, false, function() { /** no-op */ })[0];
     
     var webPoSignalOutput = [];
     var bgResponse = syncSnapshotFunction([, , webPoSignalOutput]);
@@ -262,31 +275,39 @@ module.botguard.wrapBotguardInterface_ = function(vm, att)
     {
         bgResponse = null;
     }
+
+    log("BotGuard response:", bgResponse);
     
-    return {
+    var result = {
         notBoundResponse: bgResponse,
         challenge: challenge,
         webPoSignalOutput: webPoSignalOutput,
         syncSnapshotFunction: syncSnapshotFunction,
         vmFunctions: vmFunctions
     };
+
+    log("BotGuard interface:", result);
+    return result;
 };
 
+/**
+ * Requests the BotGuard attestation client from InnerTube's att/get API.
+ */
 module.botguard.requestAttestationClient_ = function()
 {
     var tooEarlyRejection =
         Promise.reject("Attempted request before page initialization completed.");
 
-    if (!window.yt || !window.yt.getConfig)
+    if (!window.yt || !window.ytcfg.get)
     {
         return tooEarlyRejection;
     }
 
-    var ytiApiVer = yt.getConfig("INNERTUBE_API_VERSION");
-    var ytiApiKey = yt.getConfig("INNERTUBE_API_KEY");
-    var ytiApiClientName = yt.getConfig("INNERTUBE_CONTEXT_CLIENT_NAME");
-    var ytiApiClientVer = yt.getConfig("INNERTUBE_CONTEXT_CLIENT_VERSION");
-    var ytiApiClientContext = yt.getConfig("INNERTUBE_CONTEXT");
+    var ytiApiVer = ytcfg.get("INNERTUBE_API_VERSION");
+    var ytiApiKey = ytcfg.get("INNERTUBE_API_KEY");
+    var ytiApiClientName = ytcfg.get("INNERTUBE_CONTEXT_CLIENT_NAME");
+    var ytiApiClientVer = ytcfg.get("INNERTUBE_CONTEXT_CLIENT_VERSION");
+    var ytiApiClientContext = ytcfg.get("INNERTUBE_CONTEXT");
 
     if (!ytiApiVer || !ytiApiKey || !ytiApiClientName || !ytiApiClientVer
         || !ytiApiClientContext)
@@ -298,6 +319,7 @@ module.botguard.requestAttestationClient_ = function()
 
     var url = new URL(window.location.origin);
     url.pathname = "/youtubei/" + ytiApiVer + "/" + endpoint;
+    url.searchParams.set("prettyPrint", "false");
     url.searchParams.set("key", ytiApiKey);
 
     return fetch(url.toString(), {
@@ -316,5 +338,56 @@ module.botguard.requestAttestationClient_ = function()
     }).then(function(result)
     {
         return result.json();
+    });
+};
+
+/**
+ * Gets the parameters to initialize the BotGuard attestation client from a
+ * Polymer document and requests the client.
+ */
+module.botguard.requestAttestationClient2_ = function()
+{
+    log("Requesting with requestAttestationClient2_ (Polymer strategy)");
+
+    var url = new URL(window.location.href);
+
+    // Bypass Rehike for the page. We need to extract state from the Polymer
+    // document to prepare the BotGuard context.
+    url.searchParams.set("enable_polymer", "1");
+
+    return fetch(url.toString(), {
+        credentials: "include"
+    }).then(function(result)
+    {
+        log(result);
+        return result.text();
+    }).then(function(pageHtml)
+    {
+        log(pageHtml);
+        var ytConfigMatches = pageHtml.match(/ytcfg\.set\(({.+?})\);/);
+        log(ytConfigMatches);
+        if (!ytConfigMatches[1])
+        {
+            return logAndReject("Could not find ytcfg set in the Polymer document.");
+        }
+        var ytConfig = JSON.parse(ytConfigMatches[1]);
+        log(ytConfig);
+
+        window.yt.config_.EVENT_ID = ytConfig.EVENT_ID;
+
+        var initialAttestationData = pageHtml.match(/window\.ytAtN\(\s*({[\s\S]*?})\s*\)/);
+        log(initialAttestationData);
+        if (!initialAttestationData)
+        {
+            return logAndReject("Could not find challenge in the page HTML.");
+        }
+
+        var initialAttestationDataJson = parseLooseJson(initialAttestationData[1]);
+        log(initialAttestationDataJson);
+
+        var attestationResponse = initialAttestationDataJson.R;
+        log(attestationResponse);
+
+        return Promise.resolve(attestationResponse);
     });
 };
