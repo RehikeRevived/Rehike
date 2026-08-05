@@ -63,26 +63,12 @@ module.botguard.getClient = function()
     {
         return logAndReject("Called too early.");
     }
-    
-    if (!("REHIKE_ATT" in yt.config_)
-        && !("REHIKE_ASYNC_ATT_REQUEST" in yt.config_))
-    {
-        return logAndReject("Unable to create the botguard client. Missing yt.config_.REHIKE_ATT.");
-    }
 
-    var getAttPromise;
     var useYtiAttGet = (window.yt && window.yt.config_ && window.yt.config_.REHIKE_ATT_USE_YTI_ATT_GET) || false;
 
-    if (yt.getConfig("REHIKE_ASYNC_ATT_REQUEST"))
-    {
-        getAttPromise = useYtiAttGet
-            ? module.botguard.requestAttestationClient_()
-            : module.botguard.requestAttestationClient2_();
-    }
-    else if (yt.getConfig("REHIKE_ATT"))
-    {
-        getAttPromise = Promise.resolve(yt.getConfig("REHIKE_ATT"));
-    }
+    var getAttPromise = useYtiAttGet
+        ? module.botguard.requestAttestationClient_()
+        : module.botguard.requestAttestationClient2_();
 
     var boundAtt;
     

@@ -1,11 +1,6 @@
 <{{"script"}}>
     yt.setConfig({
         REHIKE_LATEST_PLAYER: true
-        {% if yt.attestation %}
-            , REHIKE_ATT: {{ yt.attestation|json_encode|raw }}
-        {% elseif rehike.config.experiments.asyncAttestationRequest %}
-            , REHIKE_ASYNC_ATT_REQUEST: true
-        {% endif %}
         {% if not rehike.config.experiments.potGenScrapePolymerForBotguardContext %}
             , REHIKE_ATT_USE_YTI_ATT_GET: true
         {% endif %}

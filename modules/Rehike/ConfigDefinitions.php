@@ -63,7 +63,6 @@ class ExperimentsConfigDefinitions implements IConfigDefinitionsProvider
 
     public function __construct(
         public BoolProp $useSignInV2 = new BoolProp(false),
-        public BoolProp $asyncAttestationRequest = new BoolProp(true),
         public EnumProp $temp20240827_playerMode = new EnumProp("USE_WEB_V2", [
             "USE_WEB_V2",
             "USE_EMBEDDED_PLAYER_REQUEST",

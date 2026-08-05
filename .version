@@ -1,10 +1,10 @@
 {
-	"previousHash": "6570bed2bb2ce201e08942498e39a962beb8eb36",
-	"currentRevisionId": 1897,
-	"subject": "YAY I FIXED THE PO TOKEN SHIT",
-	"body": "YAY I FIXED THE PO TOKEN SHIT",
+	"previousHash": "b6062fed8e2312d4b7f38f3d51e5995360daefc1",
+	"currentRevisionId": 1898,
+	"subject": "Remove experiment for synchronous player attestation",
+	"body": "Remove experiment for synchronous player attestation",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1785918376
+	"time": 1785923871
 }
