@@ -9,10 +9,7 @@ namespace Rehike\Model\Watch\Watch8;
  */
 class MVideoDiscussionDelayloadRenderer
 {
-    public $continuation;
-
-    public function __construct($continuation)
+    public function __construct(public string $continuation)
     {
-        $this->continuation = $continuation;
     }
 }

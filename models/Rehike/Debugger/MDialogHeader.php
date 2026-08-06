@@ -13,39 +13,31 @@ class MDialogHeader
 {
     /**
      * Title of the header.
-     * 
-     * @var string
      */
-    public $title;
+    public string $title;
 
     /**
      * A button to close the dialog.
-     * 
-     * @var MDialogHeaderCloseButton
      */
-    public $closeButton;
+    public MDialogHeaderCloseButton $closeButton;
 
     /**
      * Help link for condensed mode.
-     * 
-     * @var object
      */
-    public $helpLink;
+    public object $helpLink;
 
     /**
      * History button (unused)
-     * 
-     * @var MHistoryButton
      */
-    public $historyButton;
+    public MHistoryButton $historyButton;
 
     /**
      * Create a new dialog header.
      * 
      * @param bool $condensed Is the debugger condensed?
-     * @parma bool $closeButton Whether or not to include the close button.
+     * @param bool $closeButton Whether or not to include the close button.
      */
-    public function __construct($condensed, $closeButton = true)
+    public function __construct(bool $condensed, bool $closeButton = true)
     {
         $i18n = i18n::getNamespace("rehike/debugger");
 

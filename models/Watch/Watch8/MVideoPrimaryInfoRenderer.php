@@ -26,27 +26,22 @@ use Rehike\Model\Watch\WatchBakery;
  */
 class MVideoPrimaryInfoRenderer
 {
-    /** @var string */
-    public $title = "";
+    public object|string|null $title = "";
 
-    /** @var string */
-    public $viewCount = "";
+    public ?string $viewCount = "";
 
-    /** @var object[] */
-    public $superTitle;
+    public ?MSuperTitle $superTitle = null;
 
-    public MPrivacyBadge $privacyBadge;
+    public ?MPrivacyBadge $privacyBadge = null;
 
-    /** @var MOwner */
-    public $owner;
+    public ?MOwner $owner = null;
 
     /** @var MActionButton[] */
-    public $actionButtons = [];
+    public array $actionButtons = [];
 
-    /** @var MLikeButtonRenderer */
-    public $likeButtonRenderer = [];
+    public MLikeButtonRenderer $likeButtonRenderer;
 
-    public function __construct(WatchBakery $bakery, $videoId)
+    public function __construct(WatchBakery $bakery, string $videoId)
     {
         $info = &$bakery->primaryInfo ?? null;
         $i18n = i18n::getNamespace("watch");

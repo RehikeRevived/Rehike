@@ -12,9 +12,9 @@ use Rehike\Model\Common\MButton;
 class MShareTabBar
 {
     /** @var MButton[] */
-    public $tabs = [];
+    public array $tabs = [];
 
-    public function __construct($tabs)
+    public function __construct(array $tabs)
     {
         for ($i = 0; $i < count($tabs); $i++)
         {

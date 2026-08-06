@@ -3,13 +3,11 @@ namespace Rehike\Model\Channels\Channels4\BrandedPageV2;
 
 class MSubnavBackButton
 {
-    public $accessibilityLabel;
-    public $href;
+    public string $accessibilityLabel = "Back";
 
-    public function __construct($href)
+    public function __construct(
+        public ?string $href,
+    )
     {
-        $this->accessibilityLabel = "Back";
-        
-        $this->href = $href;
     }
 }

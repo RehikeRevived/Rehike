@@ -7,7 +7,7 @@ use Rehike\ConfigManager\Config;
 
 class MHelpButton extends MButton
 {
-    public $targetId = "google-help";
+    public string $targetId = "google-help";
 
     /**
      * @inheritdoc

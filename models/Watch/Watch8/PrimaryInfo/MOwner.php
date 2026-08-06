@@ -16,35 +16,23 @@ use Rehike\ViewModelParser;
  */
 class MOwner
 {
-    /** @var string */
-    public $title = "";
-
-    /** @var mixed[] */
-    public $thumbnail;
-
-    /** @var mixed[] */
-    public $badges;
-
-    /** @var object */
-    public $navigationEndpoint;
+    public object|string|null $title = "";
+    public ?object $thumbnail = null;
+    public ?object $badges = null;
+    public ?object $navigationEndpoint = null;
 
     /**
      * Defines the subscription actions.
      * 
      * These include the subscribe button, the notifications button,
      * and the count at the end.
-     *  
-     * @var MSubscriptionActions 
      */
-    public $subscriptionButtonRenderer;
-
+    public ?MSubscriptionActions $subscriptionButtonRenderer = null;
 
     /**
      * Defines the channel settings button
-     * 
-     * @var MButton
      */
-    public $channelSettingsButtonRenderer;
+    public ?MButton $channelSettingsButtonRenderer = null;
 
     private function __construct()
     {
@@ -77,6 +65,7 @@ class MOwner
 
         $signInInfo = SignIn::getSessionInfo();
         $hasChannel = SignIn::isSignedIn() && !is_null($signInInfo->getUcid());
+        $ucid = "";
         if ($hasChannel)
         {
             $ucid = $signInInfo->getUcid();

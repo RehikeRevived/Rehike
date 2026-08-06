@@ -11,9 +11,9 @@ use Rehike\Util\ResourceUtils;
  */
 class MDefaultBanner
 {
-    public $image;
-    public $hdImage;
-    public $isCustom = false;
+    public string $image;
+    public string $hdImage;
+    public bool $isCustom = false;
 
     public function __construct()
     {

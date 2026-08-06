@@ -10,7 +10,13 @@ use Rehike\i18n\i18n;
  */
 class MLikeButton extends MAbstractLikeButton
 {
-    public function __construct($likeCount, $a11y, $isLiked, $videoId, $active = false)
+    public function __construct(
+        int $likeCount,
+        string $a11y,
+        bool $isLiked,
+        string $videoId,
+        bool $active = false,
+    )
     {
         $i18n = i18n::getNamespace("watch");
 

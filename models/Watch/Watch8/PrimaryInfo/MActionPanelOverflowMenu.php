@@ -10,7 +10,7 @@ use Rehike\YtApp;
 
 class MActionPanelOverflowMenu extends MMenu
 {
-    public $menuId = "action-panel-overflow-menu";
+    public string $menuId = "action-panel-overflow-menu";
 
     public function __construct()
     {

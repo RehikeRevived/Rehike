@@ -86,10 +86,10 @@ class ResultsModel
         }
 
         if (count($dapidata) > 0)
-        foreach ($contents->contents as &$data)
+        foreach ($contents->contents as &$item)
         {
-            if (isset($data->itemSectionRenderer->contents))
-            foreach ($data->itemSectionRenderer->contents as &$cdata)
+            if (isset($item->itemSectionRenderer->contents))
+            foreach ($item->itemSectionRenderer->contents as &$cdata)
             {
                 if ($cr = @$cdata->channelRenderer)
                 {

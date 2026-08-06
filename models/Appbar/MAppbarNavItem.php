@@ -11,12 +11,19 @@ class MAppbarNavItem
 {
     public string $title;
     public string $href;
+
+    /**
+     * @var self::*
+     */
     public int $status = self::StatusUnselected;
 
-    const StatusUnselected = 0;
-    const StatusPartiallySelected = 1;
-    const StatusSelected = 2;
+    public const StatusUnselected = 0;
+    public const StatusPartiallySelected = 1;
+    public const StatusSelected = 2;
 
+    /**
+     * @param self::* $status
+     */
     public function __construct(string $title, string $href, int $status = self::StatusUnselected)
     {
         $this->title = $title;

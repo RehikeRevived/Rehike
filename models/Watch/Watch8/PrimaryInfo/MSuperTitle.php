@@ -8,9 +8,12 @@ use Rehike\Util\ParsingUtils;
  */
 class MSuperTitle
 {
-    public $items = [];
+    /**
+     * @var object[]
+     */
+    public array $items = [];
 
-    public function __construct($superTitleLink)
+    public function __construct(object $superTitleLink)
     {
         if (isset($superTitleLink->runs))
         foreach ($superTitleLink->runs as $run)

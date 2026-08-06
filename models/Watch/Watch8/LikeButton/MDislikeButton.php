@@ -13,12 +13,20 @@ use Rehike\i18n\i18n;
  */
 class MDislikeButton extends MAbstractLikeButton
 {
-    public function __construct($dislikeCount, $a11y, $isDisliked, $videoId, $active = false)
+    public function __construct(
+        int $dislikeCount,
+        string $a11y,
+        bool $isDisliked,
+        string $videoId,
+        bool $active = false,
+    )
     {
         $i18n = i18n::getNamespace("watch");
 
-        $this->accessibilityAttributes = [
-            "label" => $a11y
+        $this->accessibility = (object) [
+            "accessibilityData" => (object) [
+                "label" => $a11y
+            ]
         ];
 
         $this->tooltip = $i18n->get("actionDislikeTooltip");

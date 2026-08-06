@@ -28,6 +28,9 @@ class MHistoryButton extends MButton
      */
     public array $attributes = [];
 
+    public bool $hasArrow;
+    public bool $disabled;
+
     public function __construct()
     {
         $i18n = i18n::getNamespace("rehike/debugger");

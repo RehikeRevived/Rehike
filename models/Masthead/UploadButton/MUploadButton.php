@@ -9,6 +9,8 @@ class MUploadButton extends MButton
 {
     public string $targetId = "upload-btn";
 
+    public object $navigationEndpoint;
+
     public function __construct()
     {
         $i18n = i18n::getNamespace("masthead");
@@ -16,6 +18,7 @@ class MUploadButton extends MButton
         $signInInfo = SignIn::getSessionInfo();
         $hasChannel = SignIn::isSignedIn() && !is_null($signInInfo->getUcid());
         
+        $ucid = "";
         if ($hasChannel)
         {
             $ucid = $signInInfo->getUcid();

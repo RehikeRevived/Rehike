@@ -23,7 +23,10 @@ class MCommentReplyButton extends MButton
         "simplebox-target" => "/comment_service_ajax?action_create_comment_reply=1"
     ];
 
-    public function __construct($data)
+    /**
+     * @param array{id:string,params:string,label:?string,placeholder:?string,text:?string,isDisabled:bool} $data
+     */
+    public function __construct(array $data)
     {
         $this->attributes["simplebox-id"] = "comment-simplebox-reply-" . $data["id"];
         $this->attributes["simplebox-params"] = $data["params"] ?? null;
@@ -33,7 +36,7 @@ class MCommentReplyButton extends MButton
         $this->text = $data["text"];
     }
 
-    public static function fromData($data, $id): self
+    public static function fromData(object $data, string $id): self
     {
         $dialog = $data->navigationEndpoint->createCommentReplyDialogEndpoint->dialog->commentReplyDialogRenderer ?? null;
         $params = $dialog->replyButton->buttonRenderer->serviceEndpoint->createCommentReplyEndpoint->createReplyParams ?? "";

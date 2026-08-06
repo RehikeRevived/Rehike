@@ -165,7 +165,7 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * Unlike a Deferred class's Promise, an anonymous Promise is
      * automatically made into an Event and added to the event loop.
      * 
-     * @param ?callable((callable(mixed): void)|(callable(): void), callable(string|Throwable): void)
+     * @param ?callable((callable(T): void)|(callable(): void), callable(string|Throwable): void)
      *             : void $cb
      */
     public function __construct(
@@ -280,7 +280,7 @@ class Promise/*<T>*/ implements IPromise/*<T>*/,
      * Register a function to be called upon a Promise's
      * resolution.
      * 
-     * @param callable(mixed): mixed $cb
+     * @param callable(T): mixed $cb
      * @return Promise<T>
      */
     #[\Override]
@@ -513,7 +513,7 @@ if (ENABLE_DEFERRED_PROMISES) {
      * 
      * @see self::resolve()
      * 
-     * @return callable(mixed): void
+     * @return callable(T): void
      */
     protected function getResolveApi(): callable
     {

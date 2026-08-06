@@ -3,13 +3,11 @@ namespace Rehike\Model\Footer;
 
 class MFooterLink
 {
-    /** @var string */
-    public $simpleText;
+    public string $simpleText;
 
-    /** @var object */
-    public $navigationEndpoint;
+    public object $navigationEndpoint;
 
-    public function __construct($text, $url)
+    public function __construct(string $text, string $url)
     {
         $this->simpleText = $text;
         $this->navigationEndpoint = (object) [

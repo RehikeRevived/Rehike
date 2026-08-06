@@ -27,6 +27,7 @@ class MCreationClickcard
         $signInInfo = SignIn::getSessionInfo();
         $hasChannel = SignIn::isSignedIn() && !is_null($signInInfo->getUcid());
 
+        $ucid = ""; // This silences an extraneous IDE safety check error for me.
         if ($hasChannel)
             $ucid = $signInInfo->getUcid();
 
@@ -35,17 +36,23 @@ class MCreationClickcard
         $items[] = new MCreationMenuItem(
             "upload",
             $i18n->get("creationUpload"),
-            $hasChannel ? "//studio.youtube.com/channel/$ucid/videos?d=ud" : "/create_channel?upsell=upload&next=/"
+            $hasChannel
+                ? "//studio.youtube.com/channel/$ucid/videos?d=ud"
+                : "/create_channel?upsell=upload&next=/"
         );
         $items[] = new MCreationMenuItem(
             "live",
             $i18n->get("creationLive"),
-            $hasChannel ? "//studio.youtube.com/channel/$ucid/livestreaming" : "/create_channel?upsell=livestreaming&next=/"
+            $hasChannel
+                ? "//studio.youtube.com/channel/$ucid/livestreaming"
+                : "/create_channel?upsell=livestreaming&next=/"
         );
         if ($hasChannel) $items[] = new MCreationMenuItem(
             "post",
             $i18n->get("creationPost"),
-            $hasChannel ? "/channel/$ucid/community?show_create_dialog=1" : "/create_chanel?upsell=community&next=/"
+            $hasChannel
+                ? "/channel/$ucid/community?show_create_dialog=1"
+                : "/create_chanel?upsell=community&next=/"
         );
 
         $this->content = (object) [

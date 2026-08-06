@@ -9,6 +9,8 @@ class MNotificationSettingsButton extends MButton
     public string $targetId = "yt-masthead-notifications-settings";
     public string $style = "STYLE_OPACITY";
 
+    public object $navigationEndpoint;
+
     public function __construct()
     {
         $i18n = i18n::getNamespace("masthead");

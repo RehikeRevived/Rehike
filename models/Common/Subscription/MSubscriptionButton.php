@@ -39,7 +39,9 @@ class MSubscriptionButton extends MButton
 
     public string $type;
 
-    public function __construct($opts)
+    public ?string $href = null;
+
+    public function __construct(array $opts)
     {
         parent::__construct([]);
 

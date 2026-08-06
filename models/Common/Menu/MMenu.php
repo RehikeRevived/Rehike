@@ -4,18 +4,20 @@ namespace Rehike\Model\Common\Menu;
 class MMenu
 {
     /** @var MMenuItem[] */
-    public $items = [];
+    public array $items = [];
 
     /** @var string[] */
-    public $containerClass = [];
+    public array $containerClass = [];
 
-    /** @var string */
-    public $menuId;
+    public string $menuId;
 
     /** @var string[] */
-    public $menuClass = [];
+    public array $menuClass = [];
 
-    public function __construct($data)
+    /**
+     * @param array{items:array<string,mixed>,containerClass:string[],menuId:string,menuClass:string[]} $data
+     */
+    public function __construct(array $data)
     {
         foreach ($data["items"] as $item)
         {

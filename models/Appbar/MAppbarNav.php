@@ -23,6 +23,8 @@ class MAppbarNav
 
     /**
      * Add a navigation link item to this appbar navigation section.
+     * 
+     * @var MAppbarNavItem::* $status
      */
     public function addItem(string $title, string $href, int $status): void
     {

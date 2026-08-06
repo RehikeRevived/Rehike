@@ -66,8 +66,8 @@ class LikeButtonViewModelConverter extends BasicVMC
             ];
         }
 
-        $out["likeButton"] = $likeButton;
-        $out["dislikeButton"] = $dislikeButton;
+        $out["likeButton"] = $likeButton ?? null;
+        $out["dislikeButton"] = $dislikeButton ?? null;
 
         return (object)$out;
     }

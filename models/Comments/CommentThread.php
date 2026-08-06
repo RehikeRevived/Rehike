@@ -32,12 +32,12 @@ class CommentThread
 {
     // Excepted structure is very similar to the InnerTube
     // comments next response, so this is very basic.
-    const ACTIONS_PATH = "actionButtons.commentActionButtonsRenderer";
-    const LIKE_BUTTON_PATH = self::ACTIONS_PATH . ".likeButton.toggleButtonRenderer";
-    const DISLIKE_BUTTON_PATH = self::ACTIONS_PATH . ".dislikeButton.toggleButtonRenderer";
-    const HEART_BUTTON_PATH = self::ACTIONS_PATH . ".creatorHeart.creatorHeartRenderer";
-    const REPLY_BUTTON_PATH = self::ACTIONS_PATH . ".replyButton.buttonRenderer";
-    const COMMON_A11Y_LABEL = "accessibilityData.label";
+    public const ACTIONS_PATH = "actionButtons.commentActionButtonsRenderer";
+    public const LIKE_BUTTON_PATH = self::ACTIONS_PATH . ".likeButton.toggleButtonRenderer";
+    public const DISLIKE_BUTTON_PATH = self::ACTIONS_PATH . ".dislikeButton.toggleButtonRenderer";
+    public const HEART_BUTTON_PATH = self::ACTIONS_PATH . ".creatorHeart.creatorHeartRenderer";
+    public const REPLY_BUTTON_PATH = self::ACTIONS_PATH . ".replyButton.buttonRenderer";
+    public const COMMON_A11Y_LABEL = "accessibilityData.label";
 
     protected object $data;
     protected DisplayNameManager $displayNameManager;
@@ -73,7 +73,10 @@ class CommentThread
         return $this->getDisplayNameManager()->getDisplayName($ucid);
     }
 
-    public function bakeComments($context): Promise
+    /**
+     * @return Promise<array{commentThreads:object[]}>
+     */
+    public function bakeComments(array $context): Promise
     {
         // Account for view model update:
         $this->convertThreadsIfNecessary($context);
@@ -159,7 +162,10 @@ class CommentThread
         });
     }
 
-    public function bakeReplies($context): Promise
+    /**
+     * @return Promise<array{comments:object[],repliesTargetId:string}>
+     */
+    public function bakeReplies(object $context): Promise/*<array>*/
     {
         if (!isset($context->continuationItems))
         {
@@ -518,7 +524,7 @@ class CommentThread
     }
 
     // WHAT THE FUCK
-    public function commentRepliesRenderer($context)
+    public function commentRepliesRenderer(object $context): object
     {
         if (isset($context->viewReplies))
         {
@@ -593,7 +599,7 @@ class CommentThread
         return $context;
     }
 
-    private function commentContinuationRenderer($context)
+    private function commentContinuationRenderer(object $context): object
     {
         return $context->continuationEndpoint->continuationCommand;
     }
@@ -601,7 +607,7 @@ class CommentThread
     /**
      * @return array{token:CommentsContinuation,text:null|string}
      */
-    private function repliesContinuationRenderer($context): array
+    private function repliesContinuationRenderer(object $context): array
     {
         $context = $context->button->buttonRenderer;
         
@@ -615,7 +621,7 @@ class CommentThread
             ];
     }
     
-    private function addLikeCount(array|object &$context): void
+    private function addLikeCount(object $context): void
     {
         // Adds to context:
         /*
@@ -652,7 +658,7 @@ class CommentThread
 		}
     }
 
-    private function getLikeCountFromLabel($label): ?string
+    private function getLikeCountFromLabel(?string $label): ?string
     {
         // return preg_replace("/[^0-9]/", "", $label);
         return StringTranslationManager::convertLikeCount($label);

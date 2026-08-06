@@ -10,7 +10,10 @@ class MMetadataRowContainer
 {
     use Runs;
 
-    public $items = [];
+    /**
+     * @var object[]
+     */
+    public array $items = [];
 
     public function __construct(WatchBakery $bakery, ?array &$rows)
     {

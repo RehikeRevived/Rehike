@@ -9,11 +9,11 @@ namespace Rehike\Model\Common;
  */
 class MToggleButton extends MButton
 {
-    protected $hideNotToggled = false;
+    protected bool $hideNotToggled = false;
 
-    public $isToggled = false;
+    public bool $isToggled = false;
 
-    public function __construct($isToggled = false, $array = [])
+    public function __construct(bool $isToggled = false, array $array = [])
     {
         parent::__construct();
 

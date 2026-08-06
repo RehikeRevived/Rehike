@@ -14,18 +14,15 @@ use Rehike\Util\ExtractUtils;
  */
 class MLikeButtonRenderer
 {
-    /** @var MLikeButton */
-    public $likeButton;
-    public $activeLikeButton;
+    public MLikeButton $likeButton;
+    public MLikeButton $activeLikeButton;
 
-    /** @var MDislikeButton */
-    public $dislikeButton;
-    public $activeDislikeButton;
+    public MDislikeButton $dislikeButton;
+    public MDislikeButton $activeDislikeButton;
 
-    /** @var MSparkbars */
-    public $sparkbars;
+    public MSparkbars $sparkbars;
 
-    public function __construct(WatchBakery $bakery, &$info, &$videoId)
+    public function __construct(WatchBakery $bakery, object $info, string $videoId)
     {
         // Perform view model conversion if we need to:
         if (isset($info->topLevelButtons[0]->segmentedLikeDislikeButtonViewModel))
@@ -71,7 +68,7 @@ class MLikeButtonRenderer
         {
             $dislikeCountInt = (int)$rydData->dislikes;
 
-            $this->sparkbars = new MSparkbars($likeCountInt, $dislikeCountInt);
+            $this->sparkbars = new MSparkbars($likeCountInt ?? 0, $dislikeCountInt);
         }
 
         $likeCountOff = isset($likeCountInt) ? $likeCountInt : null;

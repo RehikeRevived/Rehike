@@ -60,16 +60,19 @@ class WatchBakery
     public ?string $title = null;
 
     // Shorthand data references
-    public $results = null;
-    public $secondaryResults = null;
-    public $autoplay = null;
-    public $playlist = null;
-    public $primaryInfo = null;
-    public $secondaryInfo = null;
-    public $commentSection = null;
-    public $liveChat = null;
-    public $engagementPanels = null;
-    public $frameworkUpdates = null;
+    // The types for these are lose as they are just mirrors for InnerTube data
+    // structures, and ideally we are lenient so the page can load with some
+    // errors rather than not at all.
+    public mixed $results = null;
+    public mixed $secondaryResults = null;
+    public mixed $autoplay = null;
+    public mixed $playlist = null;
+    public mixed $primaryInfo = null;
+    public mixed $secondaryInfo = null;
+    public mixed $commentSection = null;
+    public mixed $liveChat = null;
+    public mixed $engagementPanels = null;
+    public mixed $frameworkUpdates = null;
     
     public ?CollaboratorsParser $collaborators = null;
 
@@ -635,7 +638,7 @@ class WatchBakery
      * @param array $results (index of the results)
      * @return int The index of the recommendation, or -1 if no autoplay video.
      */
-    public function getRecomAutoplay(array $results)
+    public function getRecomAutoplay(array $results): int
     {
         if (!is_null($this->autoplay))
         {
@@ -651,11 +654,8 @@ class WatchBakery
 
     /**
      * Determine if a video is a kids video or not
-     * 
-     * @param object $secondaryInfo
-     * @return bool
      */
-    public function getIsKidsVideo(&$secondaryInfo)
+    public function getIsKidsVideo(object $secondaryInfo): bool
     {
         if (!isset($secondaryInfo->metadataRowContainer->rows)) return false;
 
@@ -676,11 +676,8 @@ class WatchBakery
 
     /**
      * Determine if a video is live or not
-     * 
-     * @param object $primaryInfo
-     * @return bool
      */
-    public function getIsLive(&$primaryInfo)
+    public function getIsLive(object $primaryInfo): bool
     {
         if (true == @$primaryInfo->viewCount->videoViewCountRenderer->isLive)
         {
@@ -692,7 +689,7 @@ class WatchBakery
         }
     }
 
-    public function getIsOwner(object &$secondaryInfo): bool
+    public function getIsOwner(object $secondaryInfo): bool
     {
         if (!SignIn::isSignedIn()) return false;
         

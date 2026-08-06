@@ -13,10 +13,17 @@ use Rehike\Model\Common\MButton;
  */
 class MSigninClickcard extends MAbstractClickcard
 {
-    public $template = "signin_clickcard";
-    public $class = "signin-clickcard";
+    public string $template = "signin_clickcard";
+    public string $class = "signin-clickcard";
 
-    public function __construct($heading, $message, $button)
+    /**
+     * @param array{text:?string,href:?string} $button
+     */
+    public function __construct(
+        ?string $heading,
+        ?string $message,
+        array $button,
+    )
     {
         $this->content = (object)[
             "heading" => $heading,
@@ -38,7 +45,7 @@ class MSigninClickcard extends MAbstractClickcard
         ];
     }
 
-    public static function fromData($data): self
+    public static function fromData(object $data): self
     {
         $heading = $data->title ?? null;
         $message = $data->content ?? null;

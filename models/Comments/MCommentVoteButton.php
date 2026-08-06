@@ -24,7 +24,10 @@ class MCommentVoteButton extends MButton
     public string $a11yLabel;
 	public bool $checked;
 
-    public function __construct($data)
+    /**
+     * @param array{type:?string,action:?string,a11yLabel:?string,checked:bool,isDisabled:bool} $data
+     */
+    public function __construct(array $data)
     {
         $this->a11yLabel = $data["a11yLabel"] ?? null;
         $this->icon = (object) [];
@@ -43,7 +46,7 @@ class MCommentVoteButton extends MButton
         $this->isDisabled = $data["isDisabled"];
     }
 
-    public static function fromData($data): self
+    public static function fromData(object $data): self
     {
         $type = strtolower(@$data->defaultIcon->iconType) ?? null;
         $checked = $data->isToggled ?? false;

@@ -3,19 +3,21 @@ namespace Rehike\Model\Channels\Channels4\BrandedPageV2;
 
 class MSubnavMenuButton
 {
-    public $title;
-    public $type;
-    public $items;
+    /**
+     * @var array<string|int, object>
+     */
+    public array $items = [];
 
-    public function __construct($type, $title, $array = [])
+    public function __construct(
+        public string $type,
+        public string $title,
+        $array = [],
+    )
     {
-        $this->type = $type;
-        $this->title = $title;
-
-        foreach ($array as $title => $href)
+        foreach ($array as $itemTitle => $href)
         {
             $this->addMenu(new MSubnavMenuButtonMenu(
-                $title, $href
+                $itemTitle, $href
             ));
         }
     }
@@ -25,7 +27,7 @@ class MSubnavMenuButton
         $this->items[] = $menu;
     }
 
-    public static function fromData($data): self
+    public static function fromData(array $data): self
     {
         $items = [];
 

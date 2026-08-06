@@ -3,7 +3,7 @@ namespace Rehike\Model\History;
 
 class HistoryModel
 {
-    public static function bake($dataHost)
+    public static function bake(object $dataHost)
     {
         return $dataHost;
     }

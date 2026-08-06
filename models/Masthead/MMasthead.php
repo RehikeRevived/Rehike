@@ -19,26 +19,20 @@ use Rehike\Model\Masthead\{
 
 class MMasthead
 {
-    /** @var string */
-    public $a11ySkipNav;
+    public string $a11ySkipNav;
 
-    /** @var MAppbarGuideToggle */
-    public $guideToggle;
+    public MAppbarGuideToggle $guideToggle;
 
-    /** @var object */
-    public $logoTooltip;
+    public string $logoTooltip;
 
-    /** @var string */
-    public $countryCode;
+    public string $countryCode;
 
-    /** @var MMastheadSearch */
-    public $searchbox;
+    public MMastheadSearchbox $searchbox;
 
     /** @var MButton[] */
-    public $buttons = [];
+    public array $buttons = [];
 
-    /** @var object */
-    public $notificationStrings;
+    public object $notificationStrings;
     
     /**
      * Specifies if the YouTube logo is a doodle.
@@ -55,7 +49,7 @@ class MMasthead
      */
     public ?Pony $ponyEasterEgg;
     
-    public function __construct($appbarEnabled)
+    public function __construct(bool $appbarEnabled)
     {
         $i18n = i18n::getNamespace("masthead");
 

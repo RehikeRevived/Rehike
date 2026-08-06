@@ -4,16 +4,17 @@ namespace Rehike\Model\Common\Menu;
 #[\AllowDynamicProperties]
 class MMenuItem
 {
-    /** @var string */
-    public $label;
+    public string $label;
 
     /** @var string[] */
-    public $class = [];
+    public array $class = [];
 
-    /** @var bool */
-    public $hasIcon = false;
+    public bool $hasIcon = false;
 
-    public function __construct($data)
+    /**
+     * @param array<string, mixed> $data
+     */
+    public function __construct(array $data)
     {
         foreach ($data as $key => $val)
         {

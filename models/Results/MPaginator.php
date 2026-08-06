@@ -29,7 +29,7 @@ class MPaginator
     public bool $hasBackButton = false;
     public bool $hasNextButton = false;
 
-    public function __construct($paginatorInfo)
+    public function __construct(object $paginatorInfo)
     {
         $this->pageNumber = $paginatorInfo->pageNumber ?? 1;
         $pagesCount = $paginatorInfo->pagesCount ?? 1;

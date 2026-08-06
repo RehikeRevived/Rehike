@@ -40,7 +40,7 @@ class Converter
      * @param object $data of the raw InnerTube response
      * @return Promise<object[]> array of the modified items.
      */
-    public static function fromData($data): Promise/*<object>*/
+    public static function fromData(object $data): Promise/*<object>*/
     {
         return async(function() use ($data) {
             // Log the sign in state from the Signin service
@@ -108,7 +108,7 @@ class Converter
      * @param bool $signedIn
      * @return object (guideSectionRenderer)
      */
-    public static function getMainSection($data, $signedIn = false): object
+    public static function getMainSection(object $data, bool $signedIn = false): object
     {
         $response = [];
 
@@ -293,10 +293,9 @@ class Converter
      *
      * It only appears if logged in.
      *
-     * @param object $data
      * @return Promise<object> {guideSectionRenderer}
      */
-    public static function getLibrarySection($data): Promise/*<object>*/
+    public static function getLibrarySection(object $data): Promise/*<object>*/
     {
         return async(function() use ($data) {
             // Custom strings are only used this time for the expander
@@ -325,7 +324,7 @@ class Converter
              * InnerTube changes the icon types later I just layed them all out
              * here.
              *
-             * @var string[]
+             * @var array<string, string>
              */
             $supportedTypes = [
                 "WATCH_HISTORY"  => "HISTORY",
@@ -336,7 +335,7 @@ class Converter
                 "WATCH_HISTORY_CAIRO"  => "HISTORY",
                 "WATCH_LATER_CAIRO"    => "WATCH_LATER",
                 "LIKES_PLAYLIST_CAIRO" => "LIKES_PLAYLIST",
-                "PLAYLIST_CAIRO" => "PLAYLIST",
+                "PLAYLIST_CAIRO"       => "PLAYLIST",
             ];
 
             // Count all items and add them if they're a supported type
@@ -476,10 +475,9 @@ class Converter
      * 
      * It should contain all user subscriptions.
      * 
-     * @param object $data
      * @return object (guideSubscriptionsSectionRenderer) (from InnerTube)
      */
-    public static function getSubscriptionSection($data)
+    public static function getSubscriptionSection(object $data)
     {
         // Find the subscription section index
         foreach ($data->items as &$item)
@@ -551,11 +549,10 @@ class Converter
     }
 
     /**
-     *
      * Build the subscription promo section.
      * This shows when you have no subscriptions.
      *
-     * @psalm-return object{guideSubscriptionsPromoSectionRenderer:object}
+     * @return object{guideSubscriptionsPromoSectionRenderer:object}
      */
     public static function buildSubscriptionsPromoSection(): object
     {
@@ -634,10 +631,9 @@ class Converter
      *    - Browse channels
      *    - Manage subscriptions [if logged in]
      * 
-     * @param bool $signedIn
      * @return object (guideSectionRenderer})
      */
-    public static function getEndSection($signedIn = false): object
+    public static function getEndSection(bool $signedIn = false): object
     {
         $response = [];
 
@@ -672,12 +668,10 @@ class Converter
      * This function is used to conveniently synthesise my own guide 
      * items.
      * 
-     * @param string $endpoint
-     * @param string $name
      * @param string $icon (will be a thumbnail unless prefixed with SYSTEM::)
      * @return object (guideEntryRenderer)
      */
-    public static function bakeGuideItem($endpoint, $name, $icon): object
+    public static function bakeGuideItem(string $endpoint, string $name, string $icon): object
     {
         //
         // Step 1: Determine the endpoint of the data and create a new
@@ -702,35 +696,30 @@ class Converter
         $extraEndpointInfo = [];
 
         if (
-            "/feed"     == substr($endpoint, 0, 5) ||
-            "/channel"  == substr($endpoint, 0, 8) ||
-            "/c"        == substr($endpoint, 0, 2) ||
-            "/user"     == substr($endpoint, 0, 5) ||
-            "/playlist" == substr($endpoint, 0, 9)
+            str_starts_with($endpoint, "/feed")
+            || str_starts_with($endpoint, "/channel")
+            || str_starts_with($endpoint, "/c")
+            || str_starts_with($endpoint, "/user")
+            || str_starts_with($endpoint, "/playlist")
         )
         {
-            // NO ASSOCIATIVE ARRAY?
-            $before = [
-                "/feed/",
-                "/channel/",
-                "/c/",
-                "/user/",
-                "/playlist?list="
-            ];
-
-            // NO ASSOCIATIVE ARRAY?
-            $after = [
-                "FE",
-                "",
-                "",
-                "",
-                "PL"
+            $urlPrefixToIdPrefixMap = [
+                "/feed/"    => "FE",
+                "/channel/" => "",
+                "/c/"       => "",
+                "/user/"    => "",
+                "/playlist?list=" => "PL",
             ];
 
             // This needs to be a variable (not a literal) because it is
             // a forced reference. Wtf php?
-            $wtfphp = 1;
-            $browseId = str_replace($before, $after, $endpoint, $wtfphp);
+            $replaceTimes = 1;
+            $browseId = str_replace(
+                array_keys($urlPrefixToIdPrefixMap),
+                array_values($urlPrefixToIdPrefixMap),
+                $endpoint,
+                $replaceTimes
+            );
 
             $extraEndpointInfo = [
                 "browseEndpoint" => (object)[
@@ -763,9 +752,10 @@ class Converter
         //
         // Step 2: Determine the icon type and add it to the item template.
         //
-        if ("SYSTEM::" == substr($icon, 0, 8))
+        if (str_starts_with($icon, "SYSTEM::"))
         {
-            $icon = substr($icon, 8);
+            // Get the name of the icon without the prefix.
+            $icon = substr($icon, strlen("SYSTEM::"));
 
             $item->icon = (object)[
                 "iconType" => $icon
@@ -862,9 +852,10 @@ class Converter
         
         $item = $itemRoot->guideEntryRenderer ?? $itemRoot;
         
-        if ("SYSTEM::" == substr($icon, 0, 8))
+        if (str_starts_with($icon, "SYSTEM::"))
         {
-            $icon = substr($icon, 8);
+            // Get the name of the icon without the prefix.
+            $icon = substr($icon, strlen("SYSTEM::"));
 
             $item->icon = (object)[
                 "iconType" => $icon

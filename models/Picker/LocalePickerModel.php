@@ -20,9 +20,16 @@ class LocalePickerModel extends PickerModel
     public const TYPE_LANGUAGE = 0;
     public const TYPE_COUNTRY = 1;
     
+    /**
+     * @var self::*
+     */
     private int $type = 0;
+
     private MPickerSection $section;
     
+    /**
+     * @param self::* $type
+     */
     public function __construct(int $type, object $data, string $baseUrl)
     {
         parent::__construct($baseUrl);

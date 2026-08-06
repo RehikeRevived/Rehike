@@ -1,20 +1,25 @@
 <?php
 namespace Rehike\Model\Channels\Channels4\Sidebar;
 
-use Rehike\Model\Browse\InnertubeBrowseConverter as Converter;
+use Rehike\Model\Browse\InnertubeBrowseConverter;
 
 class MRelatedChannels
 {
-    public $title = "";
-    public $items = [];
-    public $seeMoreButton;
+    public string|object|null $title = "";
 
-    public static function fromShelf($shelf): self
+    /**
+     * @var object[]
+     */
+    public array $items = [];
+
+    public ?MRelatedChannelsSeeMoreButton $seeMoreButton = null;
+
+    public static function fromShelf(object $shelf): self
     {
         $me = new self();
 
         // Convert the shelf first
-        $shelf = Converter::shelfRenderer($shelf, [
+        $shelf = InnertubeBrowseConverter::shelfRenderer($shelf, [
             "channelRendererNoMeta" => true,
             "channelRendererUnbrandedSubscribeButton" => true,
             "channelRendererNoSubscribeCount" => true

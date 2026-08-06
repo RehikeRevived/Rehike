@@ -6,13 +6,10 @@ namespace Rehike\Model\Watch\Watch8\LikeButton;
  */
 class MSparkbars
 {
-    /** @var float */
-    public $likePercent = 50;
+    public float $likePercent = 50;
+    public float $dislikePercent = 50;
     
-    /** @var float */
-    public $dislikePercent = 50;
-    
-    public function __construct($likeCount, $dislikeCount)
+    public function __construct(int $likeCount, int $dislikeCount)
     {
         if (0 != $likeCount + $dislikeCount)
         {

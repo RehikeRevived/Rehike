@@ -11,10 +11,7 @@ namespace Rehike\Model\Watch\Watch8;
  */
 class MVideoDiscussionNotice
 {
-    public $message;
-
-    public function __construct($message)
+    public function __construct(public string $message)
     {
-        $this->message = $message;
     }
 }

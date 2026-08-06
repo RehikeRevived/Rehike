@@ -9,21 +9,18 @@ use Rehike\Util\ParsingUtils;
 
 use function Rehike\Async\async;
 
-/**
- * @enum
- */
-final class FullViewCountsViewCountFormat
+enum FullViewCountsViewCountFormat
 {
     /**
      * The result we got is a raw number. In this case, we need to manually format it ourselves.
      */
-    public const RawNumber = 0;
+    case RawNumber;
     
     /**
      * This view count is already formatted by InnerTube, so it's already in natural language.
      * In this case, we don't need to do anything at all.
      */
-    public const FormattedByInnertube = 1;
+    case FormattedByInnertube;
     
     /**
      * This particular item has a bad result. Maybe the went private in between the time we got
@@ -31,7 +28,7 @@ final class FullViewCountsViewCountFormat
      * 
      * In this case, we simply ignore the bad item.
      */
-    public const BadResult = 2;
+    case BadResult;
 }
 
 class FullViewCountsViewCount
@@ -42,29 +39,21 @@ class FullViewCountsViewCount
      * This is used by the bakery to determine if we can just plop the string into the data
      * by itself, or if it needs to be manually formatted into a particular language string
      * by Rehike.
-     * 
-     * @var FullViewCountsViewCountFormat
      */
-    public int $format = FullViewCountsViewCountFormat::BadResult;
+    public FullViewCountsViewCountFormat $format = FullViewCountsViewCountFormat::BadResult;
     
     public string $viewCount = "0";
 }
 
-/**
- * @enum
- */
-final class FullViewCountsStrategyStatus
+enum FullViewCountsStrategyStatus
 {
-    public const Succeeded = 0;
-    public const Failed = 1;
+    case Succeeded;
+    case Failed;
 }
 
 class FullViewCountsStrategy
 {
-    /**
-     * @var FullViewCountsStrategyStatus
-     */
-    public int $status = FullViewCountsStrategyStatus::Failed;
+    public FullViewCountsStrategyStatus $status = FullViewCountsStrategyStatus::Failed;
     
     public string $name = "";
     

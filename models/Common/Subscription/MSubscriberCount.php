@@ -10,14 +10,11 @@ namespace Rehike\Model\Common\Subscription;
  */
 class MSubscriberCount
 {
-    public $simpleText;
-    public $branded = true;
-    public $direction = "horizontal";
-
-    public function __construct($text, $branded = true, $direction = "horizontal")
+    public function __construct(
+        public string $simpleText,
+        public bool $branded = true,
+        public string $direction = "horizontal",
+    )
     {
-        $this->simpleText = $text;
-        $this->branded = $branded;
-        $this->direction = $direction;
     }
 }

@@ -14,6 +14,8 @@ class MHistoryButton extends MButton
         "footer-history"
     ];
 
+    public object $navigationEndpoint;
+
     public function __construct()
     {
         $i18n = i18n::getNamespace("footer");

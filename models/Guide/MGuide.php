@@ -21,7 +21,7 @@ class MGuide
      * 
      * @var object[]
      */
-    public $items;
+    public array $items;
 
     /**
      * Process an InnerTube response and create a standard
@@ -29,7 +29,7 @@ class MGuide
      * 
      * @return Promise<void>
      */
-    public static function fromData($data): Promise/*<void>*/
+    public static function fromData(object $data): Promise/*<void>*/
     {
         return async(function() use ($data) {
             $me = new self();

@@ -5,10 +5,10 @@ use Rehike\i18n\i18n;
 
 class MRelatedChannelsSeeMoreButton
 {
-    public $title;
-    public $href;
+    public string $title;
+    public string $href;
 
-    public function __construct($href)
+    public function __construct(string $href)
     {
         $strings = i18n::getNamespace("channels");
 

@@ -13,7 +13,7 @@ class MSubscriptionPreferencesButton extends MButton
         "yt-uix-subscription-preferences-button"
     ];
 
-    public function __construct($ucid, $stateId)
+    public function __construct(string $ucid, int $stateId)
     {
         $i18n = i18n::getNamespace("misc");
 

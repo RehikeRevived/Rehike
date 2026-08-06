@@ -55,14 +55,6 @@ class Channels4Model
     private int $videosSort;
 
     /**
-     * The subscription count of the channel.
-     * 
-     * This is referenced by the about page bakery, but we store it here for
-     * temporary reasons.
-     */
-    private string $subscriptionCount = "";
-
-    /**
      * Special unique tabs to be cascaded into the videos tab.
      */
     public array $extraVideoTabs = [];
@@ -298,10 +290,10 @@ class Channels4Model
             $this->guessBaseUrlFromTabs($tabs);
         }
         
-        /** @var object */
+        /** @var ?object */
         $videosTab = null;
         
-        /** @var object */
+        /** @var ?object */
         $aboutTab = null;
 
         // Splice "live" tab as this should be cascaded into videos.
@@ -645,7 +637,7 @@ class Channels4Model
         return (object)$response;
     }
 
-    public function handleBackstage($data): object
+    public function handleBackstage(object $data): object
     {
         $response = [
             "backstageRenderer" => [
@@ -670,7 +662,7 @@ class Channels4Model
     /**
      * @return non-empty-list<object{relatedChannelsRenderer:MRelatedChannels}>|null
      */
-    public function getSidebarData($shelves, &$featuredData): array|null
+    public function getSidebarData(array $shelves, ?array &$featuredData): ?array
     {
         $channelsShelves = [];
 

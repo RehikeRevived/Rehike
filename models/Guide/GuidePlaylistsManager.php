@@ -17,8 +17,8 @@ use Rehike\Async\Promise;
  */
 class GuidePlaylistsManager
 {
-    const CACHE_FILE = "guide_playlists.json";
-    const EXPIRE_TIME = 18000; // 5 hours
+    public const CACHE_FILE = "guide_playlists.json";
+    public const EXPIRE_TIME = 18000; // 5 hours
 
     /**
      * Gets all playlists on the guide.

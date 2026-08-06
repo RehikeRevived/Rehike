@@ -3,6 +3,7 @@ namespace Rehike\Model\Rehike\Debugger;
 
 use Rehike\Debugger\Debugger;
 use ReflectionObject, ReflectionProperty, ReflectionMethod;
+use Rehike\YtApp;
 
 /**
  * Implements the global walker tab.
@@ -22,15 +23,14 @@ class MYtWalker extends MTabContent
      * JS history should not be allowed on this tab, as it is rendered and
      * controlled by the JS land.
      */
-    public $enableJsHistory = false;
+    public bool $enableJsHistory = false;
 
     /**
      * Adds a reference to the global data object ($yt).
      * 
      * @param object $yt Global object
-     * @return void
      */
-    public function addYt($yt)
+    public function addYt(object $yt): void
     {
         $this->richDebuggerRenderer[] = (object)[
             "globalWalkerContainer" => (object)[
@@ -47,7 +47,7 @@ class MYtWalker extends MTabContent
      * @param object $yt Global object
      * @return array Associative array of additional property information.
      */
-    public static function getAttrs($yt)
+    public static function getAttrs(object $yt): array
     {
         $attrs = [];
 
@@ -76,7 +76,7 @@ class MYtWalker extends MTabContent
      * 
      * @return void  Writes to $attrs as reference.
      */
-    public static function getAttrsOfObj(&$attrs, $obj, $path)
+    public static function getAttrsOfObj(array &$attrs, object|array $obj, string $path): void
     {
         // Reflection is not used to read arrays, only objects.
         $usingReflection = false;
@@ -145,13 +145,6 @@ class MYtWalker extends MTabContent
 
                 if ($value instanceof ReflectionProperty)
                 {
-                    /*
-                     * PATCH (izzy): Required before PHP 8.1, else a 
-                     * ReflectionException is thrown upon trying to access the 
-                     * contents of a protected or private property.
-                    */
-                    $reflection->setAccessible(true);
-
                     /**
                      * PATCH (kirasicecreamm): ReflectionProperty::getValue()
                      * will cause a fatal error when attempting to read an
@@ -224,7 +217,7 @@ class MYtWalker extends MTabContent
 
                     // Also deep iterate
                     self::getAttrsOfObj(
-                        $attrs, $value, "$path.$key", true
+                        $attrs, $value, "$path.$key"
                     );
                 }
                 else
@@ -236,7 +229,7 @@ class MYtWalker extends MTabContent
             }
             else if (is_callable($value))
             {
-                self::defineAttr($attr, $path, $key, [
+                self::defineAttr($attrs, $path, $key, [
                     "function" => true
                 ]);
             }
@@ -251,7 +244,12 @@ class MYtWalker extends MTabContent
      * @param string $key   Key to define.
      * @param mixed  $attr  Value to set.
      */
-    public static function defineAttr(&$attrs, $path, $key, $attr): void
+    public static function defineAttr(
+        array &$attrs,
+        string $path,
+        string $key,
+        mixed $attr
+    ): void
     {
         if (!isset($attrs["$path.$key"]))
         {
@@ -265,11 +263,8 @@ class MYtWalker extends MTabContent
 
     /**
      * Determine if an array is an associative array.
-     * 
-     * @param array $arr
-     * @return bool
      */
-    public static function isAssociativeArray($arr)
+    public static function isAssociativeArray(array $arr): bool
     {
         return count(array_filter(array_keys($arr), 'is_string')) > 0;
     }

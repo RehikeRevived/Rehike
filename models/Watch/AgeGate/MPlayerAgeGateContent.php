@@ -13,8 +13,8 @@ use Rehike\Util\ParsingUtils;
  */
 class MPlayerAgeGateContent
 {
-    public $message;
-    public $button;
+    public string $message;
+    public MPlayerAgeGateButton $button;
 
     public function __construct(?object $data = null)
     {

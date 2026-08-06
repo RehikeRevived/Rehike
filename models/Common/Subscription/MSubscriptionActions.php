@@ -7,21 +7,18 @@ use Rehike\ViewModelParser;
 
 class MSubscriptionActions
 {
-    public $showUnsubConfirmDialog = true;
-    public $showSubscriptionPreferences = true;
-    public $subscriberCountText = "";
-    public $shortSubscriberCountText = "";
+    public bool $showUnsubConfirmDialog = true;
+    public bool $showSubscriptionPreferences = true;
+    public string $subscriberCountText = "";
+    public string $shortSubscriberCountText = "";
 
-    /** @var MSubscriptionButton */
-    public $subscriptionButton;
+    public MSubscriptionButton $subscriptionButton;
+    public ?MSubscriberCount $subscriberCountRenderer = null;
 
-    /** @var MSubscriberCount */
-    public $subscriberCountRenderer;
+    public ?object $unsubConfirmDialog = null;
+    public ?MSubscriptionPreferencesButton $subscriptionPreferencesButton = null;
 
-    public $unsubConfirmDialog;
-    public $subscriptionPreferencesButton;
-
-    public function __construct($opts)
+    public function __construct(array $opts)
     {
         $i18n = i18n::getNamespace("misc");
 
@@ -81,7 +78,10 @@ class MSubscriptionActions
             "unsubscribeText" => $opts["unsubscribeText"]
         ]);
 
-        $this->subscriptionPreferencesButton = new MSubscriptionPreferencesButton($opts["channelExternalId"], $opts["notificationStateId"]);
+        $this->subscriptionPreferencesButton = new MSubscriptionPreferencesButton(
+            $opts["channelExternalId"],
+            $opts["notificationStateId"]
+        );
 
         if ($opts["longText"])
         {

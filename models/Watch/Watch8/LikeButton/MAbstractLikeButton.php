@@ -3,13 +3,14 @@ namespace Rehike\Model\Watch\Watch8\LikeButton;
 
 use Rehike\Model\Common\MToggleButton;
 use Rehike\i18n\i18n;
+use Rehike\Model\Clickcard\MSigninClickcard;
 
 /**
  * Define an abstract actual "like button" button (also used for dislikes).
  */
 class MAbstractLikeButton extends MToggleButton
 {
-    protected $hideNotToggled = true;
+    protected bool $hideNotToggled = true;
 
     public string $style = "opacity";
     
@@ -22,7 +23,9 @@ class MAbstractLikeButton extends MToggleButton
         "force-position" => "true"
     ];
 
-    public function __construct($type, $active, $count, $state)
+    public MSigninClickcard $clickcard;
+
+    public function __construct(string $type, bool $active, ?int $count, bool $state)
     {
         parent::__construct($state);
 

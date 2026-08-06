@@ -37,7 +37,7 @@ class InnertubeBrowseConverter
                 case "gridReelItemRenderer":
                     $list = $context["listView"] ?? false;
                     $item->{$list ? "videoRenderer" : "gridVideoRenderer"}
-                    = self::reelItemRenderer($content, $context);
+                        = self::reelItemRenderer($content, $context);
                     unset($item->reelItemRenderer);
                     break;
                 
@@ -81,7 +81,7 @@ class InnertubeBrowseConverter
      * method exists in order to streamline replacement of children
      * of grid renderers that may actually need to be modified.title
      */
-    public static function gridRenderer($data, $context = [])
+    public static function gridRenderer(object $data, array $context = []): object
     {
         $data->items = self::generalLockupConverter($data->items, $context);
 
@@ -119,7 +119,7 @@ class InnertubeBrowseConverter
      * Again, mostly natively supported, but we want to
      * easily modify any lockups that need it.
      */
-    public static function itemSectionRenderer($data, $context = [])
+    public static function itemSectionRenderer(object $data, array $context = []): object
     {
         foreach ($data->contents as &$content) foreach ($content as $name => &$value)
         {
@@ -195,7 +195,7 @@ class InnertubeBrowseConverter
         return $data;
     }
 
-    public static function channelRenderer($data, $context = [])
+    public static function channelRenderer(object $data, array $context = []): object
     {
         $i18n = i18n::getNamespace("browse");
 
@@ -279,10 +279,11 @@ class InnertubeBrowseConverter
         return $data;
     }
 
-    public static function videoRenderer($data, $context = [])
+    public static function videoRenderer(object $data, array $context = []): object
     {
         $regex = i18n::getNamespace("regex");
         $i18n = i18n::getNamespace("browse");
+        $i18nGlobal = i18n::getNamespace("global");
 
         if (isset($data->badges))
         foreach ($data->badges as $badge) foreach ($badge as &$content)
@@ -374,9 +375,9 @@ class InnertubeBrowseConverter
                                         "iconType" => "CHECK_CIRCLE_THICK",
                                     ],
                                     "style" => "BADGE_STYLE_TYPE_VERIFIED",
-                                    "tooltip" => i18n::getNamespace("global", "verified"),
+                                    "tooltip" => $i18nGlobal->get("verified"),
                                     "accessibilityData" => (object)[
-                                        "label" => i18n::getNamespace("global", "verified"),
+                                        "label" => $i18nGlobal->get("verified"),
                                     ],
                                 ]
                             ]
@@ -385,7 +386,7 @@ class InnertubeBrowseConverter
                 }
                 catch (\Exception $e)
                 {
-                    \Rehike\Logging\DebugLogger::print("Failed to get byline text for %s: %s", $data->videoId, $e);
+                    DebugLogger::print("Failed to get byline text for %s: %s", $data->videoId, $e);
                 }
             }
         }
@@ -404,7 +405,7 @@ class InnertubeBrowseConverter
      *
      * @return object{items:list<object>}
      */
-    public static function richGridRenderer($data, $context = []): object
+    public static function richGridRenderer(object $data, array $context = []): object
     {
         $items = [];
 

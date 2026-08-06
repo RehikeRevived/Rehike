@@ -12,7 +12,7 @@ use Rehike\Model\Common\Subscription\MSubscriptionActions;
  */
 class MCarouselHeader extends MHeader
 {
-    public function __construct($data, $baseUrl)
+    public function __construct(object $data, string $baseUrl)
     {
         foreach ($data->contents as $content)
         {

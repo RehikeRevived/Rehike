@@ -19,9 +19,9 @@ trait RichContent
      * Stores rich content, which is a versatile way to implement debugger
      * content.
      * 
-     * @param object[]
+     * @param object[] $richDebuggerRenderer
      */
-    public $richDebuggerRenderer = [];
+    public array $richDebuggerRenderer = [];
 
     /**
      * Add a rich text wrapper that can be typed.
@@ -29,10 +29,8 @@ trait RichContent
      * @param string  $type   Type of the text to be tested upon.
      * @param ?string $text   Text to assign.
      * @param array   $custom Associative array of custom attributes.
-     * 
-     * @return void
      */
-    public function addRichText($type, $text = null, $custom = [])
+    public function addRichText(string $type, ?string $text = null, array $custom = []): void
     {
         $obj = [];
         if (null != $text) $obj["text"] = $text;
@@ -45,55 +43,40 @@ trait RichContent
 
     /**
      * Add a heading to the renderer.
-     * 
-     * @param string $text
-     * @return void
      */
-    public function addHeading($text)
+    public function addHeading(string $text): void
     {
         $this->addRichText("heading", $text);
     }
 
     /**
      * Add a subheading to the renderer.
-     * 
-     * @param string $text
-     * @return void
      */
-    public function addSubheading($text)
+    public function addSubheading(string $text): void
     {
         $this->addRichText("subheading", $text);
     }
 
     /**
      * Add a generic text renderer to the renderer.
-     * 
-     * @param string $text
-     * @return void
      */
-    public function addText($text)
+    public function addText(string $text): void
     {
         $this->addRichText("simpleText", $text);
     }
 
     /**
      * Add a generic code renderer to the renderer.
-     * 
-     * @param string $text
-     * @return void
      */
-    public function addCode($text)
+    public function addCode(string $text): void
     {
         $this->addRichText("code", $text);
     }
 
     /**
      * Add a button to the renderer.
-     * 
-     * @param MButton $button
-     * @return void
      */
-    public function addButton($button)
+    public function addButton(MButton $button): void
     {
         $this->richDebuggerRenderer[] = (object)[
             "button" => $button
@@ -102,15 +85,14 @@ trait RichContent
 
     /**
      * Add an error renderer to the rich content array.
-     * 
-     * @param ErrorWrapper $error
-     * @return void
      */
-    public function addError($error)
+    public function addError(ErrorWrapper $error): void
     {
         $i18n = i18n::getNamespace("rehike/debugger");
 
         // Get error information from the ID
+        $type = "unknown";
+        $errorTypeText = "<unknown>";
         switch ($error->errno)
         {
             case E_ERROR:
@@ -160,10 +142,8 @@ trait RichContent
 
     /**
      * Add a nothing to see placeholder to the renderer.
-     * 
-     * @return void
      */
-    public function addNothingToSee()
+    public function addNothingToSee(): void
     {
         $this->richDebuggerRenderer[] = (object)[
             "nothingToSeeRenderer" => new MNothingToSee()
@@ -172,10 +152,8 @@ trait RichContent
 
     /**
      * Add a loading placeholder to the renderer.
-     * 
-     * @return void
      */
-    public function addLoading()
+    public function addLoading(): void
     {
         $this->richDebuggerRenderer[] = (object)[
             "loadingRenderer" => true

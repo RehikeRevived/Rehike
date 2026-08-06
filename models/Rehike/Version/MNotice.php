@@ -3,6 +3,6 @@ namespace Rehike\Model\Rehike\Version;
 
 class MNotice
 {
-    public $text;
-    public $description;
+    public string $text;
+    public string $description;
 }

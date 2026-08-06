@@ -7,26 +7,23 @@ use Rehike\ConfigManager\Config;
 
 class MFooter
 {
-    /** @var string */
-    public $logoTooltip;
+    public string $logoTooltip;
 
     /** @var MPickerButton[] */
-    public $pickers = [];
+    public array $pickers = [];
 
     /** @var MButton[] */
-    public $buttons = [];
+    public array $buttons = [];
 
     /** @var object[] */
-    public $primaryLinks = [];
+    public array $primaryLinks = [];
 
     /** @var object[] */
-    public $secondaryLinks = [];
+    public array $secondaryLinks = [];
 
-    /** @var string */
-    public $copyright;
+    public string $copyright;
 
-    /** @var bool */
-    public $enableCopyright;
+    public bool $enableCopyright;
 
     public function __construct()
     {

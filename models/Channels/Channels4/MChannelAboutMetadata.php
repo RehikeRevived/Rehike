@@ -10,21 +10,25 @@ use Rehike\Model\Traits\NavigationEndpoint;
 
 class MChannelAboutMetadata
 {
-    public $subscriberCountText;
-    public $viewCountText;
-    public $joinedDateText;
+    public ?object $subscriberCountText = null;
+    public ?object $viewCountText = null;
+    public ?string $joinedDateText = null;
     public object $usernameText;
     public object $videoCountText;
     public object $pronounsText;
-    public $descriptionLabel;
-    public $detailsLabel;
-    public $linksLabel;
-    public $description;
-    public $country;
-    public $countryLabel;
-    public $primaryLinks;
+    public ?string $descriptionLabel = null;
+    public ?string $detailsLabel = null;
+    public ?string $linksLabel = null;
+    public string|object|null $description = null;
+    public ?string $country = null;
+    public ?string $countryLabel = null;
 
-    public function __construct(Channels4Model $c4Bakery, $data)
+    /**
+     * @var object[]
+     */
+    public array $primaryLinks = [];
+
+    public function __construct(Channels4Model $c4Bakery, object $data)
     {
         $i18n = i18n::getNamespace("channels");
         $regexs = i18n::getNamespace("regex");

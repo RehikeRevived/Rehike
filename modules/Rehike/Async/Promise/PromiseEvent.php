@@ -29,9 +29,6 @@ use ReflectionFunction;
  */
 abstract class PromiseEvent/*<T>*/ extends Event 
 {
-    /** @var Promise<T> */
-    private Promise/*<T>*/ $promise;
-
     use Deferred
     { 
         getPromise as public;
@@ -57,7 +54,7 @@ abstract class PromiseEvent/*<T>*/ extends Event
      * @internal
      * 
      * @param Promise<T> $p
-     * @param callable(callable(mixed), callable(Throwable|string)): Generator $cb
+     * @param callable(callable(T), callable(Throwable|string)): Generator $cb
      * @param callable(mixed): void $res Resolve API
      * @param callable(Throwable|string): void $rej Reject API
      * 
@@ -92,11 +89,11 @@ abstract class PromiseEvent/*<T>*/ extends Event
              * with callable at all, unlike C# with delegate or
              * TypeScript with its arrow-function-like syntax.
              *  
-             * @var callable(callable(mixed), callable(Throwable|string)): Generator
+             * @var callable(callable(T), callable(Throwable|string)): Generator
              */
             private $onRunCb;
 
-            /** @var callable(mixed): void */
+            /** @var callable(T): void */
             private $resolveApi;
 
             /** @var callable(Throwable|string): void */

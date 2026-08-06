@@ -11,37 +11,33 @@ class MDialog
 {
     /**
      * The dialog's header.
-     * 
-     * @var MDialogHeader
      */
-    public $header;
+    public MDialogHeader $header;
 
     /**
      * Stores whether or not the debugger is in condensed mode.
-     * 
-     * @var bool
      */
-    public $condensed;
+    public bool $condensed;
 
     /**
      * An array of tabs.
      * 
      * @var MTab[]
      */
-    public $tabs = [];
+    public array $tabs = [];
 
-    public function __construct($condensed)
+    public function __construct(bool $condensed)
     {
+        $this->condensed = $condensed;
         $this->header = new MDialogHeader($condensed);
     }
 
     /**
      * Add a tab to the dialog.
      * 
-     * @param MTab $tab
      * @return MTabContent Reference to the tab's content.
      */
-    public function &addTab($tab)
+    public function &addTab(MTab $tab): MTabContent
     {
         $this->tabs[] = $tab;
 

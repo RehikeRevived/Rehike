@@ -3,24 +3,19 @@ namespace Rehike\Model\Common\Thumb;
 
 class MThumbSimple
 {
-    public $type = "simple";
+    public string $type = "simple";
 
-    /** @var string */
-    public $image;
+    public string $image;
 
-    /** @var double */
-    public $width;
+    public float $width;
 
-    /** @var double */
-    public $height;
+    public float $height;
 
-    /** @var string */
-    public $alt;
+    public string $alt;
 
-    /** @var bool */
-    public $delayload = false;
+    public bool $delayload = false;
 
-    public function __construct($data)
+    public function __construct(array $data)
     {
         $this->image = $data["image"] ?? "";
         $this->width = $data["width"] ?? 0;

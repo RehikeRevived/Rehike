@@ -116,7 +116,7 @@ class ShareBoxModel
         return $response;
     }
 
-    public static function playlistBake(mixed $listModel, string $listId): object
+    public static function playlistBake(object $listModel, string $listId): object
     {
         $response = (object) [];
         $i18n = i18n::getNamespace("share");

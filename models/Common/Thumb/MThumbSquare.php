@@ -3,9 +3,9 @@ namespace Rehike\Model\Common\Thumb;
 
 class MThumbSquare extends MThumbSimple
 {
-    public $type = "square";
+    public string $type = "square";
 
-    public function __construct($data)
+    public function __construct(array $data)
     {
         $this->image = $data["image"] ?? "";
         $this->width = $data["size"] ?? 0;

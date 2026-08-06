@@ -20,15 +20,20 @@ use Rehike\Model\Common\Subscription\MSubscriptionActions;
  */
 class MHeader
 {
-    public $title;
-    public $badges;
-    public $thumbnail;
-    public $url;
-    public $banner;
-    public $headerLinks;
-    public $tabs;
-    public $subscriptionButton;
-    public $nonexistentMessage;
+    public ?object $title = null;
+    public ?object $badges = null;
+    public ?string $thumbnail = null;
+    public string $url;
+    public object $banner;
+    public ?object $headerLinks = null;
+
+    /**
+     * @var object[]
+     */
+    public array $tabs = [];
+
+    public ?MSubscriptionActions $subscriptionButton = null;
+    public ?string $nonexistentMessage = null;
     protected ?object $frameworkUpdates = null;
 
     // Information that we parse from the header in the model code, but
@@ -40,12 +45,17 @@ class MHeader
     
     // These matrices define the common offsets of channel metadata in the
     // header viewmodel. [row, part]
-    const METADATA_USERNAME_INDEX = [0, 0];
-    const METADATA_PRONOUNS_INDEX = [0, 1];
-    const METADATA_SUBCOUNT_INDEX = [1, 0];
-    const METADATA_VIDCOUNT_INDEX = [1, 1];
+    public const METADATA_USERNAME_INDEX = [0, 0];
+    public const METADATA_PRONOUNS_INDEX = [0, 1];
+    public const METADATA_SUBCOUNT_INDEX = [1, 0];
+    public const METADATA_VIDCOUNT_INDEX = [1, 1];
 
-    public function __construct($header, $baseUrl, bool $isOld = true, ?object $frameworkUpdates = null)
+    public function __construct(
+        object $header,
+        string $baseUrl,
+        bool $isOld = true,
+        ?object $frameworkUpdates = null,
+    )
     {
         if (!$isOld)
         {
@@ -63,7 +73,7 @@ class MHeader
     /**
      * Construct from an InnerTube view model structure.
      */
-    protected function constructFromViewModel($header, $baseUrl): void
+    protected function constructFromViewModel(object $header, string $baseUrl): void
     {
         $content = $header->content->pageHeaderViewModel;
 
@@ -163,7 +173,7 @@ class MHeader
     /**
      * Construct from legacy InnerTube renderer structure.
      */
-    protected function constructFromRenderer($header, $baseUrl): void
+    protected function constructFromRenderer(object $header, string $baseUrl): void
     {
         // Add the title if it exists
         if ($a = @$header->title)
@@ -269,7 +279,7 @@ class MHeader
     /**
      * @param object[] $tabs
      */
-    public function addTabs(array $tabs, $partSelect = false): void
+    public function addTabs(array $tabs, bool $partSelect = false): void
     {
         $this->tabs = [];
 
@@ -301,12 +311,12 @@ class MHeader
         }
     }
 
-    public function getTitle()
+    public function getTitle(): string
     {
         return isset($this->title->text) ? $this->title->text : "";
     }
 
-    public function getThumbnail()
+    public function getThumbnail(): ?string
     {
         return $this->thumbnail;
     }
@@ -354,7 +364,7 @@ class MHeader
      * Process the header links provided and add href
      * properties to them.
      */
-    protected static function getHeaderLinks($headerLinks)
+    protected static function getHeaderLinks(object $headerLinks): object
     {
         $response = $headerLinks;
 

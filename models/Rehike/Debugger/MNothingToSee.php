@@ -14,7 +14,7 @@ use Rehike\i18n\i18n;
  */
 class MNothingToSee
 {
-    public $text;
+    public string $text;
 
     public function __construct()
     {

@@ -14,12 +14,12 @@ use Rehike\Model\Watch\WatchBakery;
  */
 class MVideoSecondaryInfoRenderer
 {
-    public $description;
-    public $defaultExpanded;
-    public $dateText;
-    public $metadataRowContainer;
-    public $showMoreText;
-    public $showLessText;
+    public ?object $description = null;
+    public bool $defaultExpanded = false;
+    public ?string $dateText = null;
+    public ?MMetadataRowContainer $metadataRowContainer = null;
+    public object|string|null $showMoreText = null;
+    public object|string|null $showLessText = null;
 
     public const REDIRECT_URL_REGEX = "/(?<=\?q=|&q=)(?=(.*?)&|$)/";
 

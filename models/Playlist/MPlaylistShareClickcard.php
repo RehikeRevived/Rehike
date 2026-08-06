@@ -5,12 +5,12 @@ use Rehike\Model\Common\MAbstractClickcard;
 
 class MPlaylistShareClickcard extends MAbstractClickcard
 {
-    public $template = "playlist_share";
-    public $cardClass = [
+    public string $template = "playlist_share";
+    public array $cardClass = [
         "yt-card"
     ];
-    public $class = "pl-header-sharepanel-content";
-    public $targetWrapper;
+    public string $class = "pl-header-sharepanel-content";
+    public object $targetWrapper;
 
     public function __construct()
     {

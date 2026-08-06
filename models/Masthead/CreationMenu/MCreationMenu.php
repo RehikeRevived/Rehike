@@ -17,6 +17,8 @@ class MCreationMenu extends MButton
         "position" => "bottomleft"
     ];
 
+    public MCreationClickcard $clickcard;
+
     public function __construct()
     {
         $this->clickcard = new MCreationClickcard();

@@ -8,15 +8,15 @@ use Rehike\SignInV2\SignIn;
 class MCreatorBar
 {
     /** @var MButton[] */
-    public $navButtons;
+    public array $navButtons;
 
     /** @var MButton[] */
-    public $editButtons;
+    public array $editButtons;
 
     /**
      * @var string $vid   Video ID.
      */
-    public function __construct($vid)
+    public function __construct(string $vid)
     {
         $i18n = i18n::getNamespace("watch");
         

@@ -24,6 +24,8 @@ class MNotificationButton extends MButton
         "position" => "bottomleft"
     ];
 
+    public MNotificationClickcard $clickcard;
+
     public function __construct()
     {
         $this->accessibility = (object) [

@@ -6,13 +6,15 @@ use Rehike\Util\ParsingUtils;
 
 class MAlert
 {
-    const TypeInformation = "info";
-    const TypeWarning = "warn";
-    const TypeError = "error";
-    const TypeSuccess = "success";
+    public const TypeInformation = "info";
+    public const TypeWarning = "warn";
+    public const TypeError = "error";
+    public const TypeSuccess = "success";
 
     /**
      * What type the alert should be rendered in.
+     * 
+     * @var self::*
      */
     public string $type = self::TypeInformation;
 
@@ -27,14 +29,7 @@ class MAlert
      */
     public bool $hasCloseButton = true;
 
-    /**
-     * Buttons to be shown on the right of the alert.
-     * 
-     * @var MAlertButton[]
-     */
-    public $buttons = [];
-
-    public function __construct($data)
+    public function __construct(array $data)
     {
         $this->type = $data["type"];
         $this->text = $data["text"] ?? null;
@@ -64,7 +59,7 @@ class MAlert
      *
      * @return self::*|null
      */
-    public static function parseInnerTubeType($type): ?string
+    public static function parseInnerTubeType(string $type): ?string
     {
         switch ($type)
         {

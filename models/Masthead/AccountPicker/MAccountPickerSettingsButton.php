@@ -14,6 +14,8 @@ class MAccountPickerSettingsButton extends MButton
         "yt-masthead-picker-settings-button"
     ];
 
+    public object $navigationEndpoint;
+
     public function __construct()
     {
         $i18n = i18n::getNamespace("masthead");

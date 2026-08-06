@@ -12,31 +12,23 @@ class MTab
 {
     /**
      * The title of a tab.
-     * 
-     * @var string
      */
-    public $title;
+    public string $title;
 
     /**
      * A unique identifier for this tab.
-     * 
-     * @var string
      */
-    public $id = "";
+    public string $id = "";
 
     /**
      * Determines if the tab should be selected by default.
-     * 
-     * @var bool
      */
-    public $selected = false;
+    public bool $selected = false;
 
     /**
      * Stores the content of the tab.
-     * 
-     * @var MTabContent
      */
-    public $content;
+    public MTabContent $content;
 
     /**
      * Construct a new tab wrapper.
@@ -46,7 +38,12 @@ class MTab
      * @param MTabContent $content  Content of the tab
      * @param bool        $selected Whether or not to select the tab.
      */
-    public function __construct($title, $id, $content, $selected)
+    public function __construct(
+        string $title,
+        string $id,
+        MTabContent $content,
+        bool $selected
+    )
     {
         $this->title = $title;
         $this->id = $id;

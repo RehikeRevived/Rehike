@@ -7,7 +7,10 @@ class MCreatorBarEditButton extends MButton
 {
     public string $style = "STYLE_TEXT_DARK";
 
-    public function __construct($data)
+    public object $navigationEndpoint;
+    public string $itemTooltip;
+
+    public function __construct(array $data)
     {
         $this->itemTooltip = $data["tooltip"];
         $this->icon = (object) [

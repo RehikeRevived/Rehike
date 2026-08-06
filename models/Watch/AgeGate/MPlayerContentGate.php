@@ -15,12 +15,14 @@ use Rehike\Util\ParsingUtils;
  */
 class MPlayerContentGate
 {
-    public $reason;
-    public $subreason;
+    public object|string $reason;
+    public object $subreason;
 
     public function __construct(?object $data = null)
     {
         $this->reason = $data->reason;
-        $this->subreason = (object)["watch7PlayerAgeGateContent" => new MPlayerContentGateContent($data)];
+        $this->subreason = (object)[
+            "watch7PlayerAgeGateContent" => new MPlayerContentGateContent($data)
+        ];
     }
 }

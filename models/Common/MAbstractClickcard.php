@@ -9,9 +9,9 @@ namespace Rehike\Model\Common;
  */
 abstract class MAbstractClickcard
 {
-    public $template = "";
-    public $class = "";
-    public $content;
+    public string $template = "";
+    public string $class = "";
+    public object $content;
 
     /**
      * Should generate content only. Template and

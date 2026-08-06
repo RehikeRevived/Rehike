@@ -23,7 +23,9 @@ class MOpenButton extends MButton
         "rebug-open-button"
     ];
 
-    public function __construct($errorCount, $condensed)
+    public bool $hasArrow;
+
+    public function __construct(int $errorCount, bool $condensed)
     {
         if ($condensed) $this->class[] = "condensed";
 
@@ -39,9 +41,8 @@ class MOpenButton extends MButton
      * @param int $errorCount Number of errors that have occurred.
      * @param bool $condensed Different strings are used if the debugger is
      *                        condensed.
-     * @return string
      */
-    public static function getTitle($errorCount = 0, $condensed = false)
+    public static function getTitle(int $errorCount = 0, bool $condensed = false): string
     {
         $i18n = i18n::getNamespace("rehike/debugger");
 

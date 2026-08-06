@@ -6,17 +6,10 @@ use Rehike\i18n\i18n;
 
 class MMastheadSearchbox
 {
-    /** @var string */
-    public $placeholder;
-
-    /** @var MButton */
-    public $button;
-
-    /** @var bool */
-    public $autofocus;
-
-    /** @var string */
-    public $query;
+    public string $placeholder;
+    public MButton $button;
+    public bool $autofocus;
+    public string $query;
 
     public function __construct()
     {
@@ -34,7 +27,7 @@ class MMastheadSearchbox
                 "search-btn-component",
                 "search-button"
             ],
-            "customAttributes" => (object) [
+            "customAttributes" => [
                 "type" => "submit",
                 "onclick" => "if (document.getElementById('masthead-search-term').value == '') return false; document.getElementById('masthead-search').submit(); return false;;return true;",
                 "tabindex" => "2",

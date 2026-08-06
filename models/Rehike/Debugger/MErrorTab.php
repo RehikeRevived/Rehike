@@ -17,9 +17,8 @@ class MErrorTab extends MTabContent
      * Push a list of errors from the debugger's main API to the error tab.
      * 
      * @param ErrorWrapper[] $errors
-     * @return void
      */
-    public function pushErrors($errors)
+    public function pushErrors(array $errors): void
     {
         $errorCount = count($errors);
 

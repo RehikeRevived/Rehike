@@ -13,8 +13,8 @@ use Rehike\Util\ParsingUtils;
  */
 class MPlayerAgeGate
 {
-    public $reason;
-    public $subreason;
+    public object $reason;
+    public object $subreason;
 
     public function __construct(?object $data = null)
     {
@@ -26,6 +26,8 @@ class MPlayerAgeGate
         }
         
         $this->reason = (object)["simpleText" => $reason];
-        $this->subreason = (object)["watch7PlayerAgeGateContent" => new MPlayerAgeGateContent($data)];
+        $this->subreason = (object)[
+            "watch7PlayerAgeGateContent" => new MPlayerAgeGateContent($data)
+        ];
     }
 }

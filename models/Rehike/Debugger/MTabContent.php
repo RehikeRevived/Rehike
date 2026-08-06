@@ -20,7 +20,7 @@ abstract class MTabContent
      * 
      * @var bool
      */
-    public $enableJsHistory = true;
+    public bool $enableJsHistory = true;
 
     /**
      * Create a tab model and automatically wrap it. This should be the general
@@ -30,7 +30,7 @@ abstract class MTabContent
      * @param string $id       Unique ID for the tab.
      * @param bool   $selected Whether or not the tab is selected.
      */
-    public static function createTab($title, $id, $selected = false): MTab
+    public static function createTab(string $title, string $id, bool $selected = false): MTab
     {
         $me = new static();
 

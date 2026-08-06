@@ -24,7 +24,12 @@ class MActionButton extends MButton
         "pause-resume-autoplay"
     ];
 
-    public function __construct($data)
+    public ?string $targetId = null;
+    public MSigninClickcard $clickcard;
+    public object $videoActionsMenu;
+    public MActionPanelOverflowMenu $menu;
+
+    public function __construct(array $data)
     {
         parent::__construct([]);
 
@@ -96,7 +101,7 @@ class MActionButton extends MButton
      * Build a watch8 add to playlists button, or its signed out
      * stub.
      */
-    public static function buildAddtoButton($videoId): self
+    public static function buildAddtoButton(string $videoId): self
     {
         $i18n = i18n::getNamespace("watch");
 
@@ -160,10 +165,8 @@ class MActionButton extends MButton
      * 
      * If the video is not a livestream, then the report button appears in
      * the more button's menu instead.
-     * 
-     * @return MActionButton
      */
-    public static function buildReportButton()
+    public static function buildReportButton(): self
     {
         $i18n = i18n::getNamespace("watch");
 

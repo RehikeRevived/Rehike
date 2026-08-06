@@ -11,6 +11,8 @@ class MAccountPickerAddButton extends MButton
      */
     public array $class = ["yt-masthead-picker-button"];
 
+    public object $navigationEndpoint;
+
     public function __construct()
     {
         $i18n = i18n::getNamespace("masthead");

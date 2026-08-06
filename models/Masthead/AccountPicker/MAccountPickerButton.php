@@ -28,6 +28,9 @@ class MAccountPickerButton extends MButton
         "position" => "bottomleft"
     ];
 
+    public MThumbSquare $thumb;
+    public MAccountPickerClickcard $clickcard;
+
     public function __construct()
     {
         $i18n = i18n::getNamespace("masthead");

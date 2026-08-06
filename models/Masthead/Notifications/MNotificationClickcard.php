@@ -5,15 +5,19 @@ use Rehike\i18n\i18n;
 
 class MNotificationClickcard
 {
-    public $template = "masthead_notifications";
-    public $id = "yt-masthead-notifications";
-    public $cardAction = "yt.www.notifications.inbox.handleNotificationsClick";
-    public $cardClass = [
+    public string $template = "masthead_notifications";
+    public string $id = "yt-masthead-notifications";
+    public string $cardAction = "yt.www.notifications.inbox.handleNotificationsClick";
+    public array $cardClass = [
         "yt-scrollbar",
         "yt-notification-inbox-clickcard"
     ];
-    public $cardId = "yt-masthead-notifications-clickcard";
-    public $content;
+    public string $cardId = "yt-masthead-notifications-clickcard";
+
+    /**
+     * @var object{title:string,button:MNotificationSettingsButton}
+     */
+    public object $content;
 
     public function __construct()
     {

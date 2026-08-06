@@ -52,6 +52,15 @@ class MButton
     public array $attributes = [];
 
     /**
+     * An associative array of additional attributes to apply to the button
+     * element in HTML. Unlike {@see self::$attributes}, these attributes are
+     * not prefixed with "data-" at template time.
+     * 
+     * @var array<string, string>
+     */
+    public array $customAttributes = [];
+
+    /**
      * An object specifying InnerTube accessibility data.
      */
     public ?object $accessibility = null;
@@ -61,7 +70,12 @@ class MButton
      */
     public bool $isDisabled = false;
 
-    public function __construct($array = [])
+    /**
+     * The text of the button.
+     */
+    public ?object $text = null;
+
+    public function __construct(object|array $array = [])
     {
         $this->text = (object)["runs" => []];
 
@@ -80,7 +94,7 @@ class MButton
         ];
     }
 
-    protected function addRun($object): void
+    protected function addRun(object $object): void
     {
         $this->text->runs[] = $object;
     }

@@ -5,7 +5,11 @@ use Rehike\Model\Common\MButton;
 
 class MCreationMenuItem extends MButton
 {
-    public function __construct($type, $label, $url)
+    public string $targetId;
+    public string $type;
+    public object $navigationEndpoint;
+
+    public function __construct(string $type, string $label, string $url)
     {
         $this->targetId = "creation-$type-menu-item";
         $this->type = $type;

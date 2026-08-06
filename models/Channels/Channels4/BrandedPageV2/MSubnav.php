@@ -7,10 +7,18 @@ use Rehike\Model\Channels\Channels4Model;
 
 class MSubnav
 {
-    public $rightButtons;
-    public $leftButtons;
-    public $title;
-    public $backButton;
+    /**
+     * @var MSubnavMenuButton[]
+     */
+    public array $rightButtons = [];
+
+    /**
+     * @var MSubnavMenuButton[]
+     */
+    public array $leftButtons = [];
+    
+    public string $title = "";
+    public ?MSubnavBackButton $backButton = null;
     
     private Channels4Model $parent;
     
@@ -19,7 +27,7 @@ class MSubnav
         $this->parent = $parent;
     }
 
-    public function addBackButton($href): void
+    public function addBackButton(?string $href): void
     {
         $this->backButton = new MSubnavBackButton($href);
     }
@@ -47,7 +55,7 @@ class MSubnav
         return $i;
     }
 
-    public static function getViewButton(self &$instance): void
+    public static function getViewButton(self $instance): void
     {
         $i18n = i18n::getNamespace("channels");
 
@@ -105,7 +113,7 @@ class MSubnav
         }        
     }
 
-    public function getSortButton($sort): ?MSubnavMenuButton
+    public function getSortButton(int $sort): ?MSubnavMenuButton
     {
         $i18n = i18n::getNamespace("channels");
         $baseUrl = $this->parent->getBaseUrl();
@@ -148,7 +156,7 @@ class MSubnav
         return new MSubnavMenuButton("sort", $activeText, $options);
     }
 
-    public function getFlowButton(string $view): MSubnavMenuButton
+    public function getFlowButton(?string $view): ?MSubnavMenuButton
     {
         $i18n = i18n::getNamespace("channels");
 
@@ -179,11 +187,15 @@ class MSubnav
             $activeText = $listText;
             $options += [$gridText => "$baseUrl/$tab?sort=$sort&flow=grid"];
         }
+        else
+        {
+            return null;
+        }
 
         return new MSubnavMenuButton("flow", $activeText, $options);
     }
 
-    public static function fromData(Channels4Model $parent, $data): self
+    public static function fromData(Channels4Model $parent, object $data): self
     {
         $baseUrl = $parent->getBaseUrl();
 

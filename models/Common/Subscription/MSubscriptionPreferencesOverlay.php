@@ -15,7 +15,7 @@ class MSubscriptionPreferencesOverlay
 
     public MButton $cancelButton;
 
-    public function __construct($data)
+    public function __construct(array $data)
     {
         $i18n = i18n::getNamespace("misc");
 

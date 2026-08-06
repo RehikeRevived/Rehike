@@ -10,7 +10,7 @@ namespace Rehike\Model\Watch\AgeGate;
 class MPlayerContentGateContent
 {
     public object $message;
-    public $button;
+    public MPlayerAgeGateButton $button;
 
     public function __construct(?object $data = null)
     {

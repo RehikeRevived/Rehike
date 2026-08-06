@@ -22,13 +22,6 @@ class StringTranslationManager
     {
         $i18n = i18n::getNamespace("comments");
 
-        $yt = \Rehike\YtApp::getInstance();
-        if (!isset($yt->testAbc))
-        {
-            $yt->testAbc = [];
-        }
-        $yt->testAbc[] = trim($in);
-
         return match (trim($in))
         {
             "Kommentare" => $i18n->get("commentsHeader"),

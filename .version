@@ -1,10 +1,10 @@
 {
-	"previousHash": "341c0c3a322522a548f0eb178411183cc61f3174",
-	"currentRevisionId": 1915,
-	"subject": "Merge branch 'master' into dev-psalm-refactoring",
-	"body": "Merge branch 'master' into dev-psalm-refactoring",
+	"previousHash": "d02f68809e1bd0fd63634ffa60f7c80a490344fa",
+	"currentRevisionId": 1916,
+	"subject": "Manually type through all models",
+	"body": "Manually type through all models",
 	"branch": "dev-psalm-refactoring",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1786008148
+	"time": 1786009844
 }
