@@ -63,13 +63,14 @@ class ExperimentsConfigDefinitions implements IConfigDefinitionsProvider
 
     public function __construct(
         public BoolProp $useSignInV2 = new BoolProp(false),
-        public BoolProp $asyncAttestationRequest = new BoolProp(true),
         public EnumProp $temp20240827_playerMode = new EnumProp("USE_WEB_V2", [
             "USE_WEB_V2",
             "USE_EMBEDDED_PLAYER_REQUEST",
             "USE_EMBEDDED_PLAYER_DIRECTLY",
         ]),
         public BoolProp $alwaysUseContentPoToken = new BoolProp(false),
+        public BoolProp $potGenUseInnertubeForIntegrityToken = new BoolProp(true),
+        public BoolProp $potGenScrapePolymerForBotguardContext = new BoolProp(true),
     )
     {
         $this->tickInjectionForScheduling = (new BoolProp(false))->registerUpdateCb(function() {

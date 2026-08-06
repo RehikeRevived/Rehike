@@ -8,6 +8,9 @@
 
 import gulp, { Gulp, TaskFunction } from "gulp";
 import chalk from "chalk";
+import { getArgs } from "./parse_args";
+import * as RehikeBuild from "./rehikebuild_main";
+import { Status } from "./build_task";
 
 // https://github.com/gulpjs/undertaker/blob/2d95b5273d6a61fd4ca09376e91faae1045bbbe2/lib/helpers/createExtensions.js#L36-L40
 interface GulpStartEvent
@@ -75,7 +78,48 @@ function setupLogging(gulp: Gulp): void
             
             if (info.isPackage)
             {
-                logMsg = `Finished build for package "${chalk.cyan(info.baseName)}" in ${chalk.magenta(formatHrTime(event.duration))}`;
+                // Look up the package:
+                const buildTasks: RehikeBuild.BuildTask[] = [];
+                let packageBuildTask: RehikeBuild.BuildTask|null = null;
+
+                const buildTaskIterator = RehikeBuild.BuildTask.getAllBuildTasks();
+                while (buildTaskIterator.hasNewItems())
+                {
+                    buildTasks.push(...buildTaskIterator.getNext().tasks);
+                }
+
+                for (const buildTask of buildTasks)
+                {
+                    if ("@RHBUILD::PACKAGE::" + info.baseName == buildTask.displayName)
+                    {
+                        packageBuildTask = buildTask;
+                        break;
+                    }
+                }
+
+                if (!packageBuildTask)
+                {
+                    logMsg = `${chalk.red(`Information unavailable for package "${info.baseName}"`)}`;
+                }
+                else if (Status.FINISHING == packageBuildTask.status
+                    || Status.FINISHED == packageBuildTask.status)
+                {
+                    // At this time, we must also acknowledge the FINISHING
+                    // state, since it is almost certain that the build task
+                    // will not be completely finished until some more
+                    // asynchronous work finishes (mostly to do with writing the
+                    // new contents to disk) - also see the comment for
+                    // BuildTask::_ensureGulpTask().
+                    logMsg = `Finished build for package "${chalk.cyan(info.baseName)}" in ${chalk.magenta(formatHrTime(event.duration))}`;
+                }
+                else if (Status.ERRORED == packageBuildTask.status)
+                {
+                    logMsg = `${chalk.red("Failed build for package \"")}${chalk.cyan(info.baseName)}${chalk.red("\" in ")}${chalk.magenta(formatHrTime(event.duration))}: ${packageBuildTask._deferredErrorMessage}`;
+                }
+                else
+                {
+                    logMsg = `${chalk.red(`Package "${info.baseName}" has an unknown status: ${packageBuildTask.status}`)}`;
+                }
             }
             else
             {
@@ -86,12 +130,10 @@ function setupLogging(gulp: Gulp): void
         }
     });
     
+    // This shouldn't really happen.
     gulp.on("error", function(event: GulpErrorEvent)
     {
-        // This error logging code sucks. Consider cleaning up when errors become prominent.
-        let info = parseLogCommand(event.name);
-        
-        console.log(`${chalk.red("Error in " + event.name + ": ")} ${JSON.stringify(event)}`);
+        console.log(`${chalk.red("An internal error occurred in handling the Gulp task: " + event.name + ": ")} ${JSON.stringify(event)}`);
     });
 }
 
