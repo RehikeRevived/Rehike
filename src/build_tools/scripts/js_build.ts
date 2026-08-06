@@ -6,7 +6,7 @@
  * @author The Rehike Maintainers
  */
 
-import { BuildTask, GulpTask } from "./build_task";
+import { BuildTask, GulpTask, Status } from "./build_task";
 import * as RehikeBuild from "./rehikebuild_main";
 
 import gulp from "gulp";
@@ -22,6 +22,7 @@ export default class JSBuildTask extends BuildTask
     protected override _buildGulpTask(): GulpTask
     {
         const task = this._prepareGulpBackend();
+        const self = this;
         let result = task
             .pipe(GulpPreprocess({
                 includeBase: path.dirname(this.inputFileNames[0])
@@ -31,7 +32,12 @@ export default class JSBuildTask extends BuildTask
                 //process_closure_primitives: true,
                 language_out: "ECMASCRIPT3",
                 output_wrapper: "(function(){%output%})();"
-            }));
+            }))
+            .on("error", function(err: any)
+            {
+                self.forwardError(err.message);
+                this.emit("end");
+            });
         return result;
     }
     

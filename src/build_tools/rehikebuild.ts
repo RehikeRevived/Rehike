@@ -72,7 +72,7 @@ async function BuildAll()
 
     const iterator = RehikeBuild.BuildTask.getAllBuildTasks();
     
-    const tasks = [];
+    const tasks: RehikeBuild.BuildTask[] = [];
     
     /*
      * The waiting architecture here is pretty complicated in order to work with

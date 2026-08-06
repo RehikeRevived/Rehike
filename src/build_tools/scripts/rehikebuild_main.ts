@@ -49,7 +49,7 @@ export function promiseWrapStream(stream: Stream): Promise<void>
     return new Promise((resolve, reject) => {
         stream.on("finish", resolve);
         stream.on("end", resolve);
-        stream.on("error", reject);
+        stream.on("error", resolve);
     });
 }
 

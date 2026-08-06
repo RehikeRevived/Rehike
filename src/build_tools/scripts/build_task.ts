@@ -15,6 +15,7 @@ import fs from "fs/promises";
 import * as RehikeBuild from "./rehikebuild_main";
 import * as VflGenerator from "./vfl_gen";
 import Undertaker from "undertaker";
+import { getArgs } from "./parse_args";
 
 export type GulpTask = Undertaker.Task & Transform;
 
@@ -49,16 +50,18 @@ export abstract class BuildTask
     
     _gulpTask: GulpTask = null; // TODO: Type
     _status: Status = Status.PENDING;
+
+    // This is public since the logging code wants to access it.
+    public _deferredErrorMessage: string|null = null;
     
     _data = null; // TODO: Type??
     
     _resolutionPromise = {
         resolve: null,
-        reject: null,
         promise: null
     };
     
-    get resolutionPromise()
+    public get resolutionPromise(): Promise<any>
     {
         return this._resolutionPromise.promise;
     }
@@ -82,11 +85,13 @@ export abstract class BuildTask
         
         this.outputFileName = outputFileName;
         
-        console.log(`Created new BuildTask(${JSON.stringify(inputFileNames)}, ${outputFileName})`);
+        if ("verbose" in getArgs())
+        {
+            console.log(`Created new BuildTask(${JSON.stringify(inputFileNames)}, ${outputFileName})`);
+        }
         
-        this._resolutionPromise.promise = new Promise((resolve, reject) => {
+        this._resolutionPromise.promise = new Promise((resolve) => {
             this._resolutionPromise.resolve = resolve;
-            this._resolutionPromise.reject = reject;
         });
     }
     
@@ -123,14 +128,31 @@ export abstract class BuildTask
         if (!this._gulpTask)
         {
             const parent = this;
-            console.log("Creating gulp task");
+            if ("verbose" in getArgs())
+            {
+                console.log("Creating gulp task");
+            }
             this._gulpTask = this._buildGulpTask();
             
             this._gulpTask = this._gulpTask.pipe(this._getDataFromStream(this)) as GulpTask;
             
             this._gulpTask.on("finish", async function() {
+                if (Status.PENDING != parent._status)
+                {
+                    if (Status.ERRORED == parent.status)
+                    {
+                        parent._resolutionPromise.resolve();
+                    }
+                    return;
+                }
+
                 // Perform post-task events:
                 parent._status = Status.FINISHING;
+
+                // XXX(niko): Past this point, the function defers execution
+                // which will almost certainly be passed to another "finish"
+                // event handler for this task. Therefore, they will most likely
+                // see the task as FINISHING and not FINISHED.
                 await parent._onAllTasksCompleted();
                 
                 // We're done building, so signal to any outside subscribers:
@@ -140,9 +162,19 @@ export abstract class BuildTask
             
             this._gulpTask.on("error", function(e) {
                 parent._status = Status.ERRORED;
-                parent._resolutionPromise.reject(e);
+                parent._resolutionPromise.resolve(e);
+                this.emit("end");
             });
         }
+    }
+
+    /**
+     * Forward an error from a Gulp transform stream.
+     */
+    protected forwardError(message: string): void
+    {
+        this._status = Status.ERRORED;
+        this._deferredErrorMessage = message;
     }
     
     /**
@@ -195,7 +227,10 @@ export abstract class BuildTask
         
         await fd.write(this._data.contents);
         
-        console.log(`Wrote out file "${fullOutputPath}"`);
+        if ("verbose" in getArgs())
+        {
+            console.log(`Wrote out file "${fullOutputPath}"`);
+        }
         
         await fd.close();
         
