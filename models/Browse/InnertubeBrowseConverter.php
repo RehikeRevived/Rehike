@@ -406,7 +406,7 @@ class InnertubeBrowseConverter
         {
             if (@$item->richItemRenderer)
             {
-                $items[] = self::richItemRenderer($item->richItemRenderer);
+                $items[] = self::richItemRenderer($item->richItemRenderer, $context);
             }
             else if (@$item->continuationItemRenderer)
             {

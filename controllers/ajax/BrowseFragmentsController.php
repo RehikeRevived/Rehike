@@ -110,7 +110,7 @@ class BrowseFragmentsController extends AjaxController implements IGetController
                     [
                         "listView" => $list,
                         "channelRendererUnbrandedSubscribeButton" => true
-                    ]
+                    ] + ($list ? ["lockupStyle" => 1] : []),
                 );
 
             if ($wrap)
