@@ -44,7 +44,7 @@ class LogFile
 
     public function render(): string
     {
-        $out = "|\\> Rehike Revised log file!!!\n\n";
+        $out = "|\\> Rehike Revived log file!!!\n\n";
 
         $out .= "<MESSAGE_NETWORK_PRIVACY_PLACEHOLDER>";
 
@@ -57,7 +57,7 @@ class LogFile
         $out .= "\n\n\n";
 
         $out .= "=== Configuration information ===\n";
-        $out .= " - Rehike Revised version: " . VersionController::getVersion() . "\n";
+        $out .= " - Rehike Revived version: " . VersionController::getVersion() . "\n";
         $out .= " - Git-cloned copy: " . (VersionController::$versionInfo->supportsDotGit
             ? "Yes"
             : "No") . "\n";
