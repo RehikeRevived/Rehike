@@ -11,7 +11,7 @@ use Rehike\Model\Common\MButton;
  */
 class MPaginatorButton extends MButton
 {
-    public object $navigationEndpoint;
+    public ?object $navigationEndpoint = null;
 
     public function __construct(string $text, bool $selected, string $url)
     {

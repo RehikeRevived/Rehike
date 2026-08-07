@@ -1,10 +1,10 @@
 {
-	"previousHash": "d02f68809e1bd0fd63634ffa60f7c80a490344fa",
-	"currentRevisionId": 1916,
-	"subject": "Manually type through all models",
-	"body": "Manually type through all models",
+	"previousHash": "e86f6713c503fca5744c9ba2711faf24f9cb439d",
+	"currentRevisionId": 1917,
+	"subject": "Fix crash on search results page due to non-nullable strict type",
+	"body": "Fix crash on search results page due to non-nullable strict type",
 	"branch": "dev-psalm-refactoring",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1786009844
+	"time": 1786088819
 }
