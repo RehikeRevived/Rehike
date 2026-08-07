@@ -1,10 +1,10 @@
 {
-	"previousHash": "580631b87bfe87461c8e1b2259d1137b6f90870a",
-	"currentRevisionId": 1900,
-	"subject": "Fix list view style being dropped on channel videos continuations",
-	"body": "Fix list view style being dropped on channel videos continuations",
+	"previousHash": "825f3d90592a73494a99ded2cd7aaced8b8088ee",
+	"currentRevisionId": 1901,
+	"subject": "Fix playlist video continuations not following the correct video renderer style",
+	"body": "Fix playlist video continuations not following the correct video renderer style",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1786086005
+	"time": 1786087153
 }

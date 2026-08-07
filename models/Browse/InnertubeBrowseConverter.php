@@ -3,6 +3,7 @@ namespace Rehike\Model\Browse;
 
 use Rehike\i18n\i18n;
 use Rehike\Logging\DebugLogger;
+use Rehike\Model\ViewModelConverter\PlaylistVideoRendererViewModelConverter;
 use Rehike\Util\ParsingUtils;
 use Rehike\Util\ExtractUtils;
 use Rehike\Model\Channels\Channels4\BrandedPageV2\MSubnav;
@@ -57,10 +58,25 @@ class InnertubeBrowseConverter
                             : "STUB",
                     );
 
-                    $lockupConv = new LockupViewModelConverter($content, (object)[]);
-                    if (isset($context["lockupStyle"]))
-                        $lockupConv->setStyle($context["lockupStyle"]);
-                    $newEntry = $lockupConv->bakeClassicRenderer();
+                    $targetPlaylistPage = @$context["targetPlaylistPage"] ?? false;
+
+                    if ($targetPlaylistPage)
+                    {
+                        $lockupConv = new PlaylistVideoRendererViewModelConverter(
+                            $content, (object)[],
+                        );
+
+                        $newEntry = (object)[
+                            "playlistVideoRenderer" => $lockupConv->bake(),
+                        ];
+                    }
+                    else
+                    {
+                        $lockupConv = new LockupViewModelConverter($content, (object)[]);
+                        if (isset($context["lockupStyle"]))
+                            $lockupConv->setStyle($context["lockupStyle"]);
+                        $newEntry = $lockupConv->bakeClassicRenderer();
+                    }
                     
                     foreach ($newEntry as $newName => &$newContext)
                     {

@@ -18,6 +18,7 @@ use Rehike\ControllerV2\{
     IGetController,
     IPostController,
 };
+use Rehike\Model\ViewModelConverter\LockupViewModelConverter;
 
 /**
  * Controller for browse AJAX requests.
@@ -42,16 +43,36 @@ class BrowseFragmentsController extends AjaxController implements IGetController
             if (!isset($request->params->continuation)) self::error();
             $continuation = $request->params->continuation;
 
-            $contWrapper = new VideosContinuationWrapper();
-            $contWrapper->mergeFromString(Base64Url::decode($continuation));
-
             $list = false;
             $wrap = false;
-            if ($contWrapper->getContinuation() != "")
+            $targetPlaylistPage = false;
+
+            // TODO(leymonaide): In the future, RHCUSTOM continuations should be
+            // standardized to avoid difficult to manage fragmenting across the
+            // codebase.
+            if (str_starts_with($continuation, "RHCUSTOM"))
             {
-                $continuation = $contWrapper->getContinuation();
-                $list = $contWrapper->getList();
-                $wrap = $contWrapper->getWrapInGrid();
+                $payload = substr($continuation, strlen("RHCUSTOM"));
+                $obj = json_decode(Base64Url::decode($payload));
+
+                if (@$obj->style && "targetPlaylistPage" == $obj->style)
+                {
+                    $targetPlaylistPage = true;
+                }
+
+                $continuation = $obj->token;
+            }
+            else
+            {
+                $contWrapper = new VideosContinuationWrapper();
+                $contWrapper->mergeFromString(Base64Url::decode($continuation));
+
+                if ($contWrapper->getContinuation() != "")
+                {
+                    $continuation = $contWrapper->getContinuation();
+                    $list = $contWrapper->getList();
+                    $wrap = $contWrapper->getWrapInGrid();
+                }
             }
 
             $response = yield Network::innertubeRequest(
@@ -110,7 +131,8 @@ class BrowseFragmentsController extends AjaxController implements IGetController
                     [
                         "listView" => $list,
                         "channelRendererUnbrandedSubscribeButton" => true
-                    ] + ($list ? ["lockupStyle" => 1] : []),
+                    ] + ($list ? ["lockupStyle" => LockupViewModelConverter::STYLE_LIST] : [])
+                      + ($targetPlaylistPage ? ["targetPlaylistPage" => true] : []),
                 );
 
             if ($wrap)

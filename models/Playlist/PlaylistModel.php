@@ -6,6 +6,7 @@ use \Rehike\i18n\i18n;
 use Rehike\Model\ViewModelConverter\LockupViewModelConverter;
 use Rehike\Model\ViewModelConverter\PlaylistHeaderViewModelConverter;
 use Rehike\Model\ViewModelConverter\PlaylistVideoRendererViewModelConverter;
+use Rehike\Util\Base64Url;
 use Rehike\YtApp;
 
 class PlaylistModel
@@ -50,6 +51,23 @@ class PlaylistModel
                     
                     $response->videoList[] = (object)[
                         "playlistVideoRenderer" => $vmc->bake(),
+                    ];
+                }
+                else if (($continuation = @$listItem->continuationItemRenderer))
+                {
+                    $token = $continuation->continuationEndpoint
+                        ->continuationCommand->token;
+                    
+                    $customTokenObj = (object)[
+                        "style" => "targetPlaylistPage",
+                        "token" => $token,
+                    ];
+
+                    $continuation->continuationEndpoint->continuationCommand
+                        ->token = "RHCUSTOM" . Base64Url::encode(json_encode($customTokenObj));
+
+                    $response->videoList[] = (object)[
+                        "continuationItemRenderer" => $continuation,
                     ];
                 }
                 else
