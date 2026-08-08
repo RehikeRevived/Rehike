@@ -18,7 +18,7 @@ class MOwner
 {
     public object|string|null $title = "";
     public ?object $thumbnail = null;
-    public ?object $badges = null;
+    public ?array $badges = null;
     public ?object $navigationEndpoint = null;
 
     /**

@@ -1,10 +1,10 @@
 {
-	"previousHash": "e86f6713c503fca5744c9ba2711faf24f9cb439d",
-	"currentRevisionId": 1917,
-	"subject": "Fix crash on search results page due to non-nullable strict type",
-	"body": "Fix crash on search results page due to non-nullable strict type",
+	"previousHash": "dadc7a0844aef1f2ad2d7d2028dfd7ced35fc496",
+	"currentRevisionId": 1918,
+	"subject": "Fix crash on watch when the owner is verified",
+	"body": "Fix crash on watch when the owner is verified",
 	"branch": "dev-psalm-refactoring",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1786088819
+	"time": 1786166508
 }
