@@ -337,6 +337,14 @@ module.botguard.requestAttestationClient2_ = function()
 
     var url = new URL(window.location.href);
 
+    // HACKHACK(leymonaide): If the initial page was a Rehike internal page,
+    // then the enable_polymer parameter will do nothing, so we'll set it to the
+    // homepage.
+    if ("/rehike/" == url.pathname.substr(0, "/rehike/".length))
+    {
+        url.pathname = "/";
+    }
+
     // Bypass Rehike for the page. We need to extract state from the Polymer
     // document to prepare the BotGuard context.
     url.searchParams.set("enable_polymer", "1");
