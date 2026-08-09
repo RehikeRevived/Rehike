@@ -151,10 +151,11 @@ props:
 
   advanced:
     dnsAddress:
-      title: "DNS address for YouTube requests"
+      title: "DNS addresses for YouTube requests"
       subtitle: >
         Only change this value if you know what you're doing. An invalid value
-        will make all API requests fail.
+        will make all API requests fail. Multiple addresses may be specified in
+        the list separated by semicolons.
     disableSslVerification:
       title: "Disable SSL verification"
       subtitle: >

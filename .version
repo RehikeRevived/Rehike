@@ -1,10 +1,10 @@
 {
-	"previousHash": "29a06a6c7377115329f30de513493e6664fa5970",
-	"currentRevisionId": 1902,
-	"subject": "Fix branding mistakes in log file generator",
-	"body": "Fix branding mistakes in log file generator",
+	"previousHash": "efa20d43c965fe4c1f621faacdf6952f8c3c67f2",
+	"currentRevisionId": 1903,
+	"subject": "Support a list of multiple DNS addresses",
+	"body": "Support a list of multiple DNS addresses",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1786087601
+	"time": 1786258727
 }

@@ -71,6 +71,16 @@
                     <button class="fatal-button" onclick="window.location.reload()">Refresh page</button>
                     <button class="fatal-button" onclick="fatalDisableRehikeOnce()">Disable Rehike (just this time)</button>
                     <button class="fatal-button" onclick="fatalDisableRehike()">Disable Rehike (persistently)</button>
+                    <button class="fatal-button" onclick="openChangeDns()">Change DNS server</button>
+                </div>
+
+                <div id="change-dns-container" class="hid">
+                    <h3>Change DNS server</h3>
+                    <input class="yt-uix-form-input-text" 
+                        type="text"
+                        placeholder="Input the DNS address here"
+                        value="<?= getDnsServer() ?>">
+                    <button class="fatal-button" onclick="saveDns()">Save</button>
                 </div>
 
                 <?php if ($page instanceof InnertubeFailedRequestPage): ?>

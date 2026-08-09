@@ -41,6 +41,11 @@ body, input, button, textarea, select
     box-sizing: border-box;
 }
 
+.hid
+{
+    display: none;
+}
+
 .header > *
 {
     vertical-align: middle;

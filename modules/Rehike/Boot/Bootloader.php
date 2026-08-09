@@ -215,6 +215,11 @@ final class Bootloader
      */
     public static function runSetupStage1(): void
     {
+        // Initialize the debugger's error handler. This will allow the debugger
+        // to begin capturing errors before the debugger context is fully
+        // ready.
+        Debugger::earlyInit();
+
         // Create the global YtApp instance. The constructor of YtApp will set
         // the global instance as well.
         $yt = new YtApp();
@@ -225,7 +230,15 @@ final class Bootloader
         // work, so if this fails to initialize, then DisableRehike will not
         // work either. In the future, we should figure out a way of reporting
         // a failure at this specific point.
-        Tasks::initNetworkDns();
+        if (!str_starts_with($_SERVER["REQUEST_URI"], "/rehike/update_config"))
+        {
+            // HACKHACK(leymonaide): We don't want the update_config AJAX
+            // endpoint to initialize network DNS, since we want it to be able
+            // to configure network DNS even in the event that no valid DNS
+            // address is specified. The fatal crash screen provides an option
+            // to change the DNS server, so this is fairly important.
+            Tasks::initNetworkDns();
+        }
 
         Tasks::setupI18n();
     }

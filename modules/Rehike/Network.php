@@ -163,9 +163,6 @@ class Network
                  $useAuthentication,
                  $profilerRid)
         {
-            $desiredDns = Config::get()->advanced->dnsAddress->getValue()
-                ?? "1.1.1.1";
-
             $request = NetworkCore::request2(
                 "{$host}/youtubei/v1/{$action}?key={$key}",
                 [
@@ -173,7 +170,6 @@ class Network
                     "method" => "POST",
                     "body" => json_encode($body),
                     "onError" => "ignore",
-                    "dnsOverride" => $desiredDns,
                     "disableSslVerification" => Config::get()->advanced->disableSslVerification->getValue() ?? false,
                     "logType" => "innertube",
                 ]
@@ -382,11 +378,7 @@ class Network
      */
     public static function getDefaultYoutubeOpts(): array
     {
-        $desiredDns = Config::get()->advanced->dnsAddress->getValue()
-                ?? "1.1.1.1";
-
         return [
-            "dnsOverride" => $desiredDns,
             "headers" => [
                 "Cookie" => self::getCurrentRequestCookie()
             ]

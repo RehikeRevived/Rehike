@@ -97,7 +97,7 @@ class AdvancedDeveloperConfigDefinitions implements IConfigDefinitionsProvider
 class AdvancedConfigDefinitions implements IConfigDefinitionsProvider
 {
     public function __construct(
-        public StringProp $dnsAddress = new StringProp("1.1.1.1"),
+        public StringProp $dnsAddress = new StringProp("1.1.1.1; 8.8.8.8"),
         public BoolProp $disableSslVerification = new BoolProp(false),
         public BoolProp $enableDebugger = new BoolProp(false),
         public AdvancedDeveloperConfigDefinitions $developer = new AdvancedDeveloperConfigDefinitions(),

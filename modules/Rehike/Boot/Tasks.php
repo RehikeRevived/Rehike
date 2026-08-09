@@ -25,6 +25,7 @@ use Rehike\{
 };
 use Rehike\Util\ExperimentFlagManager;
 use Rehike\SignInV2\SignIn;
+use Rehike\Util\Nameserver\DnsLookupException;
 
 /**
  * Implements boot tasks for Rehike.
@@ -45,12 +46,56 @@ final class Tasks
         // since we're required for DisableRehike (critical). We also use
         // getRawConfigProp for this because it is an API that can't throw an
         // exception, and is therefore easier.
-        $desiredDns = Config::getRawConfigProp("advanced.dnsAddress")
-            ?? "1.1.1.1";
+        $desiredDnsListRaw = Config::getRawConfigProp("advanced.dnsAddress")
+            ?? "1.1.1.1; 8.8.8.8";
+        
+        $desiredDnsListUnsafe = explode(";", $desiredDnsListRaw);
+        $desiredDnsList = [];
 
-        NetworkCore::setResolve([
-            Nameserver::get("www.youtube.com", $desiredDns, 443)->serialize()
-        ]);
+        // Basically, we want to avoid any miscounts if we have a blank entry in
+        // this serialized list (i.e. trailing "; ")
+        foreach ($desiredDnsListUnsafe as $unsafeItem)
+        {
+            $trimmed = trim($unsafeItem);
+            
+            if (!empty($trimmed))
+            {
+                $desiredDnsList[] = $trimmed;
+            }
+        }
+        
+        $resolveList = [];
+        $totalDnsLookups = \count($desiredDnsList);
+        $failedDnsLookups = 0;
+
+        foreach ($desiredDnsList as $address)
+        {
+            $address = trim($address);
+
+            try
+            {
+                $resolveList[] = Nameserver::get("www.youtube.com", $address, 443)->serialize();
+            }
+            catch (DnsLookupException $e)
+            {
+                $failedDnsLookups++;
+                trigger_error(
+                    $e->getMessage() . " This may result in very slow page loading times. " .
+                    "Remove the offending DNS server from the list to improve performance.",
+                    E_USER_WARNING,
+                );
+            }
+        }
+
+        if ($failedDnsLookups >= $totalDnsLookups)
+        {
+            throw new \Exception(
+                "Failed to get DNS records for www.youtube.com using any specified " .
+                "DNS server. Attempted servers: " . join(", ", $desiredDnsList)
+            );
+        }
+
+        NetworkCore::setResolve($resolveList);
 
         self::$wasNetworkDnsSetup = true;
     }

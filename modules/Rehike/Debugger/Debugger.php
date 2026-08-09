@@ -66,6 +66,16 @@ class Debugger
     }
 
     /**
+     * Initializes the error handler for PHP errors before the debugger is
+     * properly initialized.
+     */
+    public static function earlyInit(): void
+    {
+        error_reporting(E_ALL);
+        set_error_handler("\\Rehike\\Debugger\\YcRehikeDebuggerErrorHandler");
+    }
+
+    /**
      * Initialise the debugger.
      */
     public static function init(YtApp $yt): void
@@ -78,12 +88,7 @@ class Debugger
 
         self::$context = new Context();
 
-        error_reporting(E_ALL);
-        //ini_set("display_errors", "off");
-
         TemplateManager::addGlobal("rehikeDebugger", self::$context);
-
-        set_error_handler("\\Rehike\\Debugger\\YcRehikeDebuggerErrorHandler");
     }
 
     /**

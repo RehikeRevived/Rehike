@@ -24,3 +24,9 @@ function simpleFormattedStringToHtml(FormattedString $fs): string
 
     return $out;
 }
+
+function getDnsServer(): string
+{
+    return \Rehike\ConfigManager\Config::getRawConfigProp("advanced.dnsAddress")
+        ?? "??";
+}
