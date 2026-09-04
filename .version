@@ -1,10 +1,10 @@
 {
-	"previousHash": "ce4ef519261fffd6046c13037c6e6d4494fbcb65",
-	"currentRevisionId": 1904,
-	"subject": "Fix WebPO client Polymer strategy failing if the initial page was a Rehike special page",
-	"body": "Fix WebPO client Polymer strategy failing if the initial page was a Rehike special page",
+	"previousHash": "1a21bc217cf2de1897498cda6a682974264288ab",
+	"currentRevisionId": 1905,
+	"subject": "Fix guide changes breaking the library section",
+	"body": "Fix guide changes breaking the library section",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1786259778
+	"time": 1788481341
 }

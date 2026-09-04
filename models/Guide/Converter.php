@@ -271,15 +271,29 @@ class Converter
      */
     private static function getInnertubeLibrarySection(object $data): ?object
     {
-        $mainSection = $data->items[0]->guideSectionRenderer->items;
-
-        // This atrocious pattern appears a lot here.
-        // It's just the easiest way to get the last item of the array.
-        if (isset($mainSection[count($mainSection) - 1]->guideCollapsibleSectionEntryRenderer))
+        foreach ($data->items as $item)
         {
-            return $mainSection[count($mainSection) - 1]->guideCollapsibleSectionEntryRenderer;
+            if (isset($item->guideSectionRenderer))
+            {
+                foreach ($item->guideSectionRenderer->items as $sectionItem)
+                {
+                    if (isset($sectionItem->guideCollapsibleSectionEntryRenderer))
+                    {
+                        $entry = $sectionItem->guideCollapsibleSectionEntryRenderer;
+
+                        // Heuristic: Look for "library-guide-item" target ID on
+                        // the header.
+                        if (isset($entry->headerEntry->guideEntryRenderer->targetId)
+                            && "library-guide-item" == 
+                                $entry->headerEntry->guideEntryRenderer->targetId)
+                        {
+                            return $entry;
+                        }
+                    }
+                }
+            }
         }
-        
+
         return null;
     }
 
@@ -403,15 +417,20 @@ class Converter
                 }
             }
 
-            // Hack: move the official collapsible (too small for my taste)
-            // into the response body (very large) so that we can shrink it
-            // down to 4 (perfect)
-            if (isset($librarySection->sectionItems[count($librarySection->sectionItems) - 1]->guideCollapsibleEntryRenderer))
-            {
-                $c = $librarySection->sectionItems[count($librarySection->sectionItems) - 1]->guideCollapsibleEntryRenderer;
+            // TODO(niko): Commented out in 2026-09 due to only including an
+            // extraneous clips link. I don't think it's necessary anymore, now
+            // that we get guide playlists from another source. Still, I'm
+            // keeping it around just for now in case this change has any
+            // adverse effects.
+            // // Hack: move the official collapsible (too small for my taste)
+            // // into the response body (very large) so that we can shrink it
+            // // down to 4 (perfect)
+            // if (isset($librarySection->sectionItems[count($librarySection->sectionItems) - 1]->guideCollapsibleEntryRenderer))
+            // {
+            //     $c = $librarySection->sectionItems[count($librarySection->sectionItems) - 1]->guideCollapsibleEntryRenderer;
 
-                $response = array_merge($response, $c->expandableItems);
-            }
+            //     $response = array_merge($response, $c->expandableItems);
+            // }
 
             // Move overflow items to the show more container
             // if needed
