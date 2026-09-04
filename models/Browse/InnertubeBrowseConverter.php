@@ -22,6 +22,10 @@ class InnertubeBrowseConverter
         {
             switch ($name)
             {
+                case "itemSectionRenderer":
+                    $content = self::itemSectionRenderer($content, $context);
+                    break;
+
                 case "channelRenderer":
                 case "gridChannelRenderer":
                     $content = self::channelRenderer($content, $context);
