@@ -79,8 +79,13 @@ class BrowseFragmentsController extends AjaxController implements IGetController
                 action: "browse",
                 body: [
                     "continuation" => $continuation
-                ]
-            
+                ],
+                // XXX(niko): This InnerTube version update is limited for
+                // 2026-09 to browse fragments ajax, since changes are not
+                // accommodated elsewhere. We still get legacy continuation
+                // renderers for the old version on most pages, but
+                // continuations tend to lack one.
+                clientVersion: "2.20260903.01.00",
             );
             $ytdata = $response->getJson();
 
@@ -95,14 +100,38 @@ class BrowseFragmentsController extends AjaxController implements IGetController
                             switch (true)
                             {
                                 case isset($item->continuationItemRenderer):
-                                    if (!$list && !$wrap)
+                                case isset($item->continuationItemViewModel):
+                                    $getContinuationToken = function(object $item): string
                                     {
-                                        $yt->page->continuation = $item->continuationItemRenderer->continuationEndpoint->continuationCommand->token;
+                                        if (isset($item->continuationItemViewModel))
+                                        {
+                                            return $item->continuationItemViewModel->continuationCommand->innertubeCommand->continuationCommand->token;
+                                        }
+                                        else
+                                        {
+                                            return $item->continuationItemRenderer->continuationEndpoint->continuationCommand->token;
+                                        }
+                                    };
+
+                                    if ($targetPlaylistPage)
+                                    {
+                                        $token = $getContinuationToken($item);
+                                        
+                                        $customTokenObj = (object)[
+                                            "style" => "targetPlaylistPage",
+                                            "token" => $token,
+                                        ];
+
+                                        $yt->page->continuation = "RHCUSTOM" . Base64Url::encode(json_encode($customTokenObj));
+                                    }
+                                    else if (!$list && !$wrap)
+                                    {
+                                        $yt->page->continuation = $getContinuationToken($item);
                                     }
                                     else
                                     {
                                         $nContWrapper = new VideosContinuationWrapper();
-                                        $nContWrapper->setContinuation($yt->page->continuation = $item->continuationItemRenderer->continuationEndpoint->continuationCommand->token);
+                                        $nContWrapper->setContinuation($yt->page->continuation = $getContinuationToken($item));
                                         $nContWrapper->setList($list);
                                         $nContWrapper->setWrapInGrid($wrap);
                                         $yt->page->continuation = Base64Url::encode($nContWrapper->serializeToString());

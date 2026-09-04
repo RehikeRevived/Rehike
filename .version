@@ -1,10 +1,10 @@
 {
-	"previousHash": "cb6ffe7fc5edd26d553d2e2912eb79ca4805e987",
-	"currentRevisionId": 1906,
-	"subject": "Fix guide crash when signed out due to missing secondary section for history link",
-	"body": "Fix guide crash when signed out due to missing secondary section for history link",
+	"previousHash": "cfa05b46f56dc1490bd7449f49f91f3b37b3760f",
+	"currentRevisionId": 1907,
+	"subject": "Fix playlist page second continuations",
+	"body": "Fix playlist page second continuations",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1788488893
+	"time": 1788492603
 }
