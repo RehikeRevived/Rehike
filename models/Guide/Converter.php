@@ -166,7 +166,13 @@ class Converter
         if (!$signedIn)
         {
             $secondarySection = $data->items[1]->guideSectionRenderer->items;
-            $historyItem = self::getItemByIcon($secondarySection, InnertubeIcons::WATCH_HISTORY);
+
+            // 2026-09: InnerTube change results in the history item being moved
+            // to the main section.
+            // CONSIDER(niko): Hardcode, since the item is static.
+            $effectiveSection = $secondarySection ?? $mainSection;
+
+            $historyItem = self::getItemByIcon($effectiveSection, InnertubeIcons::WATCH_HISTORY);
             
             // Correct icon type
             self::setIcon($historyItem, "SYSTEM::HISTORY");

@@ -1,10 +1,10 @@
 {
-	"previousHash": "1a21bc217cf2de1897498cda6a682974264288ab",
-	"currentRevisionId": 1905,
-	"subject": "Fix guide changes breaking the library section",
-	"body": "Fix guide changes breaking the library section",
+	"previousHash": "cb6ffe7fc5edd26d553d2e2912eb79ca4805e987",
+	"currentRevisionId": 1906,
+	"subject": "Fix guide crash when signed out due to missing secondary section for history link",
+	"body": "Fix guide crash when signed out due to missing secondary section for history link",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1788481341
+	"time": 1788488893
 }
