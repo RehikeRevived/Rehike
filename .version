@@ -1,10 +1,10 @@
 {
-	"previousHash": "5bf543a907bce441b22c13f6ced9b53568e3d571",
-	"currentRevisionId": 1908,
-	"subject": "Add itemSectionRenderer to InnertubeBrowseConverter::generalLockupConverter",
-	"body": "Add itemSectionRenderer to InnertubeBrowseConverter::generalLockupConverter",
+	"previousHash": "c1dc223fae16702cecbba24e91b6405ef711c676",
+	"currentRevisionId": 1909,
+	"subject": "Bring back subscriptions item on guide when signed in",
+	"body": "Bring back subscriptions item on guide when signed in",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1788493419
+	"time": 1788493707
 }

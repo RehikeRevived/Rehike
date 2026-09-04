@@ -127,8 +127,6 @@ class Converter
         $mainSection = $data->items[0]->guideSectionRenderer->items;
 
         $homeItem = self::getItemByIcon($mainSection, InnertubeIcons::WHAT_TO_WATCH);
-        $subscriptionsItem = self::getItemByIcon($mainSection, InnertubeIcons::SUBSCRIPTIONS);
-
         //
         // Push the main section items to the response array
         //
@@ -158,8 +156,13 @@ class Converter
         // Subscriptions item (if signed in)
         if ($signedIn)
         {
-            self::setIcon($subscriptionsItem, "SYSTEM::MY_SUBSCRIPTIONS");
-            $response[] = $subscriptionsItem;
+            // 2026-09: Hardcoded due to InnerTube changes removing the live
+            // item (at least from the main section, I didn't bother checking...)
+            $response[] = self::bakeGuideItem(
+                "/feed/subscriptions",
+                $strings->get("subscriptions"),
+                "SYSTEM::MY_SUBSCRIPTIONS",
+            );
         }
 
         // History item (only if signed out)
