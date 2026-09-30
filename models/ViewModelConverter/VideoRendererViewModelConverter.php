@@ -285,24 +285,6 @@ class VideoRendererViewModelConverter extends BasicVMC
 
         $result->navigationEndpoint = $this->viewModel->rendererContext->commandContext->onTap->innertubeCommand;
 
-        if (isset($metadata->menuButton->buttonViewModel->onTap->innertubeCommand
-            ->showSheetCommand->panelLoadingStrategy->inlineContent
-            ->sheetViewModel->content->listViewModel->listItems))
-        {
-            $menuItems = $this->convertMenuList($metadata->menuButton->buttonViewModel->onTap->innertubeCommand
-                ->showSheetCommand->panelLoadingStrategy->inlineContent
-                ->sheetViewModel->content->listViewModel->listItems);
-            
-            if (!empty($menuItems))
-            {
-                $result->menu = (object)[
-                    "menuRenderer" => (object)[
-                        "items" => $menuItems,
-                    ],
-                ];
-            }
-        }
-
         return $result;
     }
 
@@ -421,9 +403,5 @@ class VideoRendererViewModelConverter extends BasicVMC
         );
 
         return $date;
-    }
-    }
-
-        return $result;
     }
 }
