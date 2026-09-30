@@ -1,10 +1,10 @@
 {
-	"previousHash": "4572cc3b12f2a582c108e98ecbabc04b84e62632",
-	"currentRevisionId": 1913,
-	"subject": "Git messed up my staging (partially my fault)",
-	"body": "Git messed up my staging (partially my fault)",
+	"previousHash": "17fb12be0e1121a720f472becce75b049493906f",
+	"currentRevisionId": 1914,
+	"subject": "Fix short date hours rule",
+	"body": "Fix short date hours rule",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1790758904
+	"time": 1790759554
 }
