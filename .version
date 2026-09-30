@@ -1,10 +1,10 @@
 {
-	"previousHash": "c1dc223fae16702cecbba24e91b6405ef711c676",
-	"currentRevisionId": 1909,
-	"subject": "Bring back subscriptions item on guide when signed in",
-	"body": "Bring back subscriptions item on guide when signed in",
+	"previousHash": "dbab8b6f8373bab52a54905b31afdd60343ab90a",
+	"currentRevisionId": 1910,
+	"subject": "Optimize mb_strlen_ex for a user's atrocious CPU",
+	"body": "Optimize mb_strlen_ex for a user's atrocious CPU",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1788493707
+	"time": 1790754034
 }

@@ -400,7 +400,7 @@ class ParsingUtils
      */
     public static function mb_substr_ex(string $str, int $offset, ?int $length): string {
         $bmp = [];
-        for($i = 0; $i < mb_strlen($str); $i++)
+        for ($i = 0, $len = mb_strlen($str); $i < $len; $i++)
         {
             $mb_substr = mb_substr($str, $i, 1);
             $mb_ord = mb_ord($mb_substr);
