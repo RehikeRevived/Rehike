@@ -1,10 +1,10 @@
 {
-	"previousHash": "8acb71730a382feefa6fb010b48250dbfb715616",
-	"currentRevisionId": 1911,
-	"subject": "Fix full view counts on watch next recommendations",
-	"body": "Fix full view counts on watch next recommendations",
+	"previousHash": "7b41e81683119aa86d626aec43e6f15001148eae",
+	"currentRevisionId": 1912,
+	"subject": "Fix dates on watch page (no longer abbreviated form)",
+	"body": "Fix dates on watch page (no longer abbreviated form)",
 	"branch": "master",
 	"committerName": "Niko Yamamoto",
 	"committerEmail": "yamamototaniko2@gmail.com",
-	"time": 1790754912
+	"time": 1790756676
 }

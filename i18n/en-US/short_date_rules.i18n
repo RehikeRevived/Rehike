@@ -1,0 +1,9 @@
+# These are the rules for parsing new YouTube date formats with abbreviations.
+# They will be converted to the existing date rules in comments.i18n.
+secondsAgo: "/([\\d,]+) sec ago/"
+minutesAgo: "/([\\d,]+) min ago/"
+hoursAgo: "/([\\d,]+) hr ago/"
+daysAgo: "/([\\d,]+)d ago/"
+weeksAgo: "/([\\d,]+)w ago/"
+monthsAgo: "/([\\d,]+)mo ago/"
+yearsAgo: "/([\\d,]+)y ago/"

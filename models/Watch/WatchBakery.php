@@ -381,6 +381,7 @@ class WatchBakery
                 [
                     "lockupStyle" => LockupViewModelConverter::STYLE_COMPACT,
                     "frameworkUpdates" => $this->frameworkUpdates,
+                    "fixWatchRecommendedMetadata" => true,
                 ],
             );
             

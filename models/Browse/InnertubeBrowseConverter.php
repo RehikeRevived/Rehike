@@ -79,6 +79,8 @@ class InnertubeBrowseConverter
                         $lockupConv = new LockupViewModelConverter($content, (object)[]);
                         if (isset($context["lockupStyle"]))
                             $lockupConv->setStyle($context["lockupStyle"]);
+                        if (isset($context["fixWatchRecommendedMetadata"]))
+                            $lockupConv->setFixWatchRecommendationMetadata(true);
                         $newEntry = $lockupConv->bakeClassicRenderer();
                     }
                     

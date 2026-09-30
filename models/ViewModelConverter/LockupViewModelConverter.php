@@ -14,6 +14,7 @@ class LockupViewModelConverter extends BasicVMC
     public const STYLE_COMPACT = 2;
     
     private int $style = self::STYLE_GRID;
+    private bool $fixWatchRecommendationMetadata = false;
     
     public function getStyle(): int
     {
@@ -24,6 +25,16 @@ class LockupViewModelConverter extends BasicVMC
     {
         $this->style = $newStyle;
         return $this;
+    }
+
+    public function getFixWatchRecommendationMetadata(): bool
+    {
+        return $this->fixWatchRecommendationMetadata;
+    }
+
+    public function setFixWatchRecommendationMetadata(bool $newValue): void
+    {
+        $this->fixWatchRecommendationMetadata = $newValue;
     }
     
     public function bakeClassicRenderer(): object
@@ -55,6 +66,7 @@ class LockupViewModelConverter extends BasicVMC
             case "LOCKUP_CONTENT_TYPE_VIDEO":
             {
                 $videoConv = new VideoRendererViewModelConverter($this->viewModel, $this->frameworkUpdates);
+                $videoConv->setFixWatchRecommendationMetadata($this->getFixWatchRecommendationMetadata());
                 $resultObj = $videoConv->bake($this);
                 break;
             }

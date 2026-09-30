@@ -13,6 +13,18 @@ use Rehike\Model\Common\MCollaborator;
  */
 class VideoRendererViewModelConverter extends BasicVMC
 {
+    private bool $fixWatchRecommendationMetadata = false;
+
+    public function getFixWatchRecommendationMetadata(): bool
+    {
+        return $this->fixWatchRecommendationMetadata;
+    }
+
+    public function setFixWatchRecommendationMetadata(bool $newValue): void
+    {
+        $this->fixWatchRecommendationMetadata = $newValue;
+    }
+
     public function bake(?LockupViewModelConverter $parent): object
     {
         $result = (object)[];
@@ -241,6 +253,16 @@ class VideoRendererViewModelConverter extends BasicVMC
                 }
             }
             
+            // 2026-09: YouTube changed the appearance of dates on watch
+            // recommendations. This might expand, but it seems isolated
+            // for now.
+            if ($this->fixWatchRecommendationMetadata && isset($result->publishedTimeText))
+            {
+                $result->publishedTimeText = $this->convertDate(
+                    ParsingUtils::getText($result->publishedTimeText)
+                );
+            }
+            
             if (isset($contents->badges))
             foreach ($contents->badges as $badge)
             {
@@ -262,6 +284,145 @@ class VideoRendererViewModelConverter extends BasicVMC
         }
 
         $result->navigationEndpoint = $this->viewModel->rendererContext->commandContext->onTap->innertubeCommand;
+
+        if (isset($metadata->menuButton->buttonViewModel->onTap->innertubeCommand
+            ->showSheetCommand->panelLoadingStrategy->inlineContent
+            ->sheetViewModel->content->listViewModel->listItems))
+        {
+            $menuItems = $this->convertMenuList($metadata->menuButton->buttonViewModel->onTap->innertubeCommand
+                ->showSheetCommand->panelLoadingStrategy->inlineContent
+                ->sheetViewModel->content->listViewModel->listItems);
+            
+            if (!empty($menuItems))
+            {
+                $result->menu = (object)[
+                    "menuRenderer" => (object)[
+                        "items" => $menuItems,
+                    ],
+                ];
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * Converts a new style date, i.e. "1d ago", to an old style date ("1 day
+     * ago")
+     * 
+     * Much of this function is copied from the German translation code from the
+     * watch comments model.
+     */
+    private function convertDate(string $date): string
+    {
+        $i18nDateRules = i18n::getNamespace("short_date_rules");
+        $i18nComments = i18n::getNamespace("comments");
+
+        \Rehike\Logging\DebugLogger::print(
+            "[" . __METHOD__ . "] " .
+            "Converting date \"%s\"...",
+            $date
+        );
+
+        $number = 0;
+        $newUnit = "none";
+
+        $rulesList = [
+            "secondsAgo",
+            "minutesAgo",
+            "hoursAgo",
+            "daysAgo",
+            "weeksAgo",
+            "monthsAgo",
+            "yearsAgo",
+        ];
+
+        foreach ($rulesList as $rule)
+        {
+            if (preg_match($i18nDateRules->get($rule), $date, $matches))
+            {
+                $newUnit = $rule;
+                $number = $matches[1];
+                break;
+            }
+        }
+
+        if ("none" == $newUnit)
+        {
+            \Rehike\Logging\DebugLogger::print(
+                "[" . __METHOD__ . "] " .
+                "Failed to match any unit for date \"%s\"",
+                $date
+            );
+            return $date;
+        }
+
+        $suffix = $number == 1 ? "Singular" : "Plural";
+
+        $unit = match($newUnit)
+        {
+            "secondsAgo" => "secondsAgo" . $suffix,
+            "minutesAgo" => "minutesAgo" . $suffix,
+            "hoursAgo" => "hoursAgo" . $suffix,
+            "daysAgo" => "daysAgo" . $suffix,
+            "weeksAgo" => "weeksAgo" . $suffix,
+            "monthsAgo" => "monthsAgo" . $suffix,
+            "yearsAgo" => "yearsAgo" . $suffix,
+            
+            // why not??
+            default => "yearsAgo" . $suffix
+        };
+
+        /*
+         * Some languages (e.g. Polish) have different inflections for multiple ranges of
+         * numbers, unlike English which just has two (singular and plural). This is a
+         * quick fix that's hacked on top in order to correct this flaw.
+         *
+         * Use in a CoffeeTranslation language file like the following:
+         *    - secondsAgoSingular   == 1
+         *    - secondsAgoPlural     == standard plural match
+         *    - secondsAgoPluralEqu2 == case specifically for 2
+         *    - secondsAgoPluralLastDigitEqu9 == case specifically where the last digit equals 9
+         *
+         * Note that this may have to be handled for all numbers in a range, so this means
+         * (theoretically):
+         *    - 0-60 for seconds and minutes
+         *    - 1-24 for hours
+         *    - 1-14 (?) for days (I think it's a fortnight anyway...)
+         *    - 1-12 for months
+         *    - 1-infinity for years.
+         *
+         * But I think that the ability to check only the last digit should suffice for most
+         * needs.
+         */
+        $templates = $i18nComments->getAllTemplates();
+        $tnum = trim($number);
+        if (($newName = $unit . "Equ" . $tnum) && isset($templates->{$newName}))
+        {
+            $unit = $newName;
+        }
+        else if (($newName = $unit . "LastDigitEqu" . substr($tnum, -1)) && isset($templates->{$newName}))
+        {
+            $unit = $newName;
+        }
+
+        if ($unit)
+        {
+            $result = $i18nComments->format($unit, $number);
+
+            return $result;
+        }
+
+        \Rehike\Logging\DebugLogger::print(
+            "[" . __METHOD__ . "] " .
+            "Failed to match viable unit for date \"%s\", got pattern \"%s\"",
+            $date,
+            $unit
+        );
+
+        return $date;
+    }
+    }
 
         return $result;
     }
