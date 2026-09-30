@@ -261,7 +261,7 @@ class FullViewCountsManager
                 "creator/get_creator_videos",
                 [
                     "mask" => (object)[
-                        "metrics" => (object)[
+                        "publicMetrics" => (object)[
                             "all" => "true"
                         ]
                     ],
@@ -281,10 +281,10 @@ class FullViewCountsManager
             {
                 foreach ($data->videos as $video)
                 {
-                    if (isset($video->videoId) && isset($video->metrics->viewCount))
+                    if (isset($video->videoId) && isset($video->publicMetrics->viewCount))
                     {
                         $fullCounts[$video->videoId]->format = FullViewCountsViewCountFormat::RawNumber;
-                        $fullCounts[$video->videoId]->viewCount = $video->metrics->viewCount;
+                        $fullCounts[$video->videoId]->viewCount = $video->publicMetrics->viewCount;
                     }
                 }
             }
